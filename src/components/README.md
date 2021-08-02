@@ -1,0 +1,3 @@
+- Add all the components here (better to use .jsx extension)
+- If the component is heavily reusable in multiple pages please add it to directory core (Ex: Customized Button)
+- If the component is only related to a single page first create a folder (use page name as name) then add the component inside the folder

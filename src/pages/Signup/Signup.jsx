@@ -1,9 +1,9 @@
 import { SignUpForm } from "../../components/signupform/SignUpForm";
 
-const Login = () => {
+const SignUp = () => {
     return (
         <SignUpForm />
     );
 }
 
-export default Login;
+export default SignUp;

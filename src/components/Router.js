@@ -9,6 +9,7 @@ import { PrivateRoute } from "./PrivateRoute";
 
 const Login = lazy(() => import("../pages/Login/Login"));
 const Signup = lazy(() => import("../pages/Signup/Signup"));
+const AddAdminForm = lazy(()=> import("../pages/HospitalAdmin/AddAdminForm"));
 
 function PlaceholderForProtectedRoute() {
     return(
@@ -24,9 +25,10 @@ const Router = () => {
             <Switch>
                 <Route exact path={routes.LOGIN} component={Login} />
                 <Route exact path={routes.SIGNUP} component={Signup} />
+                <PrivateRoute exact path={routes.PROTECTED} component={PlaceholderForProtectedRoute}/>
+                <Route exact path="/" component={AddAdminForm} />
                 {/* <Route exact path="/" component={NotFound}/> */}
                 {/* <Route path={routes.PUBLIC} component={NotFound}/> */}
-                <PrivateRoute exact path={routes.PROTECTED} component={PlaceholderForProtectedRoute}/>
                 {/* <Route component={NotFound} /> */}
             </Switch>
             </ProvideAuth>

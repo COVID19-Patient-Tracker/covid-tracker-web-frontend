@@ -6,6 +6,8 @@ const useStyle = makeStyles(theme => ({
     pageContent:{
         margin:theme.spacing(5),
         padding:theme.spacing(3),
+        display:"flex",
+        alignItems:"center"
     }
 }))
 

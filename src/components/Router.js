@@ -9,7 +9,7 @@ import { PrivateRoute } from "./PrivateRoute";
 
 const Login = lazy(() => import("../pages/Login/Login"));
 const Signup = lazy(() => import("../pages/Signup/Signup"));
-const AddAdminForm = lazy(()=> import("../pages/HospitalAdmin/AddAdminForm"));
+const AddAdminForm = lazy(()=> import("../pages/HospitalAdmin/Admin"));
 
 function PlaceholderForProtectedRoute() {
     return(

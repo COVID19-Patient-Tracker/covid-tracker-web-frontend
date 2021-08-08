@@ -1,4 +1,4 @@
-import { Grid,Paper  } from '@material-ui/core';
+import { Grid  } from '@material-ui/core';
 import React from 'react'
 import Controls from '../../components/controls/controls';
 import useForm, { Form } from '../../components/useForm';
@@ -28,7 +28,7 @@ export default function AddAdminForm() {
     return (
         <Form>
             <Grid container justifyContent="center" alignItems="center">
-                <Grid item xs={4}>
+                <Grid item xs={8}>
                     <Controls.Input name="lastName" label="Last Name" value={values.lastName} onChange={handleInputChange} />
                     <Controls.Input name="firstName" label="First Name" value={values.firstName} onChange={handleInputChange} />
                     <Controls.Input label="Email" name="email" value={values.email} onChange = {handleInputChange} />
@@ -39,4 +39,5 @@ export default function AddAdminForm() {
             </Grid>
         </Form>
     )
+    
 }

@@ -1,8 +1,8 @@
+import SignInForm from "../../components/signinform/SignInForm";
+
 const Login = () => {
     return (
-        <div>
-            <h1>This is the  Login Page!</h1>
-        </div>
+        <SignInForm />
     );
 }
 

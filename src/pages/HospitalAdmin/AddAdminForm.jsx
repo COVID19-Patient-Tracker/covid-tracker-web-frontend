@@ -1,5 +1,6 @@
 import { Grid  } from '@material-ui/core';
 import React from 'react'
+import Button from '../../components/controls/Button';
 import Controls from '../../components/controls/controls';
 import useForm, { Form } from '../../components/useForm';
 
@@ -33,8 +34,9 @@ export default function AddAdminForm() {
                     <Controls.Input name="firstName" label="First Name" value={values.firstName} onChange={handleInputChange} />
                     <Controls.Input label="Email" name="email" value={values.email} onChange = {handleInputChange} />
                     <Controls.Input label="NIC" name="NIC" value={values.NIC} onChange = {handleInputChange} />
-                    <Controls.Input label="Phone" name="phone" value={values.Phone} oncChange = {handleInputChange}/>
+                    <Controls.Input label="Phone" name="phone" value={values.phone} oncChange = {handleInputChange}/>
                     <Controls.RadioGroup items={userTypeItems} name="userType" label="User Type" onChange ={handleInputChange} value={values.userType}/>
+                    <Controls.Button variant="contained" color="primary" text="Submit" onClick={()=>console.log(values)}/>
                 </Grid>
             </Grid>
         </Form>

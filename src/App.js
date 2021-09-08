@@ -2,12 +2,14 @@ import React from 'react';
 import Router from './components/Router';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import {makeStyles} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './styles/theme';
 
 /**
  * Layout Styles
  */
- const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
@@ -23,19 +25,21 @@ import {makeStyles} from "@material-ui/core";
 }));
 
 const App = () => {
-	const classes = useStyles()
+    const classes = useStyles()
 
-	return (
-		<React.Fragment>
-			<div className={classes.root}>
-				<Navbar />
-				<div className={classes.component}>
-					<Router />
-				</div>
-				<Footer />
-			</div>
-		</React.Fragment>
-	);
+    return (
+        <React.Fragment>
+            <ThemeProvider theme={theme}>
+                <div className={classes.root}>
+                    <Navbar />
+                    <div className={classes.component}>
+                        <Router />
+                    </div>
+                    <Footer />
+                </div>
+            </ThemeProvider>
+        </React.Fragment>
+    );
 }
 
 export default App;

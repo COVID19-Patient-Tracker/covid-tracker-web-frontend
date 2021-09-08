@@ -10,6 +10,7 @@ import { PrivateRoute } from "./PrivateRoute";
 const Login = lazy(() => import("../pages/Login/Login"));
 const Signup = lazy(() => import("../pages/Signup/Signup"));
 const HomePage = lazy(() => import("../pages/Website/Home"));
+const UserManagement = lazy(() => import("../pages/Hospital/user-management"));
 
 function PlaceholderForProtectedRoute() {
     return (
@@ -23,7 +24,8 @@ const Router = () => {
         <Suspense fallback={<Spinner />}>
             <ProvideAuth>
                 <Switch>
-                    <Route exact path={routes.HOMEPAGE} component={HomePage} />F
+                    <Route exact path={routes.HOMEPAGE} component={HomePage} />
+                    <Route exact path={routes.USERMANAGEMENT} component={UserManagement} />
                     <Route exact path={routes.LOGIN} component={Login} />
                     <Route exact path={routes.SIGNUP} component={Signup} />
                     {/* <Route exact path="/" component={NotFound}/> */}

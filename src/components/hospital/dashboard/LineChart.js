@@ -20,7 +20,7 @@ const data = [
   createData('24:00', undefined),
 ];
 
-export default function Chart() {
+export default function LineTypeChart() {
   const theme = useTheme();
 
   return (

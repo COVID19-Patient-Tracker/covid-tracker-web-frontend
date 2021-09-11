@@ -2,10 +2,10 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { makeStyles } from "@material-ui/core";
-import { Box, Grid, Container, Typography, Card, CardHeader, TextField, Button, Paper } from '@material-ui/core';
+import { Grid, Container, Typography, Paper } from '@material-ui/core';
 
 import MainFeaturedPost from '../../components/hospital/dashboard/WelcomeImage';
-import Chart from '../../components/hospital/dashboard/Chart';
+import LineTypeChart from '../../components/hospital/dashboard/LineChart';
 import SummaryCard from '../../components/hospital/dashboard/SummaryCard';
 
 const mainFeaturedPost = {
@@ -102,9 +102,14 @@ export default function UserManagement() {
                     </Grid>
 
                     {/* Chart */}
-                    <Grid item xs={12} md={8} lg={9}>
+                    <Grid item xs={12} md={6} lg={8}>
                         <Paper className={fixedHeightPaper}>
-                            <Chart />
+                            <LineTypeChart />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={6} lg={4}>
+                        <Paper className={fixedHeightPaper}>
+                            <LineTypeChart />
                         </Paper>
                     </Grid>
                 </Grid>

@@ -10,8 +10,13 @@ import { PrivateRoute } from "./PrivateRoute";
 const Login = lazy(() => import("../pages/Login/Login"));
 const Signup = lazy(() => import("../pages/Signup/Signup"));
 const HomePage = lazy(() => import("../pages/Website/Home"));
+
 const HospitalUserManagement = lazy(() => import("../pages/Hospital/user-management"));
 const MOHUserManagement = lazy(() => import("../pages/MOH/user-management"));
+
+const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
+const UploadXray = lazy(() => import("../pages/Hospital/upload-xray"));
+
 
 function PlaceholderForProtectedRoute() {
     return (
@@ -28,6 +33,8 @@ const Router = () => {
                     <Route exact path={routes.HOMEPAGE} component={HomePage} />
                     <Route exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} />
                     <Route exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} />
+                    <Route exact path={routes.HOSDASH} component={HospitalDash} />
+                    <Route exact path={routes.XRAY} component={UploadXray} />
                     <Route exact path={routes.LOGIN} component={Login} />
                     <Route exact path={routes.SIGNUP} component={Signup} />
                     {/* <Route exact path="/" component={NotFound}/> */}

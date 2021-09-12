@@ -1,12 +1,31 @@
+//general
 export const LANDING = "/";
 export const LOGIN = "/login";
 export const SIGNUP = "/signup"
+
+//public site
 export const PUBLIC = "/public"
 export const HOMEPAGE = "/public/home"
-export const HOSPITALUSERMANAGEMENT = "/hospital/user-management"
-export const MOHUSERMANAGEMENT = "/MOH/user-management"
-export const HOSDASH = "/hospital/dashboard"
-export const XRAY = "/hospital/upload-xray"
+
+
+//moh-admin
+
+
+
+//moh-user
+export const MOHUSERMANAGEMENT = "/moh/user/user-management"
+
+
+//hospital-admin
+export const HOSDASH = "/hospital/admin/dashboard"
+export const HOSPITALUSERMANAGEMENT = "/hospital/admin/user-management"
+
+
+//hospital-user
+export const HOSUSERDASH = "/hospital/user/dashboard"
+export const XRAY = "/hospital/user/upload-xray"
+
+
 export const PROTECTED = "/protected" // for testing
 
 //define the route url here and use it. Easy to change later

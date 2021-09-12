@@ -10,16 +10,15 @@ function useProvideAuth(){
     
     const [currentUser, setCurrentUser] = useState(null);
 
-
     async function login(email,password){
-        await setCurrentUser("user");
-        sessionStorage.setItem("storeduser","user");
+        await setCurrentUser(email);
+        sessionStorage.setItem("email",email);
         return currentUser;
     }
 
     async function logout(email,password){
         setCurrentUser(null)
-        sessionStorage.setItem("currentUser",null);
+        sessionStorage.setItem("email",null);
     }
 
     return {

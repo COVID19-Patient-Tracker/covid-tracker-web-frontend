@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function MohAdminNav() {
+export default function MohUserNav() {
     const classes = useStyles();
 
     return (
@@ -47,11 +47,14 @@ export default function MohAdminNav() {
                         <Link variant="button" color="textPrimary" href="#" className={classes.link}>
                             USER MANAGEMENT
                         </Link>
+                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+                            HOSPITAL MANAGEMENT
+                        </Link>
                     </nav>
+                    <Avatar className={classes.avat} variant="circle" src="/broken-image.jpg" />
                     {/* <Button href="#" color="primary" variant="contained" className={classes.link}>
                         Login
                     </Button> */}
-                    <Avatar className={classes.avat} variant="circle" src="/broken-image.jpg" />
                 </Toolbar>
             </AppBar>
         </React.Fragment>

@@ -13,11 +13,12 @@ export const HOMEPAGE = "/public/home"
 
 
 //moh-user
+export const MOHUSERMANAGEMENT = "/moh/user/user-management"
 
 
 //hospital-admin
 export const HOSDASH = "/hospital/admin/dashboard"
-export const USERMANAGEMENT = "/hospital/admin/user-management"
+export const HOSPITALUSERMANAGEMENT = "/hospital/admin/user-management"
 
 
 //hospital-user

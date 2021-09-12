@@ -16,10 +16,17 @@ import PublicNav from "../components/layout/Navbar/PublicNav";
 const Login = lazy(() => import("../pages/Login/Login"));
 const Signup = lazy(() => import("../pages/Signup/Signup"));
 const HomePage = lazy(() => import("../pages/Website/Home"));
-const UserManagement = lazy(() => import("../pages/Hospital/user-management"));
+const NotFound = lazy(() => import("../pages/InfoPages/NotFound"));
+
+// moh
+const MOHUserManagement = lazy(() => import("../pages/MOH/user-management"));
+
+//hospital
+const HospitalUserManagement = lazy(() => import("../pages/Hospital/user-management"));
 const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
 const UploadXray = lazy(() => import("../pages/Hospital/upload-xray"));
-const NotFound = lazy(() => import("../pages/InfoPages/NotFound"));
+
+
 
 function PlaceholderForProtectedRoute() {
     return (
@@ -70,10 +77,16 @@ const Router = () => {
                     {/* general */}
                     <Route exact path={routes.LOGIN} component={Login} />
                     <Route exact path={routes.SIGNUP} component={Signup} />
+
+                    {/* moh-admin */}
+
+                    {/* moh-user */}
+                    <Route exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} />
                     
                     {/* hospital-admin */}
-                    <Route exact path={routes.USERMANAGEMENT} component={UserManagement} />
                     <Route exact path={routes.HOSDASH} component={HospitalDash} />
+                    <Route exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} />
+
 
                     {/* hospital-user */}
                     <Route exact path={routes.HOSUSERDASH} component={HospitalDash} />

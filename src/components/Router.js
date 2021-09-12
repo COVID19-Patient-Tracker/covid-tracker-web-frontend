@@ -11,6 +11,7 @@ const Login = lazy(() => import("../pages/Login/Login"));
 const Signup = lazy(() => import("../pages/Signup/Signup"));
 const HomePage = lazy(() => import("../pages/Website/Home"));
 const UserManagement = lazy(() => import("../pages/Hospital/user-management"));
+const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
 
 function PlaceholderForProtectedRoute() {
     return (
@@ -26,6 +27,7 @@ const Router = () => {
                 <Switch>
                     <Route exact path={routes.HOMEPAGE} component={HomePage} />
                     <Route exact path={routes.USERMANAGEMENT} component={UserManagement} />
+                    <Route exact path={routes.HOSDASH} component={HospitalDash} />
                     <Route exact path={routes.LOGIN} component={Login} />
                     <Route exact path={routes.SIGNUP} component={Signup} />
                     {/* <Route exact path="/" component={NotFound}/> */}

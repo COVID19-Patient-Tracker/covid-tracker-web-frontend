@@ -1,11 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+
+import { Fab, AppBar, Button, Toolbar, Typography, Link } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
+
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -51,9 +51,18 @@ export default function PublicNav() {
                             NEWS
                         </Link>
                     </nav>
-                    <Button href="#" color="primary" variant="contained" className={classes.link}>
-                        Login
+                    <Button
+                        href="/signup"
+                        variant="contained"
+                        color="secondary"
+                        className={classes.link}
+                        startIcon={<PersonAddIcon />}
+                    >
+                        SIGN UP
                     </Button>
+                    <Fab color="secondary" aria-label="add" size="small" href="/login">
+                        <ExitToAppIcon />
+                    </Fab>
                 </Toolbar>
             </AppBar>
         </React.Fragment>

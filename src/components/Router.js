@@ -9,6 +9,7 @@ import { ProvideAuth } from "./AuthConext";
 import { PrivateRoute } from "./PrivateRoute";
 
 import MohAdminNav from "../components/layout/Navbar/MohAdminNav";
+import MohUserNav from "../components/layout/Navbar/MohUserNav";
 import HosAdminNav from "../components/layout/Navbar/HosAdminNav";
 import HosUserNav from "../components/layout/Navbar/HosUserNav";
 import PublicNav from "../components/layout/Navbar/PublicNav";
@@ -48,7 +49,7 @@ const Router = () => {
             if (path2 === "admin") {
                 navbar = <MohAdminNav />;
             } else if (path2 === "user") {
-                navbar = ""
+                navbar = <MohUserNav />;
             } else {
                 navbar = "";
             }

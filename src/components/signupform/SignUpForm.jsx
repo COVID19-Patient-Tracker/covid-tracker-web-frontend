@@ -21,7 +21,7 @@ export const SignUpForm = () => {
     return (
             <div className="form__wrapper">
             <div className="left__box">
-                <img src="/assets/image.png" alt="image" style={{
+                <img src="/assets/image.png" alt="login background" style={{
                     size: "500px",
                     height: "421px",
                 }}></img>

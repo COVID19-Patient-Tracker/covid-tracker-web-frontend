@@ -3,7 +3,9 @@ import * as routes from "../shared/routes";
 
 
 export const PrivateRoute = ({component : Component, ...rest}) => {
-    const currentUser = sessionStorage.getItem("storeduser");
+    const currentUser = sessionStorage.getItem("email");
+
+    // not by email *****
     console.log(currentUser)
     return (
         <Route {...rest} render={(props) => {

@@ -1,6 +1,5 @@
 import {React,useEffect} from 'react'
 import "../css/AuthForms.css"
-import image from "./image.png"
 import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../AuthConext'
 
@@ -22,7 +21,7 @@ export const SignUpForm = () => {
     return (
             <div className="form__wrapper">
             <div className="left__box">
-                <img src={image} alt="image" style={{
+                <img src="/assets/image.png" alt="image" style={{
                     size: "500px",
                     height: "421px",
                 }}></img>

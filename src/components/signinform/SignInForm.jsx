@@ -1,6 +1,5 @@
 import React,{useEffect, useState} from 'react'
 import "../css/AuthForms.css"
-import image from "./image.png"
 import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../AuthConext'
 
@@ -38,7 +37,7 @@ function SignInForm(){
     return(
         <div className="form__wrapper">
             <div className="left__box">
-                <img src={image} alt="login_vector" style={{
+                <img src="/assets/image.png" alt="login_vector" style={{
                     size: "500px",
                     height: "421px",
                     left: "88px",

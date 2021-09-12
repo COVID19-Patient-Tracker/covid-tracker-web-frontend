@@ -12,7 +12,7 @@ const mainFeaturedPost = {
     title: 'Welcome to National Hospital - Colombo',
     description:
         "12th September, 2021 01.12 PM",
-    image: 'https://source.unsplash.com/random',
+    image: '/assets/dash-cover.jpg',
     imgText: 'main image description',
 };
 

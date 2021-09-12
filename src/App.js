@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Router from './components/Router';
-import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import { makeStyles } from "@material-ui/core";
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -45,7 +44,6 @@ const App = () => {
         <React.Fragment>
             <ThemeProvider theme={theme}>
                 <div className={classes.root}>
-                    <Navbar />
                     <div className={classes.component}>
                         <Router />
                     </div>

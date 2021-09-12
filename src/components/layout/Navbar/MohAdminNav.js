@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
@@ -23,10 +23,13 @@ const useStyles = makeStyles((theme) => ({
     },
     navStyle: {
         fontStyle: "bold",
+    },
+    avat: {
+        backgroundColor: "#000"
     }
 }));
 
-export default function Navbar() {
+export default function MohAdminNav() {
     const classes = useStyles();
 
     return (
@@ -39,18 +42,16 @@ export default function Navbar() {
                     </Typography>
                     <nav className={classes.navStyle}>
                         <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-                            Features
+                            DASHBOARD
                         </Link>
                         <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-                            Enterprise
-                        </Link>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-                            Support
+                            USER MANAGEMENT
                         </Link>
                     </nav>
-                    <Button href="#" color="primary" variant="contained" className={classes.link}>
+                    {/* <Button href="#" color="primary" variant="contained" className={classes.link}>
                         Login
-                    </Button>
+                    </Button> */}
+                    <Avatar className={classes.avat} variant="circle" src="/broken-image.jpg" />
                 </Toolbar>
             </AppBar>
         </React.Fragment>

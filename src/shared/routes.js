@@ -5,6 +5,7 @@ export const PUBLIC = "/public"
 export const HOMEPAGE = "/public/home"
 export const USERMANAGEMENT = "/hospital/user-management"
 export const HOSDASH = "/hospital/dashboard"
+export const XRAY = "/hospital/upload-xray"
 export const PROTECTED = "/protected" // for testing
 
 //define the route url here and use it. Easy to change later

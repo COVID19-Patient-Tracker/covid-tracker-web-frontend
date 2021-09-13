@@ -16,17 +16,21 @@ import PublicNav from "../components/layout/Navbar/PublicNav";
 
 const Login = lazy(() => import("../pages/Login/Login"));
 const Signup = lazy(() => import("../pages/Signup/Signup"));
-const HomePage = lazy(() => import("../pages/Website/Home"));
 const NotFound = lazy(() => import("../pages/InfoPages/NotFound"));
+
+//website
+const HomePage = lazy(() => import("../pages/Website/Home"));
+const Guideline = lazy(() => import("../pages/Website/Guidelines"));
+const WebNews = lazy(() => import("../pages/Website/News"));
+const VaccineProgram = lazy(() => import("../pages/Website/Vaccination"));
 
 // moh
 const MOHUserManagement = lazy(() => import("../pages/MOH/user-management"));
+const MOHDash = lazy(() => import("../pages/MOH/dashboard"));
 
 //hospital
 const HospitalUserManagement = lazy(() => import("../pages/Hospital/user-management"));
 const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
-const MOHDash = lazy(() => import("../pages/MOH/dashboard"));
-
 const UploadXray = lazy(() => import("../pages/Hospital/upload-xray"));
 
 
@@ -89,16 +93,19 @@ const Router = () => {
                       
                     {/* hospital-admin */}
                     <Route exact path={routes.HOSDASH} component={HospitalDash} />
-                    
                     <Route exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} />
 
 
                     {/* hospital-user */}
                     <Route exact path={routes.HOSUSERDASH} component={HospitalDash} />
+                     <Route exact path={routes.XRAY} component={UploadXray} />
 
-                    <Route exact path={routes.XRAY} component={UploadXray} />
-
+                    {/* website */}
                     <Route exact path={routes.HOMEPAGE} component={HomePage} />
+                    <Route exact path={routes.GUIDELINE} component={Guideline} />
+                    <Route exact path={routes.WEBNEWS} component={WebNews} />
+                    <Route exact path={routes.VACCINEPROGRAM} component={VaccineProgram} />
+
                     <PrivateRoute exact path={routes.PROTECTED} component={PlaceholderForProtectedRoute} />
                     <Route component={NotFound} />
                 </Switch>

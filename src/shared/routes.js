@@ -6,6 +6,9 @@ export const SIGNUP = "/signup"
 //public site
 export const PUBLIC = "/public"
 export const HOMEPAGE = "/public/home"
+export const GUIDELINE = "/public/guideline"
+export const WEBNEWS = "/public/news"
+export const VACCINEPROGRAM = "/public/vaccine-program"
 
 //moh-admin
 //moh-user

@@ -23,7 +23,7 @@ export const SignUpForm = () => {
             <div className="left__box">
                 <img src="/assets/image.png" alt="login background" style={{
                     size: "500px",
-                    height: "421px",
+                    height: "641px",
                 }}></img>
             </div>
             <div className="right_box">

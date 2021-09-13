@@ -39,7 +39,7 @@ function SignInForm(){
             <div className="left__box">
                 <img src="/assets/image.png" alt="login_vector" style={{
                     size: "500px",
-                    height: "421px",
+                    height: "641px",
                     left: "88px",
                 }}></img>
             </div>

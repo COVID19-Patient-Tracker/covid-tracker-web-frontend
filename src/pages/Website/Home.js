@@ -1,9 +1,12 @@
 import React from 'react';
+import clsx from 'clsx';
 
-import { makeStyles, Typography, Grid, Container } from "@material-ui/core";
+import { makeStyles, Typography, Grid, Container, Box, Paper, Divider, Button } from "@material-ui/core";
+import CallIcon from '@material-ui/icons/Call';
 
 import SummaryCard from '../../components/hospital/dashboard/SummaryCard';
-
+import DataChartPie from '../../components/Website/DataChartPie';
+import LineTypeChart from '../../components/hospital/dashboard/LineChart';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,8 +18,18 @@ const useStyles = makeStyles((theme) => ({
         height: '80vh'
     },
     container: {
-        paddingTop: theme.spacing(3),
-        paddingBottom: theme.spacing(3),
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(4),
+    },
+    paper: {
+        padding: theme.spacing(2),
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+        backgroundColor: "#7c5265",
+    },
+    fixedHeight: {
+        height: 340,
     },
 
 }));
@@ -68,6 +81,8 @@ export default function WebHome() {
 
     const classes = useStyles();
 
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
     return (
         <React.Fragment>
             <div className={classes.root}></div>
@@ -108,6 +123,39 @@ export default function WebHome() {
                     </Grid>
 
                 </Grid>
+                <Grid container spacing={2} className={classes.container}>
+                    {/* Covid data cards */}
+                    <Grid item xs={12} md={4}>
+                        <Box width={300} height={300}>
+                            <Typography variant="h6">Summary Patient count</Typography>
+                            <DataChartPie />
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12} md={8}>
+                        <Paper className={fixedHeightPaper}>
+                            <Typography variant="h6">Increase in Patient count</Typography>
+                            <LineTypeChart />
+                        </Paper>
+                    </Grid>
+                </Grid>
+                <Divider />
+                <Box p={3} m={6} borderRadius={10} bgcolor="#64E3A7" textAlign="center">
+                    <Typography variant="h4" gutterBottom align="center">
+                        For further information, Contact “Suwasariya”
+                    </Typography>
+                    <Typography variant="h5" gutterBottom align="center">
+                        24 HOURS TRILINGUAL HEALTH HOTLINE
+                    </Typography>
+                    <Button
+                        variant="contained"
+                        size="large"
+                        className={classes.button}
+                        startIcon={<CallIcon />}
+                    >
+                        CALL 1911
+                    </Button>
+
+                </Box>
 
             </Container>
 

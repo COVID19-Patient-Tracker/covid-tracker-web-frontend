@@ -53,7 +53,7 @@ const mainFeaturedPost = {
     title: 'Hello, User',
     description:
         "12th September, 2021 01.12 PM",
-    image: 'https://source.unsplash.com/random',
+    image: '/assets/moh0.jpg',
     imgText: 'main image description',
 };
 

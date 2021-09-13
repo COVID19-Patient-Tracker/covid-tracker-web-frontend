@@ -1,9 +1,11 @@
 import React from 'react';
-
-import { makeStyles } from "@material-ui/core";
+import { useState } from "react";
+import { makeStyles} from "@material-ui/core";
 import { Box, Grid, Card, CardHeader, TextField, Button } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
+
+import AccountProfile from '../../components/hospital/dashboard/Profile';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -11,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cardStyle1: {
         backgroundColor: "#efedf5",
+        marginBottom: theme.spacing(2),
     },
     cardStyle2: {
         backgroundColor: "#fbcccc",
@@ -23,6 +26,12 @@ const useStyles = makeStyles((theme) => ({
 export default function UserManagement() {
 
     const classes = useStyles();
+
+    const [showUser, setShowUser] = useState(false);
+
+    const handleShowUser = () => {
+        setShowUser(true);
+    }
 
     return (
         <div className={classes.root}>
@@ -75,27 +84,32 @@ export default function UserManagement() {
                 <Grid item xs={12} sm={6} md={7}>
                     <Card className={classes.cardStyle1} variant="outlined">
                         <CardHeader title="User Details" subheader="Check the user details from here" />
-                            <Box p={2} textAlign="center" >
-                                <form autoComplete="off">
-                                    <TextField
-                                        id="nic"
-                                        label="NIC"
-                                        variant="outlined"
-                                        fullWidth
-                                        margin="normal"
-                                        helperText="*Enter user NIC here"
-                                    />
-                                    <Button
-                                        type="submit"
-                                        variant="contained"
-                                        color="primary"
-                                        startIcon={<DeleteIcon />}
-                                    >
-                                        SEARCH
-                                    </Button>
-                                </form>
-                            </Box>
+                        <Box p={2} textAlign="center" >
+                            <form autoComplete="off">
+                                <TextField
+                                    id="nic"
+                                    label="NIC"
+                                    variant="outlined"
+                                    fullWidth
+                                    margin="normal"
+                                    helperText="*Enter user NIC here"
+                                />
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={handleShowUser}
+                                    startIcon={<DeleteIcon />}
+                                >
+                                    SEARCH
+                                </Button>
+                            </form>
+                        </Box>
                     </Card>
+                    {showUser && (
+                        <Box border={1} borderRadius={2}>
+                            <AccountProfile />
+                        </Box>
+                    )}
                 </Grid>
                 <Grid item xs={12} sm={6} md={5}>
                     <Card className={classes.cardStyle2} variant="outlined">
@@ -111,7 +125,6 @@ export default function UserManagement() {
                                     helperText="*Enter user NIC here"
                                 />
                                 <Button
-                                    type="submit"
                                     variant="contained"
                                     color="primary"
                                     startIcon={<DeleteIcon />}

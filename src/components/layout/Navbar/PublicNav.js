@@ -38,16 +38,16 @@ export default function PublicNav() {
                         COVID-SAFE
                     </Typography>
                     <nav className={classes.navStyle}>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+                        <Link variant="button" color="textPrimary" href="/public/home" className={classes.link}>
                             COVID-STAT
                         </Link>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+                        <Link variant="button" color="textPrimary" href="/public/guideline" className={classes.link}>
                             GUIDELINE
                         </Link>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+                        <Link variant="button" color="textPrimary" href="/public/vaccine-program" className={classes.link}>
                             VACCINATION
                         </Link>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+                        <Link variant="button" color="textPrimary" href="/public/news" className={classes.link}>
                             NEWS
                         </Link>
                     </nav>

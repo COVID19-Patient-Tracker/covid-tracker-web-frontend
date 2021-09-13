@@ -44,11 +44,14 @@ export default function HosUserNav() {
                         <Link variant="button" color="textPrimary" href="/hospital/user/dashboard" className={classes.link}>
                             DASHBOARD
                         </Link>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+                        <Link variant="button" color="textPrimary" href="/hospital/user/addPatient" className={classes.link}>
                             ADD PATIENT
                         </Link>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-                            PATEINT MANAGEMENT
+                        <Link variant="button" color="textPrimary" href="/hospital/user/completeReport" className={classes.link}>
+                            SEARCH PATIENT
+                        </Link>
+                        <Link variant="button" color="textPrimary" href="/hospital/user/reportDashboard" className={classes.link}>
+                            PATEINT REPORT MANAGEMENT
                         </Link>
                         <Link variant="button" color="textPrimary" href="/hospital/user/upload-xray" className={classes.link}>
                             UPLOAD X-RAY

@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "NIC": "987710110V",
+    "testtype": "Antigen",
+    "result": "Positive"
+  },
+  {
+    "id": 2,
+    "NIC": "987710110V",
+    "testtype": "PCR",
+    "result": "Pending"
+  }
+]

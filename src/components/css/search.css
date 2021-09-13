@@ -1,0 +1,32 @@
+.search {
+  position: relative;
+  width: 50%;
+  height: 61.78px;
+  left: 25%;
+  top: 15%;
+  background: #ffffff;
+}
+
+.rectangle {
+  display: inline-block;
+  margin-top: 50%;
+  width: 100px;
+  height: 100px;
+  background: #59a7a0;
+}
+
+.cards {
+  width: 90vw;
+  max-width: 1170px;
+  margin: 2rem auto;
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

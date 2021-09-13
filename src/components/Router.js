@@ -32,8 +32,19 @@ const MOHDash = lazy(() => import("../pages/MOH/dashboard"));
 const HospitalUserManagement = lazy(() => import("../pages/Hospital/user-management"));
 const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
 const UploadXray = lazy(() => import("../pages/Hospital/upload-xray"));
-
-
+const PatientManagement = lazy(() => import("../pages/Hospital/Report_dashboard"));
+const Repo = lazy(() => import("../pages/Hospital/report_main"));
+const RepoStatus = lazy(() => import("../pages/Hospital/report_status"));
+const RepoHos = lazy(() => import("../pages/Hospital/report_hos_trans"));
+const RepoWard = lazy(() => import("../pages/Hospital/report_ward_trans"));
+const RepoTest = lazy(() => import("../pages/Hospital/report_test_result"));
+const AdmitRepo = lazy(() => import("../pages/Hospital/Reports/Admit_Details/admit_report_main"));
+const HospitalTrans = lazy(() => import("../pages/Hospital/Reports/Hospital_Transfer/hospital_transfer_main"));
+const Status = lazy(() => import("../pages/Hospital/Reports/Patient_Status/current_status_main"));
+const Test = lazy(() => import("../pages/Hospital/Reports/PCR_Antigen_Results/pcr_antigen_main"));
+const WardTrans = lazy(() => import("../pages/Hospital/Reports/Ward_Transfer/ward_transfer_main"));
+const CompleteReport = lazy(() => import("../pages/Hospital/update_patient_detal"));
+const AddPatient = lazy(() => import("../pages/Hospital/addPatient"));
 
 function PlaceholderForProtectedRoute() {
     return (
@@ -99,6 +110,19 @@ const Router = () => {
                     {/* hospital-user */}
                     <Route exact path={routes.HOSUSERDASH} component={HospitalDash} />
                      <Route exact path={routes.XRAY} component={UploadXray} />
+                    <Route exact path={routes.REPODASH} component={PatientManagement}/>
+                    <Route exact path={routes.REPO} component={Repo}/>
+                    <Route exact path={routes.REPOSTATUS} component={RepoStatus}/>
+                    <Route exact path={routes.REPOHOS} component={RepoHos}/>
+                    <Route exact path={routes.REPOWARD} component={RepoWard}/>
+                    <Route exact path={routes.REPOTEST} component={RepoTest}/>
+                    <Route exact path={routes.ADMITREPO} component={AdmitRepo}/>
+                    <Route exact path={routes.HOSPITALTRANS} component={HospitalTrans}/>
+                    <Route exact path={routes.STATUS} component={Status}/>
+                    <Route exact path={routes.TEST} component={Test}/>
+                    <Route exact path={routes.WARDTRANS} component={WardTrans}/>
+                    <Route exact path={routes.COMPLETEREPORT} component={CompleteReport}/>
+                    <Route exact path={routes.ADDPATEINT} component={AddPatient}/>
 
                     {/* website */}
                     <Route exact path={routes.HOMEPAGE} component={HomePage} />

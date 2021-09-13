@@ -22,6 +22,20 @@ export const HOSPITALUSERMANAGEMENT = "/hospital/admin/user-management"
 //hospital-user
 export const HOSUSERDASH = "/hospital/user/dashboard"
 export const XRAY = "/hospital/user/upload-xray"
+export const REPODASH = "/hospital/user/reportDashboard"
+export const ADMITREPO = "/hospital/user/admitReport"
+export const HOSPITALTRANS = "/hospital/user/hospitalTransfer"
+export const STATUS = "/hospital/user/currentStatus"
+export const TEST = "/hospital/user/testResult"
+export const WARDTRANS = "/hospital/user/wardTransfer"
+export const REPO = "/hospital/user/checkReport"
+export const REPOSTATUS = "/hospital/user/checkStatus"
+export const REPOHOS = "/hospital/user/checkHospital"
+export const REPOWARD = "/hospital/user/checkWard"
+export const REPOTEST = "/hospital/user/checkResult"
+export const COMPLETEREPORT = "/hospital/user/completeReport"
+export const ADDPATEINT = "/hospital/user/addPatient"
+
 
 export const PROTECTED = "/protected" // for testing
 //define the route url here and use it. Easy to change later

@@ -41,10 +41,10 @@ export default function MohUserNav() {
                         COVID-SAFE
                     </Typography>
                     <nav className={classes.navStyle}>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+                        <Link variant="button" color="textPrimary" href="/moh/user/dashboard" className={classes.link}>
                             DASHBOARD
                         </Link>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+                        <Link variant="button" color="textPrimary" href="/moh/user/user-management" className={classes.link}>
                             USER MANAGEMENT
                         </Link>
                         <Link variant="button" color="textPrimary" href="#" className={classes.link}>

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { FormControl, FormHelperText, InputLabel, makeStyles, MenuItem, Select } from "@material-ui/core";
-import { Box, Grid, Card, CardHeader, TextField, Button } from '@material-ui/core';
+import {makeStyles,  Box, Card, CardHeader, TextField, Button } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,11 +21,6 @@ const useStyles = makeStyles((theme) => ({
 export default function UserManagement() {
 
     const classes = useStyles();
-    const [usertype, setUserType] = React.useState('');
-
-    const handleChange = (event) => {
-        setUserType(event.target.value);
-    };
 
     return (
         <div className={classes.root} style={{width:"800px", margin:"20px auto"}}>

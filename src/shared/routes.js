@@ -10,7 +10,7 @@ export const HOMEPAGE = "/public/home"
 //moh-admin
 //moh-user
 export const MOHUSERMANAGEMENT = "/moh/user/user-management"
-export const MOHDASH = "/MOH/dashboard"
+export const MOHDASH = "/moh/user/dashboard"
 
 //hospital-admin
 export const HOSDASH = "/hospital/admin/dashboard"

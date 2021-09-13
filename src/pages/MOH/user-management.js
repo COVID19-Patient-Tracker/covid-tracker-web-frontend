@@ -10,13 +10,13 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3),
     },
     cardStyle: {
-        backgroundColor: "#e9e2f1",
+        //backgroundColor: "#e9e2f1",
     },
     formStyle: {
         //backgroundColor: "#e9e2f1",
     },
-    textAlign:{
-        textAlign:"left"
+    textAlign: {
+        textAlign: "left"
     }
 }));
 
@@ -32,13 +32,13 @@ export default function UserManagement() {
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
-                <Grid item xs={12} sm={6} md={5}>
+                <Grid item xs={12} sm={6} md={6}>
                     <Card className={classes.cardStyle} variant="outlined">
                         <CardHeader title="Add User" subheader="Add new users to the system" />
                         <Box p={2} textAlign="center" >
                             <form autoComplete="off">
                                 <FormControl fullWidth variant="outlined" className={classes.textAlign}>
-                                <InputLabel id="demo-simple-select-outlined-label">User Type</InputLabel>
+                                    <InputLabel id="demo-simple-select-outlined-label">User Type</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-outlined-label"
                                         id="demo-simple-select-outlined"
@@ -91,15 +91,7 @@ export default function UserManagement() {
                         </Box>
                     </Card>
                 </Grid>
-                <Grid item xs={12} sm={6} md={7}>
-                    <Card>
-                        <CardHeader title="User Details" subheader="Check the user details from here" />
-                        <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-                            <h1>HI</h1>
-                        </Box>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={5}>
+                <Grid item xs={12} sm={6} md={6}>
                     <Card>
                         <CardHeader title="Remove User" subheader="Remove users from the system" />
                         <Box p={2} textAlign="center" >
@@ -112,15 +104,15 @@ export default function UserManagement() {
                                     margin="normal"
                                     helperText="*Enter user NIC here"
                                 />
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                    startIcon={<DeleteIcon />}
-                                >
-                                    REMOVE USER
-                                </Button>
                             </form>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                startIcon={<DeleteIcon />}
+                            >
+                                REMOVE USER
+                            </Button>
                         </Box>
                     </Card>
                 </Grid>

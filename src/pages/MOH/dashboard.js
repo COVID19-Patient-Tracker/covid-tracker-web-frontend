@@ -90,12 +90,12 @@ const useStyles = makeStyles((theme) => ({
 
   }));
   const items = [
-    { title: 'The Shawshank Redemption', year: 1994 },
-    { title: 'The Godfather', year: 1972 },
-    { title: 'The Godfather: Part II', year: 1974 },
-    { title: 'The Dark Knight', year: 2008 },
-    { title: '12 Angry Men', year: 1957 },
-    { title: "Schindler's List", year: 1993 },
+    { title: 'Hospital A', year: 1994 },
+    { title: 'Hospital B', year: 1972 },
+    { title: 'Hospital C', year: 1974 },
+    { title: 'Hospital D', year: 2008 },
+    { title: 'Hospital E', year: 1957 },
+    { title: "Hospital F", year: 1993 },
   ];
 export default function Dashboard() {
 

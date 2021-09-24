@@ -1,4 +1,4 @@
-import axios from "../axios"
+import axios from "axios";
 
 // Utility functions for making api calls
 export const getRequest = async (uri) => {
@@ -17,9 +17,9 @@ export const getRequest = async (uri) => {
     }
 }
 
-export const postRequest = async (uri, data) => {
+export const postRequest = async (uri, data,headers) => {
 	try {
-		let response = await axios.post(uri, data);
+		let response = await axios.post(uri, data, headers);
 
 		return {
 			data: response.data,

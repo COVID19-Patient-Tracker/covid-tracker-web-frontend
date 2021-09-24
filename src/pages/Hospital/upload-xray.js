@@ -1,11 +1,14 @@
 import React from 'react';
-import { useState } from "react";
-
-import { makeStyles } from "@material-ui/core";
+import { useState, useRef } from "react";
+import { Grow, LinearProgress, makeStyles, Snackbar } from "@material-ui/core";
 import { Box, Typography, Fab, TextField, Button, Grid } from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/Add';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia'
+import { postRequest } from '../../api/utils';
+import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,29 +23,111 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UserManagement() {
-
+    const selectFile = useRef(null)
+    const [isImageValid, setisImageValid] = useState(false)
     const classes = useStyles();
-
     const [viewResult, setViewResult] = useState(false);
+    const [fileState, setFileState] = useState(null);
+    const [state,setState] = useState("NORMAL");
+    const [acc,setAcc] = useState(0);
+    const [progressbar,setProgrssBar] = useState(false);
+    const [snackBarOpen, setSnackBarOpen] = useState(false);
+    const [message, setMessage] = useState("success");
+    const [level, setLevel] = useState("success");
+
+
+    const handleClose = (event, reason) => {
+
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setSnackBarOpen(false);
+
+      };
 
     const handleViewResult = () => {
-        setViewResult(true);
+
+        if(selectFile.current){
+            const formData = new FormData()
+            formData.append('image', selectFile.current)
+            setProgrssBar(true)
+            postRequest("https://pneumonia-prediction-sep.herokuapp.com/predict",formData)
+            .then((result) => {
+                console.log(result);
+                const normalAcc = parseFloat(result.data.normal);
+                const pneumoniaAcc = parseFloat(result.data.pneumonia)
+                if(normalAcc < pneumoniaAcc){
+                    setState("PNEUMONIA");
+                    setAcc(pneumoniaAcc * 100)
+                }else{
+                    setState("NORMAL")
+                    setAcc(normalAcc * 100)
+                }
+                setProgrssBar(false)
+                setViewResult(true);
+                setMessage("Result Arrived")
+                setLevel("success")
+                setSnackBarOpen(true)
+            });
+            
+        }
+
     }
+
+    const getImage = (e) => {
+
+        setisImageValid(false)
+        setViewResult(false)
+
+        setTimeout(() => {
+            
+            selectFile.current = e.target.files[0];
+            var fileType = null;
+
+            if(selectFile.current){
+                fileType = selectFile.current.type;
+            }else{
+                setMessage("No file selected")
+                setLevel("error")
+                setSnackBarOpen(true)
+                return
+            }
+
+            if( fileType === "image/jpeg" || fileType === "image/png" || fileType === "image/jpg"){
+                setisImageValid(true)
+                setFileState(URL.createObjectURL(selectFile.current));
+            }
+            else{
+                setMessage("Invalid Image Format")
+                setLevel("error")
+                setisImageValid(false)
+                selectFile.current = null
+            }
+            
+        },50)
+    }
+
+    // send input image
 
     return (
         <Box p={2}>
             <Typography variant="h5" align="center">Upload X-RAY</Typography>
             <Typography variant="body1" align="center">*Upload a clear image of the patients X-Ray with a good resolution.</Typography>
 
-            <Box textAlign="center" pt={5}>
+            <Box textAlign="center" pt={5}
+            sx={{
+                display:"flex",alignContent:"flex-start",flexDirection:"column", alignItems:"center"
+            }}>
                 <label htmlFor="upload-photo">
                     <input
                         style={{ display: 'none' }}
                         id="upload-photo"
                         name="upload-photo"
                         type="file"
+                        onChange={getImage}
                     />
-
+                    
                     <Fab
                         size="small"
                         component="span"
@@ -52,15 +137,7 @@ export default function UserManagement() {
                         <AddIcon /> Add xray Image
                     </Fab>
                 </label>
-                <form autoComplete="off">
-                    <TextField
-                        id="nic"
-                        label="NIC"
-                        variant="outlined"
-                        margin="normal"
-                        helperText="*Enter user NIC here"
-                    />
-                </form>
+                
                 <Button
                     variant="contained"
                     color="primary"
@@ -70,6 +147,22 @@ export default function UserManagement() {
                 >
                     Upload
                 </Button>
+                <Snackbar open={snackBarOpen} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity={level} sx={{ width: '100%' }}>
+                    {message}
+                </Alert>
+                </Snackbar>
+                {
+                    isImageValid && 
+                    <Grow
+                        in={isImageValid}
+                        >
+                        <Card >
+                            <CardMedia component="img" height="300"  width="300" image={fileState} alt="xr-img"/>
+                            { progressbar && <LinearProgress/>}
+                        </Card>
+                    </Grow>
+                }
             </Box>
             {viewResult && (
                 <Box
@@ -78,13 +171,26 @@ export default function UserManagement() {
                     p={{ xs: 1, sm: 2 }}
                     m={5}
                 >
+
                     <Typography color="error" variant="body2" gutterBottom>The Predicted result will be displayed here..</Typography>
                     <Grid className={classes.resultCont} container spacing={3}>
                         <Grid item xs={12} sm={4}>
                             <TextField
                                 id="date"
                                 label="Date"
-                                value="2021-09-12 13:24:13"
+                                value={new Date()}
+                                fullWidth
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                            />
+                        </Grid>
+                        
+                        <Grid item xs={12} sm={4}>
+                            <TextField
+                                id="site-name"
+                                label="Predicted-Result"
+                                value={state}
                                 fullWidth
                                 InputProps={{
                                     readOnly: true,
@@ -94,19 +200,8 @@ export default function UserManagement() {
                         <Grid item xs={12} sm={4}>
                             <TextField
                                 id="site-host"
-                                label="Patient NIC"
-                                value="987654654V"
-                                fullWidth
-                                InputProps={{
-                                    readOnly: true,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                id="site-name"
-                                label="Predicted-Result"
-                                value="POSITIVE"
+                                label="Accuracy"
+                                value={acc}
                                 fullWidth
                                 InputProps={{
                                     readOnly: true,

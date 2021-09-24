@@ -49,6 +49,7 @@ export default function UserManagement() {
     const handleViewResult = () => {
 
         if(selectFile.current){
+            
             const formData = new FormData()
             formData.append('image', selectFile.current)
             setProgrssBar(true)
@@ -71,6 +72,10 @@ export default function UserManagement() {
                 setSnackBarOpen(true)
             });
             
+        }else{
+                setMessage("No file selected")
+                setLevel("error")
+                setSnackBarOpen(true)
         }
 
     }
@@ -108,13 +113,12 @@ export default function UserManagement() {
         },50)
     }
 
-    // send input image
 
     return (
         <Box p={2}>
             <Typography variant="h5" align="center">Upload X-RAY</Typography>
             <Typography variant="body1" align="center">*Upload a clear image of the patients X-Ray with a good resolution.</Typography>
-
+            
             <Box textAlign="center" pt={5}
             sx={{
                 display:"flex",alignContent:"flex-start",flexDirection:"column", alignItems:"center"
@@ -134,6 +138,11 @@ export default function UserManagement() {
                         aria-label="add"
                         variant="extended"
                     >
+                        <Snackbar open={snackBarOpen} autoHideDuration={6000} onClose={handleClose}>
+                            <Alert onClose={handleClose} severity={level} sx={{ width: '100%' }}>
+                                {message}
+                            </Alert>
+                        </Snackbar>
                         <AddIcon /> Add xray Image
                     </Fab>
                 </label>
@@ -147,11 +156,7 @@ export default function UserManagement() {
                 >
                     Upload
                 </Button>
-                <Snackbar open={snackBarOpen} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity={level} sx={{ width: '100%' }}>
-                    {message}
-                </Alert>
-                </Snackbar>
+                    
                 {
                     isImageValid && 
                     <Grow

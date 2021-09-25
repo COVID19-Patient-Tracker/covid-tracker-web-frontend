@@ -30,6 +30,7 @@ const MOHDash = lazy(() => import("../pages/MOH/dashboard"));
 
 //hospital
 const HospitalUserManagement = lazy(() => import("../pages/Hospital/user-management"));
+const HospitalProfile = lazy(() => import("../pages/Hospital/HospitalProfile"))
 const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
 const UploadXray = lazy(() => import("../pages/Hospital/upload-xray"));
 const PatientManagement = lazy(() => import("../pages/Hospital/Report_dashboard"));
@@ -105,6 +106,7 @@ const Router = () => {
                     {/* hospital-admin */}
                     <Route exact path={routes.HOSDASH} component={HospitalDash} />
                     <Route exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} />
+                    <Route exact path={routes.HOSPITALPROFILE} component={HospitalProfile} />
 
 
                     {/* hospital-user */}

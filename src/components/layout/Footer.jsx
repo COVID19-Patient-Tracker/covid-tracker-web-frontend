@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
     footer: {
         borderTop: `1px solid ${theme.palette.divider}`,
-        backgroundColor: '#539BDF',
+        backgroundColor: '#ffffff',
         //marginTop: theme.spacing(8),
         paddingTop: theme.spacing(3),
         paddingBottom: theme.spacing(3),
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     dividerStyle: {
-        background: "#313539",
+        background: "#53bada",
     }
 }));
 

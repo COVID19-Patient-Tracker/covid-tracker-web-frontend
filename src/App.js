@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Router from './components/Router';
 import Footer from './components/layout/Footer';
 import { makeStyles } from "@material-ui/core";
@@ -25,20 +25,6 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
     const classes = useStyles()
-
-    // temporary hard coded user authentication
-    const [storedUser,setstoredUser] = useState(null)
-
-    useEffect(() => {
-        let storedUser = sessionStorage.getItem("email")
-        if(storedUser){
-            setstoredUser(storedUser)
-        }
-        return () => {
-            console.log("cleanup function in signin form useEffect()");
-        }
-    }, [])
-
 
     return (
         <React.Fragment>

@@ -109,7 +109,7 @@ const Router = () => {
 
                     {/* hospital-user */}
                     <Route exact path={routes.HOSUSERDASH} component={HospitalDash} />
-                     <Route exact path={routes.XRAY} component={UploadXray} />
+                    <Route exact path={routes.XRAY} component={UploadXray} />
                     <Route exact path={routes.REPODASH} component={PatientManagement}/>
                     <Route exact path={routes.REPO} component={Repo}/>
                     <Route exact path={routes.REPOSTATUS} component={RepoStatus}/>

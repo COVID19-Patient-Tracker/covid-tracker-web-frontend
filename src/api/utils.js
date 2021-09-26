@@ -5,7 +5,6 @@ import {BASE_URL} from '../shared/config'
 
 
 
-
 // Utility functions for making api calls
 export const getRequest = async (uri) => {
     try {
@@ -41,8 +40,6 @@ export const postRequest = async (uri, data, headers) => {
 
 
 
-
-
 export const deleteRequest = async (uri) => {
 	try {
 		let URL = BASE_URL + uri
@@ -59,7 +56,6 @@ export const deleteRequest = async (uri) => {
 		};
 	}
 };
-
 
 
 

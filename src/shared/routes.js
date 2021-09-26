@@ -35,10 +35,8 @@ export const REPOTEST = "/hospital/user/checkResult"
 export const COMPLETEREPORT = "/hospital/user/completeReport"
 export const ADDPATEINT = "/hospital/user/addPatient"
 
-
 // token validation
 export const VALIDATETOKEN = "/validate/token/jwt"
-
 
 export const PROTECTED = "/protected" // for testing
 //define the route url here and use it. Easy to change later

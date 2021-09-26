@@ -8,6 +8,7 @@ import React, {useState,useEffect} from 'react'
 
 import { Box, LinearProgress } from "@material-ui/core";
 export const PrivateRoute = ({component : Component, ...rest}) => {
+    
     const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
     const [validated, setValidated] = useState(null)        // validate stored jwt for valid routing
     const currentUser = JSON.parse(localStorage.getItem(`CPT-user-details`)); // get stored user data when previous login
@@ -43,7 +44,6 @@ export const PrivateRoute = ({component : Component, ...rest}) => {
             )
         }
     }
-
     return (
         <Route {...rest} render={(props) => {return currentUser  ? <Forbidden /> :  <Redirect to={routes.LOGIN} />}}/> // double checking mechanism
     )

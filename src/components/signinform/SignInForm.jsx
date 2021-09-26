@@ -26,9 +26,6 @@ function SignInForm(){
     useEffect(() => {
 
         var u = auth.currentUser;
-        /**
-         * 
-         */
         // TODO : authorize JWT token before user logged in - done
         if(u){
             if(u.role === "MOH_ADMIN"){
@@ -51,7 +48,6 @@ function SignInForm(){
                 // TODO : send to MOH_ADMIN dashboard
             }
         }
-
         return () => {
         }
 

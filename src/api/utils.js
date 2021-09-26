@@ -1,9 +1,16 @@
 import axios from "axios";
 
+import {BASE_URL} from '../shared/config'
+
+
+
+
+
 // Utility functions for making api calls
 export const getRequest = async (uri) => {
     try {
-        let response = await axios.get(uri);
+		let URL = BASE_URL + uri
+        let response = await axios.get(URL);
 
         return {
             data: response.data,
@@ -17,14 +24,13 @@ export const getRequest = async (uri) => {
     }
 }
 
-export const postRequest = async (uri, data,headers) => {
-	try {
-		let response = await axios.post(uri, data, headers);
 
-		return {
-			data: response.data,
-			error: null
-		};
+export const postRequest = async (uri, data, headers) => {
+	try {
+		let URL = BASE_URL + uri
+		let response = await axios.post(URL, data, headers);
+
+		return response;
 	} catch (error) {
 		return {
 			data: null,
@@ -32,10 +38,15 @@ export const postRequest = async (uri, data,headers) => {
 		};
 	}
 };
+
+
+
+
 
 export const deleteRequest = async (uri) => {
 	try {
-		let response = await axios.delete(uri);
+		let URL = BASE_URL + uri
+		let response = await axios.delete(URL);
 
 		return {
 			data: response.data,
@@ -49,9 +60,13 @@ export const deleteRequest = async (uri) => {
 	}
 };
 
+
+
+
 export const putRequest = async (uri, data) => {
 	try {
-		let response = await axios.put(uri, data);
+		let URL = BASE_URL + uri
+		let response = await axios.put(URL, data);
 
 		return {
 			data: response.data,

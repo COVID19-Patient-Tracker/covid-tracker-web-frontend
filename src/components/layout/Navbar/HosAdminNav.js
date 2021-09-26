@@ -48,7 +48,7 @@ export default function HosAdminNav() {
                             USER MANAGEMENT
                         </Link>
                     </nav>
-                    <Avatar className={classes.avat} variant="circle" src="/broken-image.jpg" />
+                    <Avatar className={classes.avat} variant="circular" src="/broken-image.jpg" />
                     {/* <Button href="#" color="primary" variant="contained" className={classes.link}>
                         Login
                     </Button> */}

@@ -1,7 +1,6 @@
 //general
 export const LANDING = "/";
 export const LOGIN = "/login";
-export const SIGNUP = "/signup"
 
 //public site
 export const PUBLIC = "/public"
@@ -35,6 +34,10 @@ export const REPOWARD = "/hospital/user/checkWard"
 export const REPOTEST = "/hospital/user/checkResult"
 export const COMPLETEREPORT = "/hospital/user/completeReport"
 export const ADDPATEINT = "/hospital/user/addPatient"
+
+
+// token validation
+export const VALIDATETOKEN = "/validate/token/jwt"
 
 
 export const PROTECTED = "/protected" // for testing

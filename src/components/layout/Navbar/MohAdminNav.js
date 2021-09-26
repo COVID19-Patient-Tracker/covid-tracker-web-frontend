@@ -51,7 +51,7 @@ export default function MohAdminNav() {
                     {/* <Button href="#" color="primary" variant="contained" className={classes.link}>
                         Login
                     </Button> */}
-                    <Avatar className={classes.avat} variant="circle" src="/broken-image.jpg" />
+                    <Avatar className={classes.avat} variant="circular" src="/broken-image.jpg" />
                 </Toolbar>
             </AppBar>
         </React.Fragment>

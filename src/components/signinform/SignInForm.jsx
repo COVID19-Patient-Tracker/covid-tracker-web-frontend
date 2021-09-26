@@ -36,15 +36,19 @@ function SignInForm(){
                 // TODO : send to MOH_USER dashboard
             }
             else if(u.role === "HOSPITAL_USER"){
+                history.push(routes.PROTECTED);
                 // TODO : send to HOSPITAL_USER dasjhboard
             }
             else if(u.role === "HOSPITAL_ADMIN"){
+                history.push(routes.PROTECTED);
                 // TODO : send to HOSPITAL_ADMIN dashboard
             }
             else if(u.role === "PATIENT"){
-                // TODO : send to MOH_ADMIN dashboard
+                history.push(routes.PROTECTED);
+                // TODO : send to PATIENT dashboard
             }
             else if(u.role === "MOH_ADMIN"){
+                history.push(routes.PROTECTED);
                 // TODO : send to MOH_ADMIN dashboard
             }
         }

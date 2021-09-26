@@ -15,11 +15,11 @@ export const MOHUSERMANAGEMENT = "/moh/user/user-management"
 export const MOHDASH = "/moh/user/dashboard"
 
 //hospital-admin
-export const HOSDASH = "/hospital/admin/dashboard"
+export const HOSDASH = "/hospital/admin/dashboard" // ha
 export const HOSPITALUSERMANAGEMENT = "/hospital/admin/user-management"
 
 //hospital-user
-export const HOSUSERDASH = "/hospital/user/dashboard"
+export const HOSUSERDASH = "/hospital/user/dashboard" // hu
 export const XRAY = "/hospital/user/upload-xray"
 export const REPODASH = "/hospital/user/reportDashboard"
 export const ADMITREPO = "/hospital/user/admitReport"

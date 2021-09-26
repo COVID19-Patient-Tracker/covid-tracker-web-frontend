@@ -54,30 +54,28 @@ export default function UserManagement() {
             formData.append('image', selectFile.current)
             setProgrssBar(true)
             postRequest("https://pneumonia-prediction-sep.herokuapp.com/predict",formData)
-            .then((result) => {
-                console.log(result);
-                const normalAcc = parseFloat(result.data.normal);
-                const pneumoniaAcc = parseFloat(result.data.pneumonia)
-                if(normalAcc < pneumoniaAcc){
-                    setState("PNEUMONIA");
-                    setAcc(pneumoniaAcc * 100)
-                }else{
-                    setState("NORMAL")
-                    setAcc(normalAcc * 100)
-                }
-                setProgrssBar(false)
-                setViewResult(true);
-                setMessage("Result Arrived")
-                setLevel("success")
-                setSnackBarOpen(true)
-            });
-            
-        }else{
-                setMessage("No file selected")
-                setLevel("error")
-                setSnackBarOpen(true)
-        }
-
+                .then((result) => {
+                    const normalAcc = parseFloat(result.data.normal);
+                    const pneumoniaAcc = parseFloat(result.data.pneumonia)
+                    if(normalAcc < pneumoniaAcc){
+                        setState("PNEUMONIA");
+                        setAcc(pneumoniaAcc * 100)
+                    }else{
+                        setState("NORMAL")
+                        setAcc(normalAcc * 100)
+                    }
+                    setProgrssBar(false)
+                    setViewResult(true);
+                    setMessage("Result Arrived")
+                    setLevel("success")
+                    setSnackBarOpen(true)
+                });
+                
+            }else{
+                    setMessage("No file selected")
+                    setLevel("error")
+                    setSnackBarOpen(true)
+            }
     }
 
     const getImage = (e) => {
@@ -106,6 +104,7 @@ export default function UserManagement() {
             else{
                 setMessage("Invalid Image Format")
                 setLevel("error")
+                setSnackBarOpen(true)
                 setisImageValid(false)
                 selectFile.current = null
             }
@@ -117,7 +116,9 @@ export default function UserManagement() {
     return (
         <Box p={2}>
             <Typography variant="h5" align="center">Upload X-RAY</Typography>
-            <Typography variant="body1" align="center">*Upload a clear image of the patients X-Ray with a good resolution.</Typography>
+            <Typography variant="body1" align="center">
+                *Upload a clear image of the patients X-Ray with a good resolution. (Accepted File Formats: png,jpeg,jpg)
+                </Typography>
             
             <Box textAlign="center" pt={5}
             sx={{

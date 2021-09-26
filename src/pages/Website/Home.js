@@ -5,8 +5,9 @@ import background from '../../components/img/background.svg';
 import {Cards, Chart,ChartTotal,CardsTotal} from '../../components';
 import styles from '../../App.module.css';
 import {fetchData,fetchTotalData} from '../../api/index.js';
+import styled from 'styled-components';
 
-import HeaderContent from '../../components/HeaderContent'; 
+import {HeaderContent} from '../../components/HeaderContent'; 
  
 // const useStyles = makeStyles((theme) => ({
 //     root: {
@@ -69,7 +70,6 @@ class WebHome extends React.Component {
         );
     }
 }
-
 
 export default WebHome;
 

@@ -20,16 +20,17 @@
 }
 
 .menu-bars {
-  margin-left: 2rem;
+  margin-right: 4rem;
   font-size: 2rem;
   background: none;
 }
 
 .nav-menu {
-  background-color: #060b26;
+  background-color: #ffffff;
   width: 250px;
-  height: 100vh;
+  height: 70vh;
   display: flex;
+  border-radius: 3% 0% 3% 3%;
   justify-content: center;
   position: fixed;
   top: 0;
@@ -53,7 +54,7 @@
 
 .nav-text a {
   text-decoration: none;
-  color: #f5f5f5;
+  color: #757575;
   font-size: 18px;
   width: 95%;
   height: 100%;
@@ -63,8 +64,9 @@
   border-radius: 4px;
 }
 
-.nav-text a:hover {
-  background-color: #1a83ff;
+.nav-text a:active {
+  color: #0b99d1;
+  font-weight: bolder;
 }
 
 .nav-menu-items {
@@ -72,7 +74,6 @@
 }
 
 .navbar-toggle {
-  background-color: #060b26;
   width: 100%;
   height: 80px;
   display: flex;
@@ -81,5 +82,5 @@
 }
 
 span {
-  margin-left: 16px;
+  margin-left: 14px;
 }

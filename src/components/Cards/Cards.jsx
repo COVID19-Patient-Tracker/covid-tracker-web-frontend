@@ -17,8 +17,9 @@ const Info = ({ data:{local_new_cases, update_date_time, local_new_deaths } }) =
           Last Updated On : {new Date(update_date_time).toDateString()}  {new Date(update_date_time).toLocaleTimeString()}
           </Typography>
         <CardBack>
-        <Grid container spacing={3} justify="center" >
+        <Grid container spacing={4} justify="center">
         <CardComponent 
+        
           cardTitle="Infected"
           value={local_new_cases}          
           cardSubtitle="Confirmed COVID-19 cases reported during the day"/>

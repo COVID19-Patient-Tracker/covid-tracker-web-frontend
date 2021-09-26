@@ -14,7 +14,7 @@ function Navbars() {
 
   return (
     <>
-      <IconContext.Provider value={{ color: '#fff' }}>
+      <IconContext.Provider value={{ color: '#757575' }}>
         <div className='navbar'>
           <Link to='#' className='menu-bars'>
             <Bars onClick={showSidebar} />
@@ -31,7 +31,6 @@ function Navbars() {
               return (
                 <li key={index} className={item.cName}>
                   <Link to={item.path}>
-                    {item.icon}
                     <span>{item.title}</span>
                   </Link>
                 </li>

@@ -42,7 +42,7 @@ export const Bars = styled(FaBars)`
     display: block;
     position: absolute;
     top: 0;
-    margin-left: 15rem;
+    margin-left: 58%;
     transform: translate(-100%, 75%);
     font-size: 1.8rem;
     cursor: pointer;

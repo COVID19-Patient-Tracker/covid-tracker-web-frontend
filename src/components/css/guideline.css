@@ -1,0 +1,31 @@
+.container {
+  padding-top: spacing(3);
+  padding-bottom: spacing(3);
+}
+.heading {
+  font-size: 15;
+  font-weight: lighter;
+}
+.listStyle {
+  width: 100%;
+  max-width: 86ch;
+  background-color: #c3e3bf;
+  align-items: center;
+}
+.inline {
+  display: inline;
+}
+
+.symptoms {
+  display: flex;
+  size: "600px";
+  height: 60%;
+  width: 60%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+  .symptoms {
+    width: 100%;
+  }
+}

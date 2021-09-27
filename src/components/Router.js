@@ -113,19 +113,19 @@ const Router = () => {
                     {/* hospital-user */}
                     <Route exact path={routes.HOSUSERDASH} component={HospitalDash} />
                     <Route exact path={routes.XRAY} component={UploadXray} />
-                    <Route exact path={routes.REPODASH} component={PatientManagement} />
-                    <Route exact path={routes.REPO} component={Repo} />
-                    <Route exact path={routes.REPOSTATUS} component={RepoStatus} />
-                    <Route exact path={routes.REPOHOS} component={RepoHos} />
-                    <Route exact path={routes.REPOWARD} component={RepoWard} />
-                    <Route exact path={routes.REPOTEST} component={RepoTest} />
-                    <Route exact path={routes.ADMITREPO} component={AdmitRepo} />
-                    <Route exact path={routes.HOSPITALTRANS} component={HospitalTrans} />
-                    <Route exact path={routes.STATUS} component={Status} />
-                    <Route exact path={routes.TEST} component={Test} />
-                    <Route exact path={routes.WARDTRANS} component={WardTrans} />
-                    <Route exact path={routes.COMPLETEREPORT} component={CompleteReport} />
-                    <Route exact path={routes.ADDPATEINT} component={AddPatient} />
+                    <Route exact path={routes.REPODASH} component={PatientManagement}/>
+                    <Route exact path={routes.REPO} component={Repo}/>
+                    <Route exact path={routes.REPOSTATUS} component={RepoStatus}/>
+                    <Route exact path={routes.REPOHOS} component={RepoHos}/>
+                    <Route exact path={routes.REPOWARD} component={RepoWard}/>
+                    <Route exact path={routes.REPOTEST} component={RepoTest}/>
+                    <Route exact path={routes.ADMITREPO} component={AdmitRepo}/>
+                    <Route exact path={routes.HOSPITALTRANS} component={HospitalTrans}/>
+                    <Route exact path={routes.STATUS} component={Status}/>
+                    <Route exact path={routes.TEST} component={Test}/>
+                    <Route exact path={routes.WARDTRANS} component={WardTrans}/>
+                    <Route exact path={routes.COMPLETEREPORT} component={CompleteReport}/>
+                    <Route exact path={routes.ADDPATEINT} component={AddPatient}/>
 
                     {/* website */}
                     <Route exact path={routes.HOMEPAGE} component={HomePage} />

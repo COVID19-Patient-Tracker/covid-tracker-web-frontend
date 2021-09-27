@@ -25,29 +25,6 @@ function App(){
 		
 	);
 }
-
-// const Search = () => {
-    
-
-// 	const [myOptions] = useState([])
-// 	return (
-// 		<div className = 'search' >
-// 			<Autocomplete style={{marginTop:"15%"}}
-// 				freeSolo
-// 				autoComplete
-// 				autoHighlight
-// 				options={myOptions}
-// 				renderInput={(params) => (
-// 				<TextField {...params}
-// 					variant="outlined"
-// 					label="Patient's NIC"
-// 				/>
-// 				)}
-// 			/>
-// 		</div>
-// 	);
-// }
-
 const PatientCard = () => { 
     const history = useHistory();
     const handleClick = () => history.push('/hospital/user/checkReport');

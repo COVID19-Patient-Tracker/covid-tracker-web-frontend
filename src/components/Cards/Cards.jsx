@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
 import CardComponent from './Cards/Cards';
 import styles from './Cards.module.css';
-import styled,{css} from 'styled-components';
+import styled from 'styled-components';
 
 const Info = ({ data:{local_new_cases, update_date_time, local_new_deaths } }) => {
   if (!local_new_cases) {

@@ -47,6 +47,9 @@ export default function HosAdminNav() {
                         <Link variant="button" color="textPrimary" href="/hospital/admin/user-management" className={classes.link}>
                             USER MANAGEMENT
                         </Link>
+                        <Link variant="button" color="textPrimary" href="/hospital/admin/hospital-profile" className={classes.link}>
+                            HOSPITAL PROFILE
+                        </Link>
                     </nav>
                     <Avatar className={classes.avat} variant="circle" src="/broken-image.jpg" />
                     {/* <Button href="#" color="primary" variant="contained" className={classes.link}>

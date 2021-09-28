@@ -14,8 +14,8 @@ import HosAdminNav from "../components/layout/Navbar/HosAdminNav";
 import HosUserNav from "../components/layout/Navbar/HosUserNav";
 import PublicNav from "../components/layout/Navbar/PublicNav";
 
-const Login = lazy(() => import("../pages/Login/Login"));
-const Signup = lazy(() => import("../pages/Signup/Signup"));
+const Login = lazy(() => import("../pages/General/Login"));
+const Signup = lazy(() => import("../pages/General/Signup"));
 const NotFound = lazy(() => import("../pages/InfoPages/NotFound"));
 
 //website
@@ -28,9 +28,11 @@ const VaccineProgram = lazy(() => import("../pages/Website/Vaccination"));
 const MOHUserManagement = lazy(() => import("../pages/MOH/user-management"));
 const MOHDash = lazy(() => import("../pages/MOH/dashboard"));
 
-//hospital
-const HospitalUserManagement = lazy(() => import("../pages/Hospital/user-management"));
+//hospital Admin
+const HospitalUserManagement = lazy(() => import("../pages/Hospital/Admin/user-management"));
 const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
+const HospitalProfile  = lazy(() => import("../pages/Hospital/Admin/hospitalProfile"));
+
 const UploadXray = lazy(() => import("../pages/Hospital/upload-xray"));
 const PatientManagement = lazy(() => import("../pages/Hospital/Report_dashboard"));
 const Repo = lazy(() => import("../pages/Hospital/report_main"));
@@ -105,6 +107,7 @@ const Router = () => {
                     {/* hospital-admin */}
                     <Route exact path={routes.HOSDASH} component={HospitalDash} />
                     <Route exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} />
+                    <Route exact path={routes.HOSPROFILE} component={HospitalProfile} />
 
 
                     {/* hospital-user */}

@@ -77,7 +77,6 @@ function SignInForm(){
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
                     <input type="submit" value="sign in" onClick={signin}></input>
-                    <h4>Sign Up <Link to="/signup">Here</Link></h4>
                 </form>
             </div>
         </div>

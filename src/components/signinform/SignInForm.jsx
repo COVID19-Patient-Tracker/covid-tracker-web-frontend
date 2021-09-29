@@ -10,17 +10,17 @@ function SignInForm(){
     const auth = useAuth()
     const history = useHistory()
 
+    // setting value email
     const handleEmailInput = event => {
         setUserName(event.target.value)
     }
-
+    // setting value password
     const handlepasswordInput = event => {
         setPassword(event.target.value)
     }
     const  signin = async e => {
         e.preventDefault();
         auth.login(email,password)
-        // TODO : make a rquest to backend and get authorized - done
     }
 
     useEffect(() => {
@@ -29,10 +29,10 @@ function SignInForm(){
         // TODO : authorize JWT token before user logged in - done
         if(u){
             if(u.role === "MOH_ADMIN"){
-                history.push(routes.MOHDASH); // not sure about this
+                history.push(routes.MOHDASH); 
             }
             else if(u.role === "MOH_USER"){
-                history.push(routes.MOHDASH); // not sure about this
+                history.push(routes.MOHDASH); 
                 // TODO : send to MOH_USER dashboard
             }
             else if(u.role === "HOSPITAL_USER"){

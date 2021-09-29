@@ -6,13 +6,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-
+import { NavLink, NavMenu ,Nav, NavBtn, NavBtnLink} from '../../Navigation/NavebarElement';
+import logo from '../../img/logo7.png'
+import Navbars from '../../Navigation/Navbar';
 const useStyles = makeStyles((theme) => ({
     appBar: {
         borderBottom: `1px solid ${theme.palette.divider}`,
-        backgroundColor: "#A9CDEF",
+        backgroundColor: "#FFFFFF00",
     },
-    toolbar: {
+    toolbar: { 
         flexWrap: 'wrap',
     },
     toolbarTitle: {
@@ -32,39 +34,33 @@ export default function PublicNav() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+            <Nav >
                 <Toolbar className={classes.toolbar}>
-                    <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-                        COVID-SAFE
-                    </Typography>
-                    <nav className={classes.navStyle}>
-                        <Link variant="button" color="textPrimary" href="/public/home" className={classes.link}>
+                    <img src={logo} alt="" style={{width:'10rem'}}/>
+                    <NavMenu  >
+                        <NavLink to="/public/home" style={{marginLeft:'18rem'}}>
                             COVID-STAT
-                        </Link>
-                        <Link variant="button" color="textPrimary" href="/public/guideline" className={classes.link}>
+                        </NavLink>
+                        <NavLink to="/public/guideline" >
                             GUIDELINE
-                        </Link>
-                        <Link variant="button" color="textPrimary" href="/public/vaccine-program" className={classes.link}>
+                        </NavLink>
+                        <NavLink to="/public/vaccine-program">
                             VACCINATION
-                        </Link>
-                        <Link variant="button" color="textPrimary" href="/public/news" className={classes.link}>
+                        </NavLink>
+                        <NavLink to="/public/news">
                             NEWS
-                        </Link>
-                    </nav>
-                    <Button
-                        href="/signup"
-                        variant="contained"
-                        color="secondary"
-                        className={classes.link}
-                        startIcon={<PersonAddIcon />}
-                    >
-                        SIGN UP
-                    </Button>
-                    <Fab color="secondary" aria-label="add" size="small" href="/login">
-                        <ExitToAppIcon />
-                    </Fab>
+                        </NavLink>
+                    </NavMenu>
+                    {/* <NavBtn style={{marginLeft:'10px'}} >
+                        <NavBtnLink to='/signup'>SIGN UP</NavBtnLink>
+                    </NavBtn> */}
+                    <NavBtn style={{marginLeft:'40px'}}>
+                        <NavBtnLink to='/login'>LOGIN</NavBtnLink>
+                    </NavBtn>
+                    
+                    <Navbars/>
                 </Toolbar>
-            </AppBar>
+            </Nav>
         </React.Fragment>
     );
 }

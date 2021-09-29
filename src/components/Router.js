@@ -5,8 +5,10 @@ import { useLocation } from 'react-router-dom';
 import Spinner from "./Spinner";
 
 import * as routes from "../shared/routes";
+import * as roles from "../shared/roles";
+
 import { ProvideAuth } from "./AuthConext";
-import { PrivateRoute } from "./PrivateRoute";
+import { PrivateRoute } from "./PrivateRoutes/PrivateRoute";
 
 import MohAdminNav from "../components/layout/Navbar/MohAdminNav";
 import MohUserNav from "../components/layout/Navbar/MohUserNav";
@@ -15,7 +17,6 @@ import HosUserNav from "../components/layout/Navbar/HosUserNav";
 import PublicNav from "../components/layout/Navbar/PublicNav";
 
 const Login = lazy(() => import("../pages/Login/Login"));
-const Signup = lazy(() => import("../pages/Signup/Signup"));
 const NotFound = lazy(() => import("../pages/InfoPages/NotFound"));
 
 //website
@@ -28,9 +29,11 @@ const VaccineProgram = lazy(() => import("../pages/Website/Vaccination"));
 const MOHUserManagement = lazy(() => import("../pages/MOH/user-management"));
 const MOHDash = lazy(() => import("../pages/MOH/dashboard"));
 
-//hospital
-const HospitalUserManagement = lazy(() => import("../pages/Hospital/user-management"));
+//hospital Admin
+const HospitalUserManagement = lazy(() => import("../pages/Hospital/Admin/user-management"));
 const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
+const HospitalProfile  = lazy(() => import("../pages/Hospital/Admin/hospitalProfile"));
+
 const UploadXray = lazy(() => import("../pages/Hospital/upload-xray"));
 const PatientManagement = lazy(() => import("../pages/Hospital/Report_dashboard"));
 const Repo = lazy(() => import("../pages/Hospital/report_main"));
@@ -94,22 +97,22 @@ const Router = () => {
                 <Switch>
                     {/* general */}
                     <Route exact path={routes.LOGIN} component={Login} />
-                    <Route exact path={routes.SIGNUP} component={Signup} />
 
                     {/* moh-admin */}
 
                     {/* moh-user */}
-                    <Route exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} />
-                    <Route exact path={routes.MOHDASH} component={MOHDash} />
+                    <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/>
+                    <PrivateRoute exact path={routes.MOHDASH} component={MOHDash} AuthorizedUserRoles={[roles.MOH_USER, roles.MOH_ADMIN]}/>
                       
                     {/* hospital-admin */}
                     <Route exact path={routes.HOSDASH} component={HospitalDash} />
                     <Route exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} />
+                    <Route exact path={routes.HOSPROFILE} component={HospitalProfile} />
 
 
                     {/* hospital-user */}
-                    <Route exact path={routes.HOSUSERDASH} component={HospitalDash} />
-                     <Route exact path={routes.XRAY} component={UploadXray} />
+                    <PrivateRoute exact path={routes.HOSUSERDASH} component={HospitalDash} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN,roles.HOSPITAL_USER]}/>
+                    <Route exact path={routes.XRAY} component={UploadXray} />
                     <Route exact path={routes.REPODASH} component={PatientManagement}/>
                     <Route exact path={routes.REPO} component={Repo}/>
                     <Route exact path={routes.REPOSTATUS} component={RepoStatus}/>
@@ -130,7 +133,7 @@ const Router = () => {
                     <Route exact path={routes.WEBNEWS} component={WebNews} />
                     <Route exact path={routes.VACCINEPROGRAM} component={VaccineProgram} />
 
-                    <PrivateRoute exact path={routes.PROTECTED} component={PlaceholderForProtectedRoute} />
+                    <PrivateRoute exact path={routes.PROTECTED} component={PlaceholderForProtectedRoute} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]} />
                     <Route component={NotFound} />
                 </Switch>
             </ProvideAuth>

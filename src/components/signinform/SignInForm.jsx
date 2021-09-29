@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import "../css/AuthForms.css"
+import * as routes from "../../shared/routes";
 import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../AuthConext'
 
@@ -9,28 +10,51 @@ function SignInForm(){
     const auth = useAuth()
     const history = useHistory()
 
+    // setting value email
     const handleEmailInput = event => {
         setUserName(event.target.value)
     }
-
+    // setting value password
     const handlepasswordInput = event => {
         setPassword(event.target.value)
     }
     const  signin = async e => {
         e.preventDefault();
         auth.login(email,password)
-        // TODO : make a rquest to backend nad get authorized
     }
 
     useEffect(() => {
-        let storedUser = sessionStorage.getItem("email")
-        // TODO : authorize JWT token before user logged in
-        if(storedUser){
-            history.push("/protected");
+
+        var u = auth.currentUser;
+        // TODO : authorize JWT token before user logged in - done
+        if(u){
+            if(u.role === "MOH_ADMIN"){
+                history.push(routes.MOHDASH); 
+            }
+            else if(u.role === "MOH_USER"){
+                history.push(routes.MOHDASH); 
+                // TODO : send to MOH_USER dashboard
+            }
+            else if(u.role === "HOSPITAL_USER"){
+                history.push(routes.HOSUSERDASH);
+                // TODO : send to HOSPITAL_USER dasjhboard
+            }
+            else if(u.role === "HOSPITAL_ADMIN"){
+                history.push(routes.HOSUSERDASH);
+                // TODO : send to HOSPITAL_ADMIN dashboard
+            }
+            else if(u.role === "PATIENT"){
+                history.push(routes.PROTECTED);
+                // TODO : send to PATIENT dashboard
+            }
+            else if(u.role === "MOH_ADMIN"){
+                history.push(routes.PROTECTED);
+                // TODO : send to MOH_ADMIN dashboard
+            }
         }
         return () => {
-            console.log("cleanup function in signin form useEffect()");
         }
+
     }, [auth.currentUser,history])
     
     
@@ -47,13 +71,12 @@ function SignInForm(){
                  <h1 className="login__banner">LOGIN</h1>
                  <form className="form">
                     <input value={email} type="text" id="email" name="email" placeholder="EMAIL" onChange={handleEmailInput} />
-                    <input type="password" id="password" name="password" placeholder="PASSWORD" onchange={handlepasswordInput} />
+                    <input type="password" id="password" name="password" placeholder="PASSWORD" onChange={handlepasswordInput} />
                     <div className="remember-me">
                         <input type="checkbox" id="remember-me" name="remember-me" value="remember-me"></input>
-                        <label for="remember-me">Remember me</label>
+                        <label htmlFor="remember-me">Remember me</label>
                     </div>
                     <input type="submit" value="sign in" onClick={signin}></input>
-                    <h4>Sign Up <Link to="/signup">Here</Link></h4>
                 </form>
             </div>
         </div>

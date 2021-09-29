@@ -29,11 +29,18 @@ const ReadOnlyRow = ({ newresult, handleEditClick, handleDeleteClick }) => {
 
 const WardTransfer = () => {
   const [results] = useState(data);
+  const [search, setSearch] = useState('');
+  
+
+  const filterID = results.filter(id => {
+    return id.NIC.toLowerCase().includes( search.toLowerCase())
+  });
 
   return (
     <div className="create">
     <div className="app-container">
       <h2>Update admitted patient details</h2>
+      <input type="text" placeholder="search" onChange={ e => setSearch(e.target.value)}/>
       <form>
         <table>
           <thead>
@@ -43,7 +50,7 @@ const WardTransfer = () => {
             </tr>
           </thead>
           <tbody>
-            {results.map((newresult) => (
+            {filterID.map((newresult) => (
               <ReadOnlyRow newresult={newresult}/>
                 
             ))}

@@ -1,25 +1,21 @@
 import React from 'react';
 
-import { makeStyles, Typography, Accordion, AccordionSummary, AccordionDetails, Box } from "@material-ui/core";
+import { makeStyles, Typography, Accordion, AccordionSummary, AccordionDetails, Box, Grid } from "@material-ui/core";
 import { List, ListItem, Divider, ListItemText, ListItemAvatar, Avatar } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import { HeaderContentGuideline } from '../../components/HeaderContent';
+import background from '../../components/img/background.svg';
+import '../../components/css/guideline.css';
+
+
 const useStyles = makeStyles((theme) => ({
-    root: {
-        backgroundImage: 'url(/assets/guideline.webp)',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        width: '100vw',
-        height: '60vh'
-    },
     container: {
         paddingTop: theme.spacing(3),
         paddingBottom: theme.spacing(3),
     },
     heading: {
-        fontSize: theme.typography.pxToRem(15),
-        fontWeight: theme.typography.fontWeightRegular,
+        fontWeight: 700,
     },
     listStyle: {
         width: '100%',
@@ -30,9 +26,19 @@ const useStyles = makeStyles((theme) => ({
     inline: {
         display: 'inline',
     },
-
+    imgdiv: {
+        height: 600,
+        width: 700,
+        [theme.breakpoints.down('sm')]: {
+            height: 500,
+            width: 400,
+        },
+        [theme.breakpoints.down('xs')]: {
+            height: 400,
+            width: 300,
+        },
+    }
 }));
-
 
 
 export default function Guidelines() {
@@ -41,9 +47,12 @@ export default function Guidelines() {
 
     return (
         <React.Fragment>
-            <div className={classes.root}></div>
-            <Box m={5} p={3} bgcolor="#E0C2FF">
-                <Typography variant="h4" gutterBottom align="center">FAQs about COVID</Typography>
+            <HeaderContentGuideline />
+            <div>
+                <img src={background} alt='' style={{ backgroundPositionY: "100%", backgroundSize: 'cover', width: "100%", backgroundRepeat: 'no-repeat' }} />
+            </div>
+            <Box m={{ sm: 5, xs: 2 }} p={{ xs: 1, sm: 3 }} bgcolor="#59cac8" borderRadius={12}>
+                <Typography variant="h4" gutterBottom align="center" style={{ fontWeight: 700 }}>FAQs about COVID</Typography>
                 <Accordion expanded>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -108,23 +117,25 @@ export default function Guidelines() {
                 </Accordion>
             </Box>
 
-            <Box p={3} m={2} textAlign="-webkit-center" >
-                <Typography variant="h4" align="center" gutterBottom>Symptoms</Typography>
-                <Typography variant="body2" align="center" gutterBottom>You can minimize your chance of being infected by taking simple precautions.</Typography>
-                <Box>
-                    <img src="/assets/symptoms.png" alt="jhjhj"
-                        style={{
-                            size: "600px",
-                            height: "400px",
-                            width: "900px",
-                            left: "88px",
-                        }} />
+            <Box p={{ sm: 3, xs: 1 }} m={{ xs: 2, sm: 3 }} textAlign="-webkit-center" >
+                <Typography variant="h4" align="center" style={{ fontWeight: 700 }} gutterBottom>Symptoms</Typography>
+                <Typography variant="body1" align="center" gutterBottom>You can minimize your chance of being infected by taking simple precautions.</Typography>
+                <Box m={{ sm: 3, xs: 1 }}>
+                    <Grid container spacing={3} className={classes.container}>
+                        <Grid item xs={12} md={6}>
+                            <img src="/assets/symp.jpg" alt="symp3" className={classes.imgdiv} />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <img src="/assets/symp2.jpg" alt="symp2" className={classes.imgdiv} />
+                        </Grid>
+                    </Grid>
+
                 </Box>
             </Box>
 
-            <Box p={3} m={2} textAlign="-webkit-center" >
-                <Typography variant="h4" align="center" gutterBottom>Prevention</Typography>
-                <Typography variant="body2" align="center" gutterBottom>You can minimize your chance of being infected by taking simple precautions.</Typography>
+            <Box p={{ xs: 1, sm: 3 }} m={{ xs: 1, sm: 3 }} textAlign="-webkit-center" >
+                <Typography variant="h4" align="center" style={{ fontWeight: 700 }} gutterBottom>Prevention</Typography>
+                <Typography variant="body1" align="center" gutterBottom>You can minimize your chance of being infected by taking simple precautions.</Typography>
                 <List className={classes.listStyle}>
                     <ListItem alignItems="flex-start">
                         <ListItemAvatar>
@@ -137,7 +148,7 @@ export default function Guidelines() {
                                     <Typography
                                         component="span"
                                         variant="body2"
-                                        className={classes.inline}
+                                        className='inline'
                                         color="textPrimary"
                                     >
                                         Maintain a safe distance from others, even if they don’t appear to be sick.
@@ -158,7 +169,7 @@ export default function Guidelines() {
                                     <Typography
                                         component="span"
                                         variant="body2"
-                                        className={classes.inline}
+                                        className='inline'
                                         color="textPrimary"
                                     >
                                         Wear a mask in public, especially indoors or when physical distancing is not possible.
@@ -179,7 +190,7 @@ export default function Guidelines() {
                                     <Typography
                                         component="span"
                                         variant="body2"
-                                        className={classes.inline}
+                                        className='inline'
                                         color="textPrimary"
                                     >
                                         Clean your hands often. Use soap and water, or an alcohol-based hand rub.
@@ -200,7 +211,7 @@ export default function Guidelines() {
                                     <Typography
                                         component="span"
                                         variant="body2"
-                                        className={classes.inline}
+                                        className='inline'
                                         color="textPrimary"
                                     >
                                         Get vaccinated when it’s your turn. Follow local guidance about vaccination.
@@ -211,8 +222,8 @@ export default function Guidelines() {
                     </ListItem>
                 </List>
             </Box>
+            <br /><br /><br /><br /><br />
         </React.Fragment>
-
-    )
+    );
 }
 

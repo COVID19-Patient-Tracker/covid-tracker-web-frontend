@@ -91,11 +91,6 @@ const useStyles = makeStyles((theme) => ({
   }));
   const items = [
     { title: 'Hospital A', year: 1994 },
-    { title: 'Hospital B', year: 1972 },
-    { title: 'Hospital C', year: 1974 },
-    { title: 'Hospital D', year: 2008 },
-    { title: 'Hospital E', year: 1957 },
-    { title: "Hospital F", year: 1993 },
   ];
 export default function Dashboard() {
 
@@ -110,7 +105,6 @@ export default function Dashboard() {
                         <MainFeaturedPost post={mainFeaturedPost} />
                 </Grid>
             </Grid>
-
         </Container>
 
         <Container maxWidth="lg" >
@@ -148,7 +142,6 @@ export default function Dashboard() {
                 <Grid item xs={9} sm={4}>
                     <SummaryCards carddata={RECOVERIES}></SummaryCards>
                 </Grid>
-                
             </Grid>
 
             <Typography variant="h6" gutterBottom>Daily Cases Summary</Typography>
@@ -177,10 +170,7 @@ export default function Dashboard() {
                     </Paper>
                 </Grid>
             </Grid>
-            
-            
         </Container>
-
         </div>
     )
 }

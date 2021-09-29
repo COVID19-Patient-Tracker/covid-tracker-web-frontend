@@ -13,7 +13,6 @@ function useProvideAuth(){
     const [currentUser, setCurrentUser] = useState(null);
     
     useEffect(() => {
-        console.log("in useProvideAuth()")
         if(localStorage.getItem(`CPT-user-details`) && localStorage.getItem(`CPT-jwt-token`)){
             setCurrentUser(JSON.parse(localStorage.getItem(`CPT-user-details`)));
         }

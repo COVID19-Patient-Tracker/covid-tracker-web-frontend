@@ -16,12 +16,7 @@ import HosAdminNav from "../components/layout/Navbar/HosAdminNav";
 import HosUserNav from "../components/layout/Navbar/HosUserNav";
 import PublicNav from "../components/layout/Navbar/PublicNav";
 
-<<<<<<< HEAD
-const Login = lazy(() => import("../pages/General/Login"));
-const Signup = lazy(() => import("../pages/General/Signup"));
-=======
 const Login = lazy(() => import("../pages/Login/Login"));
->>>>>>> dev
 const NotFound = lazy(() => import("../pages/InfoPages/NotFound"));
 
 //website

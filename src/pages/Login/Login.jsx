@@ -5,5 +5,4 @@ const Login = () => {
         <SignInForm />
     );
 }
-
 export default Login;

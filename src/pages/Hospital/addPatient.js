@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {makeStyles,  Box, Card, CardHeader, TextField, Button } from '@material-ui/core';
+import {FormControl,makeStyles,  Box, Card, CardHeader, TextField, Button ,InputLabel, MenuItem, Select } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +21,11 @@ const useStyles = makeStyles((theme) => ({
 export default function UserManagement() {
 
     const classes = useStyles();
+    const [usertype, setUserType] = React.useState('');
 
+    const handleChange = (event) => {
+        setUserType(event.target.value);
+    };
     return (
         <div className={classes.root} style={{width:"800px", margin:"20px auto"}}>
             <Card className={classes.cardStyle} variant="outlined" >
@@ -41,20 +45,26 @@ export default function UserManagement() {
                             label="Last Name"
                             variant="outlined"
                             fullWidth
-                            required
                             margin="normal"
                         />
+                        <FormControl fullWidth variant="outlined" className={classes.textAlign}>
+                            <InputLabel id="demo-simple-select-outlined-label">Gender</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined"
+                                value={usertype}
+                                onChange={handleChange}
+                                label="usertype"
+                                required
+                            >
+                                <MenuItem value="Male">Male</MenuItem>
+                                <MenuItem value="Female">Female</MenuItem>
+                                <MenuItem value="Other">Other</MenuItem>
+                            </Select>
+                        </FormControl>
                         <TextField
                             id="nic"
                             label="NIC"
-                            variant="outlined"
-                            fullWidth
-                            required
-                            margin="normal"
-                        />
-                        <TextField
-                            id="email"
-                            label="Email"
                             variant="outlined"
                             fullWidth
                             required

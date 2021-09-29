@@ -5,8 +5,10 @@ import { useLocation } from 'react-router-dom';
 import Spinner from "./Spinner";
 
 import * as routes from "../shared/routes";
+import * as roles from "../shared/roles";
+
 import { ProvideAuth } from "./AuthConext";
-import { PrivateRoute } from "./PrivateRoute";
+import { PrivateRoute } from "./PrivateRoutes/PrivateRoute";
 
 import MohAdminNav from "../components/layout/Navbar/MohAdminNav";
 import MohUserNav from "../components/layout/Navbar/MohUserNav";
@@ -14,8 +16,12 @@ import HosAdminNav from "../components/layout/Navbar/HosAdminNav";
 import HosUserNav from "../components/layout/Navbar/HosUserNav";
 import PublicNav from "../components/layout/Navbar/PublicNav";
 
+<<<<<<< HEAD
 const Login = lazy(() => import("../pages/General/Login"));
 const Signup = lazy(() => import("../pages/General/Signup"));
+=======
+const Login = lazy(() => import("../pages/Login/Login"));
+>>>>>>> dev
 const NotFound = lazy(() => import("../pages/InfoPages/NotFound"));
 
 //website
@@ -96,13 +102,12 @@ const Router = () => {
                 <Switch>
                     {/* general */}
                     <Route exact path={routes.LOGIN} component={Login} />
-                    <Route exact path={routes.SIGNUP} component={Signup} />
 
                     {/* moh-admin */}
 
                     {/* moh-user */}
-                    <Route exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} />
-                    <Route exact path={routes.MOHDASH} component={MOHDash} />
+                    <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/>
+                    <PrivateRoute exact path={routes.MOHDASH} component={MOHDash} AuthorizedUserRoles={[roles.MOH_USER, roles.MOH_ADMIN]}/>
                       
                     {/* hospital-admin */}
                     <Route exact path={routes.HOSDASH} component={HospitalDash} />
@@ -111,7 +116,7 @@ const Router = () => {
 
 
                     {/* hospital-user */}
-                    <Route exact path={routes.HOSUSERDASH} component={HospitalDash} />
+                    <PrivateRoute exact path={routes.HOSUSERDASH} component={HospitalDash} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN,roles.HOSPITAL_USER]}/>
                     <Route exact path={routes.XRAY} component={UploadXray} />
                     <Route exact path={routes.REPODASH} component={PatientManagement}/>
                     <Route exact path={routes.REPO} component={Repo}/>
@@ -133,7 +138,7 @@ const Router = () => {
                     <Route exact path={routes.WEBNEWS} component={WebNews} />
                     <Route exact path={routes.VACCINEPROGRAM} component={VaccineProgram} />
 
-                    <PrivateRoute exact path={routes.PROTECTED} component={PlaceholderForProtectedRoute} />
+                    <PrivateRoute exact path={routes.PROTECTED} component={PlaceholderForProtectedRoute} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]} />
                     <Route component={NotFound} />
                 </Switch>
             </ProvideAuth>

@@ -1,7 +1,6 @@
 //general
 export const LANDING = "/";
 export const LOGIN = "/login";
-export const SIGNUP = "/signup"
 
 //public site
 export const PUBLIC = "/public"
@@ -16,12 +15,12 @@ export const MOHUSERMANAGEMENT = "/moh/user/user-management"
 export const MOHDASH = "/moh/user/dashboard"
 
 //hospital-admin
-export const HOSDASH = "/hospital/admin/dashboard"
+export const HOSDASH = "/hospital/admin/dashboard" // ha
 export const HOSPITALUSERMANAGEMENT = "/hospital/admin/user-management"
 export const HOSPROFILE = "/hospital/admin/hospital-profile"
 
 //hospital-user
-export const HOSUSERDASH = "/hospital/user/dashboard"
+export const HOSUSERDASH = "/hospital/user/dashboard" // hu
 export const XRAY = "/hospital/user/upload-xray"
 export const REPODASH = "/hospital/user/reportDashboard"
 export const ADMITREPO = "/hospital/user/admitReport"
@@ -37,6 +36,8 @@ export const REPOTEST = "/hospital/user/checkResult"
 export const COMPLETEREPORT = "/hospital/user/completeReport"
 export const ADDPATEINT = "/hospital/user/addPatient"
 
+// token validation
+export const VALIDATETOKEN = "/validate/token/jwt"
 
 export const PROTECTED = "/protected" // for testing
 //define the route url here and use it. Easy to change later

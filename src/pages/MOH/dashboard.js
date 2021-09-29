@@ -1,176 +1,121 @@
-import { Container, Grid, Paper, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles';
-import React from 'react'
-import LineTypeChart from '../../components/MOH/dashboard/LineChart';
-import SummaryCards from '../../components/MOH/dashboard/SummaryCard';
+import React from 'react';
 import clsx from 'clsx';
-import MainFeaturedPost from '../../components/MOH/dashboard/WelcomeImage';
-import GroupedSearch from '../../components/MOH/dashboard/ws';
 
-const POSITIVE = {
-    title:"TOTAL POSITIVE CASES",
-    count:9845,
-    card_clr: '#64E3A7',
-}
-const DEATHS = {
-    title:"DEATHS",
-    count:983454,
-    card_clr: "#FFADAD",
-}
-const RECOVERIES = {
-    title:"TOTAL RECOVERIES",
-    count:998345,
-    card_clr: "#A9CDEF",
-}
-const PCR = {
-    title:"TOTAL PCR TESTS",
-    count:9899899,
-    card_clr: '#64E3A7',
-};
+import { makeStyles } from "@material-ui/core";
+import { Grid, Container, Typography, Paper } from '@material-ui/core';
 
-const RAPID = {
-    title:"TOTAL RAPID ANTIGEN TESTS",
-    count:189748,
-    card_clr: "#A9CDEF",
-};
-const D_POSITIVE = {
-    title:"DAILY POSITIVE CASES",
-    count:9845,
-    card_clr: '#64E3A7',
-}
-const D_DEATHS = {
-    title:"DAILY DEATHS",
-    count:983454,
-    card_clr: "#FFADAD",
-}
-const D_RECOVERIES = {
-    title:"DAILY RECOVERIES",
-    count:998345,
-    card_clr: "#A9CDEF",
-}
+import MainFeaturedPost from '../../components/hospital/dashboard/WelcomeImage';
+import LineTypeChart from '../../components/hospital/dashboard/LineChart';
+import SummaryCard from '../../components/hospital/dashboard/SummaryCard';
 
 const mainFeaturedPost = {
-    title: 'Hello, User',
+    title: 'Welcome to National Hospital - Colombo',
     description:
         "12th September, 2021 01.12 PM",
-    image: '/assets/moh0.jpg',
+    image: '/assets/dash-cover.jpg',
     imgText: 'main image description',
 };
 
+const sumCard1 = {
+    title: 'Total Patients in the Hospital',
+    count: "12534",
+    card_clr: '#64E3A7',
+};
+
+const sumCard2 = {
+    title: 'Total Patients Admitted Today',
+    count: "12534",
+    card_clr: "#A9CDEF",
+};
+
+const sumCard3 = {
+    title: 'CONFIRMED CASES',
+    count: "7622",
+    card_clr: '#64E3A7',
+};
+
+const sumCard4 = {
+    title: 'DEATHS',
+    count: "125",
+    card_clr: "#FFADAD",
+};
+
+const sumCard5 = {
+    title: 'RECOVERED',
+    count: "6533",
+    card_clr: "#A9CDEF",
+};
 
 const useStyles = makeStyles((theme) => ({
-
     root: {
-      flexGrow: 1,
+        padding: theme.spacing(3),
     },
-
+    container: {
+        paddingTop: theme.spacing(3),
+        paddingBottom: theme.spacing(3),
+    },
     paper: {
         padding: theme.spacing(2),
         display: 'flex',
         overflow: 'auto',
         flexDirection: 'column',
     },
-    greeting:{
-    },
-    title:{
-        height:"140px",
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center"
-    },
-
-    grid_box:{
-        paddingTop: theme.spacing(3),
-        paddingBottom: theme.spacing(3),
-    },
-
     fixedHeight: {
         height: 240,
     },
+}));
 
-  }));
-  const items = [
-    { title: 'Hospital A', year: 1994 },
-  ];
-export default function Dashboard() {
+export default function UserManagement() {
 
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     return (
         <div className={classes.root}>
-        <Container className={classes.grid_box} maxWidth="xl" >
-            <Grid  container spacing={3}>
-                <Grid item xs={12}>
-                        <MainFeaturedPost post={mainFeaturedPost} />
+            <MainFeaturedPost post={mainFeaturedPost} />
+            <Container maxWidth="lg" className={classes.container}>
+                <Typography variant="h6" gutterBottom>General-Summary</Typography>
+                <Typography variant="subtitle2" gutterBottom>Last Updated On: 12.09.2021 13:23:56</Typography>
+                <Grid container spacing={3} className={classes.container}>
+                    {/* First two cards */}
+                    <Grid item xs={12} md={6} lg={6}>
+                        <SummaryCard carddata={sumCard1} />
+                    </Grid>
+                    <Grid item xs={12} md={6} lg={6}>
+                        <SummaryCard carddata={sumCard2} />
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Container>
 
-        <Container maxWidth="lg" >
-            <GroupedSearch items = {items}/>
+                <Typography variant="h6" gutterBottom>Covid-Summary</Typography>
+                <Typography variant="subtitle2" gutterBottom>Last Updated On: 12.09.2021 13:23:56</Typography>
 
-            <Typography variant="h6" gutterBottom>Test Summary</Typography>
-            <Typography variant="subtitle2" gutterBottom>Last Updated On: 12.09.2021 13:23:56</Typography>
+                <Grid container spacing={2} className={classes.container}>
+                    {/* Covid data cards */}
+                    <Grid item xs={12} md={4}>
+                        <SummaryCard carddata={sumCard3} />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <SummaryCard carddata={sumCard4} />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <SummaryCard carddata={sumCard5} />
+                    </Grid>
 
-            <Grid justifyContent = 'space-around' className={classes.grid_box} container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                    <SummaryCards carddata={PCR}></SummaryCards>
+                    {/* Chart */}
+                    <Grid item xs={12} md={6} lg={8}>
+                        <Paper className={fixedHeightPaper}>
+                            <LineTypeChart />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={6} lg={4}>
+                        <Paper className={fixedHeightPaper}>
+                            <LineTypeChart />
+                        </Paper>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6}>                    
-                    <SummaryCards carddata={RAPID}></SummaryCards>
-                </Grid>
-                {/* Chart */}
-                <Grid  item xs={12} md={6} >
-                    <Paper className={fixedHeightPaper}>
-                        <LineTypeChart />
-                    </Paper>
-                </Grid>
-            </Grid>
 
-            
-            <Typography variant="h6" gutterBottom>Covid Summary</Typography>
-            <Typography variant="subtitle2" gutterBottom>Last Updated On: 12.09.2021 13:23:56</Typography>
-
-            <Grid justifyContent = 'space-around' className={classes.grid_box} container spacing={3}>
-                <Grid item xs={9} sm={4}>
-                    <SummaryCards carddata={POSITIVE}></SummaryCards>
-                </Grid>
-                <Grid item xs={9} sm={4}>
-                    <SummaryCards carddata={DEATHS}></SummaryCards>
-                </Grid>
-                <Grid item xs={9} sm={4}>
-                    <SummaryCards carddata={RECOVERIES}></SummaryCards>
-                </Grid>
-            </Grid>
-
-            <Typography variant="h6" gutterBottom>Daily Cases Summary</Typography>
-            <Typography variant="subtitle2" gutterBottom>Last Updated On: 12.09.2021 13:23:56</Typography>
-
-            <Grid justifyContent = 'space-around' className={classes.grid_box} container spacing={3}>
-                <Grid item xs={9} sm={4}>
-                    <SummaryCards carddata={D_POSITIVE}></SummaryCards>
-                </Grid>
-                <Grid item xs={9} sm={4}>
-                    <SummaryCards carddata={D_DEATHS}></SummaryCards>
-                </Grid>
-                <Grid item xs={9} sm={4}>
-                    <SummaryCards carddata={D_RECOVERIES}></SummaryCards>
-                </Grid>
-                {/* Chart */}
-                <Grid item xs={12} md={6} >
-                    <Paper className={fixedHeightPaper}>
-                        <LineTypeChart />
-                    </Paper>
-                </Grid>
-                {/* Chart */}
-                <Grid item xs={12} md={6} >
-                    <Paper className={fixedHeightPaper}>
-                        <LineTypeChart />
-                    </Paper>
-                </Grid>
-            </Grid>
-        </Container>
+            </Container>
         </div>
     )
 }
+

@@ -33,6 +33,7 @@ export const REPOHOS = "/hospital/user/checkHospital"
 export const REPOWARD = "/hospital/user/checkWard"
 export const REPOTEST = "/hospital/user/checkResult"
 export const COMPLETEREPORT = "/hospital/user/completeReport"
+export const SEARCHPATIENT = "/hospital/user/searchpatient"
 export const ADDPATEINT = "/hospital/user/addPatient"
 
 // token validation

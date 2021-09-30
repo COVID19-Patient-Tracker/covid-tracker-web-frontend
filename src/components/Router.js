@@ -46,6 +46,7 @@ const Test = lazy(() => import("../pages/Hospital/Reports/PCR_Antigen_Results/pc
 const WardTrans = lazy(() => import("../pages/Hospital/Reports/Ward_Transfer/ward_transfer_main"));
 const CompleteReport = lazy(() => import("../pages/Hospital/update_patient_detal"));
 const AddPatient = lazy(() => import("../pages/Hospital/addPatient"));
+const SearchPatient = lazy(() => import("../pages/Hospital/searchPatient"));
 
 function PlaceholderForProtectedRoute() {
     return (
@@ -99,16 +100,18 @@ const Router = () => {
                     {/* moh-admin */}
 
                     {/* moh-user */}
-                    <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/>
-                    <PrivateRoute exact path={routes.MOHDASH} component={MOHDash} AuthorizedUserRoles={[roles.MOH_USER, roles.MOH_ADMIN]}/>
-                      
+                    {/* <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/> */}
+                    {/* <PrivateRoute exact path={routes.MOHDASH} component={MOHDash} AuthorizedUserRoles={[roles.MOH_USER, roles.MOH_ADMIN]}/> */}
+                    <Route exact path={routes.MOHDASH} component={MOHDash} />
+                    <Route exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} />  
                     {/* hospital-admin */}
                     <Route exact path={routes.HOSDASH} component={HospitalDash} />
                     <Route exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} />
 
 
                     {/* hospital-user */}
-                    <PrivateRoute exact path={routes.HOSUSERDASH} component={HospitalDash} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN,roles.HOSPITAL_USER]}/>
+                    {/* <PrivateRoute exact path={routes.HOSUSERDASH} component={HospitalDash} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN,roles.HOSPITAL_USER]}/> */}
+                    <Route exact path={routes.HOSUSERDASH} component={HospitalDash} />
                     <Route exact path={routes.XRAY} component={UploadXray} />
                     <Route exact path={routes.REPODASH} component={PatientManagement}/>
                     <Route exact path={routes.REPO} component={Repo}/>
@@ -122,6 +125,7 @@ const Router = () => {
                     <Route exact path={routes.TEST} component={Test}/>
                     <Route exact path={routes.WARDTRANS} component={WardTrans}/>
                     <Route exact path={routes.COMPLETEREPORT} component={CompleteReport}/>
+                    <Route exact path={routes.SEARCHPATIENT} component={SearchPatient} />
                     <Route exact path={routes.ADDPATEINT} component={AddPatient}/>
 
                     {/* website */}

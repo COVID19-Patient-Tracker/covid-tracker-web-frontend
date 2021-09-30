@@ -44,7 +44,7 @@ export default function HosUserNav() {
                         <NavLink to="/hospital/user/addPatient" style={{marginLeft:'-3rem'}}>
                             ADD PATIENT
                         </NavLink>
-                        <NavLink to="/hospital/user/completeReport" style={{marginLeft:'-3rem'}}>
+                        <NavLink to="/hospital/user/searchpatient" style={{marginLeft:'-3rem'}}>
                             SEARCH PATIENT
                         </NavLink>
                         <NavLink to="/hospital/user/reportDashboard" style={{marginLeft:'-3rem'}}>

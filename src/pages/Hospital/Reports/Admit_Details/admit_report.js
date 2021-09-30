@@ -15,7 +15,7 @@ const AdmitRepo =() =>{
     const [age, setage] = useState('');
 
     return (
-        <div>
+        <div style={{ margin:'0px 20px'}}>
             <h2>Update admitted patient details</h2>
             <form>
                 <label>First name:</label>

@@ -3,9 +3,8 @@ import "./../../components/css/table.css"
 import "./../../components/css/forms.css"
 import data from "./mock-data -id.json";
 import './history';
-
+import {Card } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-//import ReadOnlyRow from "./components/ReadOnlyRowMain";
 
 const ReadOnlyRow = ({ newresult}) => {
   const history = useHistory();
@@ -26,7 +25,7 @@ const ReadOnlyRow = ({ newresult}) => {
   );
 };
 
-const WardTransfer = () => {
+const HospitalTransfer = () => {
   const [results] = useState(data);
   const [search, setSearch] = useState('');
   
@@ -36,10 +35,11 @@ const WardTransfer = () => {
   });
 
   return (
-    <div className="create">
+    <div className="create" style={{ margin:"150px auto"}}>
+    <Card variant="outlined" >
     <div className="app-container">
       <h2>Update patient hospital transfer</h2>
-      <input type="text" placeholder="search" onChange={ e => setSearch(e.target.value)}/>
+      <input type="text" placeholder="Search..." onChange={ e => setSearch(e.target.value)}/>
       <form>
         <table>
           <thead>
@@ -57,8 +57,9 @@ const WardTransfer = () => {
         </table>
       </form>
     </div>
+    </Card>
     </div>
   );
 };
 
-export default WardTransfer;
+export default HospitalTransfer;

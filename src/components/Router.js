@@ -30,6 +30,10 @@ const MOHUserManagement = lazy(() => import("../pages/MOH/user-management"));
 const MOHDash = lazy(() => import("../pages/MOH/dashboard"));
 const MOHHospitalManagement = lazy(() => import("../pages/MOH/hospital-management"));
 
+// moh admin
+const MOHAdminUserManagement = lazy(() => import("../pages/MOH/admin-user-management"));
+const MOHAdminDash = lazy(() => import("../pages/MOH/dashboard"));
+
 //hospital Admin
 const HospitalUserManagement = lazy(() => import("../pages/Hospital/Admin/user-management"));
 const HospitalAdminDash = lazy(() => import("../pages/Hospital/Admin/hospitalAdminDash"));
@@ -103,7 +107,8 @@ const Router = () => {
                     <Route exact path={routes.LOGIN} component={Login} />
 
                     {/* moh-admin */}
-
+                    <Route exact path={routes.MOHADMINDASH} component={MOHAdminDash} />
+                    <Route exact path={routes.MOHADMINMANAGEMENT} component={MOHAdminUserManagement} />
                     {/* moh-user */}
                     {/* <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/> */}
                     {/* <PrivateRoute exact path={routes.MOHDASH} component={MOHDash} AuthorizedUserRoles={[roles.MOH_USER, roles.MOH_ADMIN]}/> */}

@@ -10,6 +10,9 @@ export const WEBNEWS = "/public/news"
 export const VACCINEPROGRAM = "/public/vaccine-program"
 
 //moh-admin
+export const MOHADMINMANAGEMENT = "/moh/admin/user-management"
+export const MOHADMINDASH = "/moh/admin/dashboard"
+
 //moh-user
 export const MOHUSERMANAGEMENT = "/moh/user/user-management"
 export const MOHDASH = "/moh/user/dashboard"

@@ -5,12 +5,12 @@ const gradient = degs => css`
     background: 
         linear-gradient(
             ${degs || 130}deg,
-            #59cec4 0%,
+            #59c0ce 0%,
             #59a7a0 100%
         )
 `;
 
-export const Card = styled.div`
+export const Cardrepo = styled.div`
     position: relative;
     overflow: hidden;
     width: 300px;

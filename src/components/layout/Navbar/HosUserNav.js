@@ -40,16 +40,16 @@ export default function HosUserNav() {
                         <NavLink to="/hospital/user/dashboard" style={{marginLeft:'10rem'}}>
                             DASHBOARD
                         </NavLink>
-                        <NavLink to="/hospital/user/addPatient" style={{marginLeft:'-3rem'}}>
+                        <NavLink to="/hospital/user/addPatient" style={{marginLeft:'-4rem'}}>
                             ADD PATIENT
                         </NavLink>
-                        <NavLink to="/hospital/user/completeReport" style={{marginLeft:'-3rem'}}>
+                        <NavLink to="/hospital/user/searchpatient" style={{marginLeft:'-4rem'}}>
                             SEARCH PATIENT
                         </NavLink>
-                        <NavLink to="/hospital/user/reportDashboard" style={{marginLeft:'-3rem'}}>
+                        <NavLink to="/hospital/user/reportDashboard" style={{marginLeft:'-4rem'}}>
                             PATEINT REPORT MANAGEMENT
                         </NavLink>
-                        <NavLink to="/hospital/user/upload-xray" style={{marginLeft:'-3rem'}}>
+                        <NavLink to="/hospital/user/upload-xray" style={{marginLeft:'-4rem'}}>
                             UPLOAD X-RAY
                         </NavLink>
                         <Avatar className={classes.avat} variant="circular" src="/broken-image.jpg"  style={{marginLeft:'30px'}}/>

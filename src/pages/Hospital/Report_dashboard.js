@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, Content, Icon, PlanTitle} from './patientcard.Css.js'
+import {Cardrepo, Content, Icon, PlanTitle} from './patientcard.Css.js'
 import "../../components/icofont.min.css"
 import "../../components/css/forms.css"
 
@@ -11,7 +11,8 @@ import '../../components/css/search.css';
 
 function App(){
   	return (
-		<section >
+          
+		<section style={{ margin:"150px auto"}}>
     		<h1 className="h2text">Reports</h1>
 			<div className = 'cards'>
 				<PatientCard/>
@@ -30,12 +31,12 @@ const PatientCard = () => {
     const handleClick = () => history.push('/hospital/user/checkReport');
     return (
         <div style={{marginTop:"5%", marginLeft:"5%"}}>
-            <Card onClick={handleClick}>
+            <Cardrepo onClick={handleClick}>
                 <Content>
                     <Icon className="icofont-paper"/>
                         <PlanTitle>Update admitted patient record</PlanTitle>
                 </Content>
-            </Card>
+            </Cardrepo>
         </div>
     ) 
 }
@@ -45,12 +46,12 @@ const PatientCard1 = () => {
     const handleClick = () => history.push('/hospital/user/checkResult');
     return (
         <div style={{marginTop:"5%", marginLeft:"5%"}}>
-            <Card onClick={handleClick}>
+            <Cardrepo onClick={handleClick}>
                 <Content>
                     <Icon className="icofont-injection-syringe"/>
                         <PlanTitle>Record PCR antigen test results</PlanTitle>
                 </Content>
-            </Card>
+            </Cardrepo>
         </div>
     )
 }
@@ -60,12 +61,12 @@ const PatientCard2 = () => {
     const handleClick = () => history.push('/hospital/user/checkStatus');
     return (
         <div style={{marginTop:"5%", marginLeft:"5%"}}>
-            <Card onClick={handleClick}>
+            <Cardrepo onClick={handleClick}>
                 <Content>
                     <Icon className="icofont-icu"/>
                         <PlanTitle>Record patient’s current status</PlanTitle>
                 </Content>
-            </Card>
+            </Cardrepo>
         </div>
     )
 }
@@ -75,12 +76,12 @@ const PatientCard3 = () => {
     const handleClick = () => history.push('/hospital/user/checkWard');
     return (
         <div style={{marginTop:"5%", marginLeft:"5%"}}>
-            <Card onClick={handleClick}>
+            <Cardrepo onClick={handleClick}>
                 <Content>
                     <Icon className="icofont-patient-bed"/>
                         <PlanTitle>Update patient ward transfer</PlanTitle>
                 </Content>
-            </Card>
+            </Cardrepo>
         </div>
     )
 }
@@ -90,12 +91,12 @@ const PatientCard4 = () => {
     const handleClick = () => history.push('/hospital/user/checkHospital');
     return (
         <div style={{marginTop:"5%", marginLeft:"5%"}}>
-            <Card onClick={handleClick}>
+            <Cardrepo onClick={handleClick}>
                 <Content>
                     <Icon className="icofont-hospital"/>
                         <PlanTitle>Update patient hospital transfer</PlanTitle>
                 </Content>
-            </Card>
+            </Cardrepo>
         </div>
     )
 }

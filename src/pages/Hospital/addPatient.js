@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import {MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 import {FormControl,makeStyles,  Box, Card, CardHeader, TextField, Button ,InputLabel, MenuItem, Select } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
@@ -24,72 +25,99 @@ export default function UserManagement() {
 
     const classes = useStyles();
     const [usertype, setUserType] = React.useState('');
-    const [startDate, setStartDate] = useState(null);
+    const [usergendertype, setUserGenderType] = React.useState('');
+    const [selectedDate, setSelectedDate] = useState(null);
+    const handleDateChange = (date) => {
+        console.log(date);
+        setSelectedDate(date);
+    };
+
     const handleChange = (event) => {
         setUserType(event.target.value);
     };
+    const handleGenderChange = (event) => {
+        setUserGenderType(event.target.value);
+    };
     return (
-        <div className={classes.root} style={{width:"800px", margin:"20px auto"}}>
+         
+        <div className={classes.root} style={{width:"800px", margin:"120px auto"}}>
+           
             <Card className={classes.cardStyle} variant="outlined" >
                 <CardHeader title="Add Patient" subheader="Add new patient to the system" />
                 <Box p={2} textAlign="center" >
                     <form autoComplete="off">
                         <TextField
                             id="first-name"
-                            label="First Name"
-                            variant="outlined"
+                            label="First Name"                           
                             fullWidth
+                            variant="outlined"
                             required
                             margin="normal"
                         />
                         <TextField
                             id="last-name"
                             label="Last Name"
-                            variant="outlined"
                             fullWidth
+                            variant="outlined"
                             margin="normal"
                         />
-                       <DatePicker selected={startDate} 
-                    onChange={(date) => setStartDate(date)}
-                    dateFormat= 'dd/MM/yyyy'
-                    maxDate= {new Date()}
-                    showYearDropdown
-                    scrollableYearDropdown />
-
+                        <br/><br/>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <KeyboardDatePicker
+                                label="Date of birth"
+                                format="dd/MM/yyyy"
+                                value={selectedDate}
+                                fullWidth
+                                inputVariant="outlined"
+                                required
+                                maxDate={new Date()}
+                                onChange={handleDateChange}
+                            /> 
+                        </MuiPickersUtilsProvider>
+                        <TextField
+                            id="age"
+                            label="Age"                           
+                            fullWidth
+                            variant="outlined"
+                            InputProps={{ inputProps: { min: 0 } }}
+                            type="number"
+                            required
+                            margin="normal"
+                        />
                         <TextField
                             id="nic"
                             label="NIC"
-                            variant="outlined"
                             fullWidth
+                            variant="outlined"
                             required
                             margin="normal"
                         />
                         <TextField
                             id="phonenum"
                             label="Phone number"
-                            variant="outlined"
                             fullWidth
+                            variant="outlined"
                             required
                             margin="normal"
                         />
                         <TextField
                             id="address"
                             label="Address"
-                            variant="outlined"
                             fullWidth
+                            variant="outlined"
                             required
                             margin="normal"
                         />
                         <br/><br/>
-                        <FormControl fullWidth variant="outlined" className={classes.textAlign}>
+                        <FormControl fullWidth required variant="outlined" className={classes.textAlign}>
                             <InputLabel id="demo-simple-select-outlined-label">Gender</InputLabel>
                             <Select
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
-                                value={usertype}
-                                onChange={handleChange}
+                                value={usergendertype}
+                                onChange={handleGenderChange}
                                 label="usertype"
-                                required
+                                
                             >
                                 <MenuItem value="Male">Male</MenuItem>
                                 <MenuItem value="Female">Female</MenuItem>
@@ -98,7 +126,7 @@ export default function UserManagement() {
                         </FormControl>
                         <br/><br/>
 
-                        <FormControl fullWidth variant="outlined" className={classes.textAlign}>
+                        <FormControl fullWidth required variant="outlined" className={classes.textAlign}>
                             <InputLabel id="demo-simple-select-outlined-label">Adult or child</InputLabel>
                             <Select
                                 labelId="demo-simple-select-outlined-label"
@@ -106,7 +134,7 @@ export default function UserManagement() {
                                 value={usertype}
                                 onChange={handleChange}
                                 label="usertype"
-                                required
+                                
                             >
                                 <MenuItem value="Adult">Adult</MenuItem>
                                 <MenuItem value="Child">Child</MenuItem>
@@ -115,17 +143,22 @@ export default function UserManagement() {
                         
                         <br/><br/>
                         <Button
+                            style={{
+                                borderRadius: "90px",
+                                backgroundColor: "#0b99d1",
+                                padding: "10px 20px",
+                                color:"rgb(255, 255, 255)",
+                                margin: "0 auto",
+                                fontSize: "15px"
+                            }}
                             type="submit"
                             variant="contained"
-                            color="primary"
                             startIcon={<SaveIcon />}
-                        >
-                            SAVE USER
+                        >SAVE USER
                         </Button>
                     </form>
                 </Box>
             </Card>
-                
         </div>
     )
 }

@@ -13,6 +13,7 @@ export const VACCINEPROGRAM = "/public/vaccine-program"
 //moh-user
 export const MOHUSERMANAGEMENT = "/moh/user/user-management"
 export const MOHDASH = "/moh/user/dashboard"
+export const MOHHOSPITALMANAGEMENT = "/moh/user/hospital-management"
 
 //hospital-admin
 export const HOSDASH = "/hospital/admin/dashboard" // ha

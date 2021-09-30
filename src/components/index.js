@@ -6,3 +6,6 @@ export { default as CardsTotal } from './Cards/CardsTotal';
 
 export { default as CardsHospitalUser } from './Cards/CardsHospitalUser';
 export { default as ChartHospitalUser } from './Chart/ChartHospitalUser';
+
+export { default as CardsMOHUser } from './Cards/CardsMOHUser';
+export { default as ChartMOHUser } from './Chart/ChartMOHUser';

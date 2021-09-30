@@ -1,14 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Fab, AppBar, Button, Toolbar, Typography, Link } from '@material-ui/core';
+import { Toolbar } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { NavLink, NavMenu ,Nav, NavBtn, NavBtnLink} from '../../Navigation/NavebarElement';
 import logo from '../../img/logo7.png'
 import Navbars from '../../Navigation/Navbar';
+
 const useStyles = makeStyles((theme) => ({
     appBar: {
         borderBottom: `1px solid ${theme.palette.divider}`,

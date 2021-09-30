@@ -3,7 +3,6 @@
   margin: 100px auto;
   text-align: center;
   padding: 20px 30px;
-  background: rgb(189, 236, 232);
 }
 
 .create label {
@@ -37,7 +36,7 @@
 }
 
 .create button {
-  background: rgb(4, 119, 155);
+  background: #0b99d1;
   color: white;
   border: 0;
   padding: 8px;

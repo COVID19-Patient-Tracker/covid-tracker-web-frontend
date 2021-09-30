@@ -7,9 +7,8 @@ import AddIcon from '@material-ui/icons/Add';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia'
-import { postRequest } from '../../api/utils';
 import { Alert } from '@material-ui/lab';
-
+import axios from "axios"
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(3),
@@ -35,25 +34,20 @@ export default function UserManagement() {
     const [message, setMessage] = useState("success");
     const [level, setLevel] = useState("success");
 
-
     const handleClose = (event, reason) => {
-
         if (reason === 'clickaway') {
           return;
         }
-    
         setSnackBarOpen(false);
-
       };
 
     const handleViewResult = () => {
-
         if(selectFile.current){
-            
             const formData = new FormData()
             formData.append('image', selectFile.current)
             setProgrssBar(true)
-            postRequest("https://pneumonia-prediction-sep.herokuapp.com/predict",formData)
+
+            axios.post("https://pneumonia-prediction-sep.herokuapp.com/predict",formData)
             .then((result) => {
                 console.log(result);
                 const normalAcc = parseFloat(result.data.normal);
@@ -106,6 +100,7 @@ export default function UserManagement() {
             else{
                 setMessage("Invalid Image Format")
                 setLevel("error")
+                setSnackBarOpen(true)
                 setisImageValid(false)
                 selectFile.current = null
             }
@@ -115,9 +110,12 @@ export default function UserManagement() {
 
 
     return (
-        <Box p={2}>
+        
+        <Box p={2} style={{ margin:"150px auto"}}>
             <Typography variant="h5" align="center">Upload X-RAY</Typography>
-            <Typography variant="body1" align="center">*Upload a clear image of the patients X-Ray with a good resolution.</Typography>
+            <Typography variant="body1" align="center">
+                *Upload a clear image of the patients X-Ray with a good resolution. (Accepted File Formats: png,jpeg,jpg)
+                </Typography>
             
             <Box textAlign="center" pt={5}
             sx={{
@@ -146,17 +144,24 @@ export default function UserManagement() {
                         <AddIcon /> Add xray Image
                     </Fab>
                 </label>
-                
+                <br/>
                 <Button
+                    style={{
+                        borderRadius: "90px",
+                        backgroundColor: "#0b99d1",
+                        padding: "10px 20px",
+                        color:"rgb(255, 255, 255)",
+                        margin: "0 auto",
+                        fontSize: "15px"
+                    }}
                     variant="contained"
-                    color="primary"
                     className={classes.button}
                     onClick={handleViewResult}
                     startIcon={<CloudUploadIcon />}
                 >
                     Upload
                 </Button>
-                    
+                <br/>    
                 {
                     isImageValid && 
                     <Grow

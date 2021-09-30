@@ -1,12 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import { Toolbar } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
+import { NavLink, NavMenu ,Nav} from '../../Navigation/NavebarElement';
+import logo from '../../img/logo7.png'
+import {NavbarsMOHAdmin} from '../../Navigation/Navbar';
+import AccountMenu from './Avatar';
 const useStyles = makeStyles((theme) => ({
     appBar: {
         borderBottom: `1px solid ${theme.palette.divider}`,
@@ -29,31 +28,29 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function MohAdminNav() {
+export default function MohUserNav() {
     const classes = useStyles();
 
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+            <Nav >
                 <Toolbar className={classes.toolbar}>
-                    <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-                        COVID-SAFE
-                    </Typography>
-                    <nav className={classes.navStyle}>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+                    <img src={logo} alt="" style={{width:'10rem'}}/>
+                    <NavMenu  >
+                        <NavLink to="/moh/admin/dashboard" style={{marginLeft:'43rem'}}>
                             DASHBOARD
-                        </Link>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+                        </NavLink>
+                        <NavLink to="/moh/admin/user-management" style={{marginLeft:'-4rem'}}>
                             USER MANAGEMENT
-                        </Link>
-                    </nav>
-                    {/* <Button href="#" color="primary" variant="contained" className={classes.link}>
-                        Login
-                    </Button> */}
-                    <Avatar className={classes.avat} variant="circle" src="/broken-image.jpg" />
+                        </NavLink>
+                        <AccountMenu/>
+                    </NavMenu>
+                    
+                    <NavbarsMOHAdmin/>
                 </Toolbar>
-            </AppBar>
+            </Nav>
         </React.Fragment>
+        
     );
 }

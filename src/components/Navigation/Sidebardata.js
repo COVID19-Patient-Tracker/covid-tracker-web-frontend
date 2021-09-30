@@ -1,4 +1,3 @@
-
 export const SidebarData = [
   {
     title: 'COVID-STAT',
@@ -20,4 +19,9 @@ export const SidebarData = [
     path: '/public/news',
     cName: 'nav-text'
   },
+  {
+    title: 'Login',
+    path: '/login',
+    cName: 'nav-text'
+  }
 ];

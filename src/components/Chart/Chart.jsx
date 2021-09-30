@@ -1,8 +1,6 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
-
-
 import styles from './Chart.module.css';
 
 const Chart = ({ data: { local_new_cases, local_new_deaths} }) => {

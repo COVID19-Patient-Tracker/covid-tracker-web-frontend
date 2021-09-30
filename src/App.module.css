@@ -7,3 +7,17 @@ body {
   align-items: center;
   flex-direction: column;
 }
+
+.user_container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: -15%;
+}
+
+.moh_user_container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 15%;
+}

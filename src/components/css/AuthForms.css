@@ -4,7 +4,6 @@
   margin: 0;
   padding: 0;
   color: rgb(0, 0, 0);
-  background-color: #a9cdef;
   transform: matrix(0, 0, 0, 0);
   display: flex;
   font-family: monospace;
@@ -13,11 +12,10 @@
 
 .login__banner {
   position: relative;
-  font-family: Crimson Text;
   font-style: normal;
   font-weight: normal;
-  font-size: 84px;
-  line-height: 84px;
+  font-size: 70px;
+  margin-top: -5%;
   text-align: center;
   letter-spacing: 0.155em;
   color: #000000;
@@ -25,11 +23,26 @@
 
 .left__box {
   height: 100%;
-  background: aliceblue;
+  background: rgb(250, 250, 250);
   width: 40%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
+}
+.left_image {
+  display: flex;
+  size: 100%;
+  height: 500px;
+  left: 88px;
+  margin-top: -5%;
+  position: absolute;
+}
+
+.left_color_back {
+  size: 100%;
+  height: 700px;
+  left: 88px;
+  display: flex;
 }
 
 .right_box {
@@ -38,6 +51,12 @@
   justify-content: center;
   display: flex;
   flex-direction: column;
+}
+
+.profile_image {
+  width: 200px;
+  height: 175px;
+  margin: 50px auto;
 }
 
 input {
@@ -69,12 +88,12 @@ input[type="submit"] {
   margin: 8px 0;
   box-sizing: border-box;
   border-radius: 90px;
-  background: #000000;
+  background: #0b99d1;
   width: 75%;
   max-width: 150px;
   font-family: monospace;
   border: 0;
-  color: rgb(116, 135, 151);
+  color: rgb(255, 255, 255);
   text-transform: uppercase;
   font-weight: 800 !important;
   font-size: 23px;
@@ -95,19 +114,18 @@ label {
 input[type="checkbox" i]::before {
   position: relative;
   display: block;
-  width: 11px;
-  height: 11px;
+  width: 20px;
+  height: 20px;
   content: "";
-  background: #a9cdef;
+  background: #87d3eb;
 }
 
 input[type="checkbox" i]::after {
   position: relative;
   display: block;
-  left: 2px;
-  top: -11px;
-  width: 7px;
-  height: 7px;
+  top: -20px;
+  width: 20px;
+  height: 20px;
   border-width: 1px;
   border-style: solid;
   border-color: black;
@@ -193,8 +211,14 @@ form {
   .right_box {
     justify-content: center;
   }
+  .left_image {
+    display: none;
+  }
+  .left_color_back {
+    display: none;
+  }
   .form__wrapper {
-    background: #a9cdef;
+    background: #ffffff;
   }
   input[type="password"],
   input[type="text"] {

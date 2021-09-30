@@ -47,6 +47,7 @@ export default function UserManagement() {
             const formData = new FormData()
             formData.append('image', selectFile.current)
             setProgrssBar(true)
+
             axios.post("https://pneumonia-prediction-sep.herokuapp.com/predict",formData)
             .then((result) => {
                 console.log(result);
@@ -100,6 +101,7 @@ export default function UserManagement() {
             else{
                 setMessage("Invalid Image Format")
                 setLevel("error")
+                setSnackBarOpen(true)
                 setisImageValid(false)
                 selectFile.current = null
             }
@@ -111,7 +113,9 @@ export default function UserManagement() {
     return (
         <Box p={2}>
             <Typography variant="h5" align="center">Upload X-RAY</Typography>
-            <Typography variant="body1" align="center">*Upload a clear image of the patients X-Ray with a good resolution.</Typography>
+            <Typography variant="body1" align="center">
+                *Upload a clear image of the patients X-Ray with a good resolution. (Accepted File Formats: png,jpeg,jpg)
+                </Typography>
             
             <Box textAlign="center" pt={5}
             sx={{

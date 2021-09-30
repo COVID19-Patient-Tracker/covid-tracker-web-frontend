@@ -5,7 +5,7 @@ import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import {FormControl,makeStyles,  Box, Card, CardHeader, TextField, Button ,InputLabel, MenuItem, Select } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
-
+import '../../components/css/home.css'
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(3),
@@ -39,8 +39,9 @@ export default function UserManagement() {
         setUserGenderType(event.target.value);
     };
     return (
-         
-        <div className={classes.root} style={{width:"800px", margin:"120px auto"}}>
+        
+
+        <div className='addpatient'>
            
             <Card className={classes.cardStyle} variant="outlined" >
                 <CardHeader title="Add Patient" subheader="Add new patient to the system" />

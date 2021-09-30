@@ -110,7 +110,8 @@ export default function UserManagement() {
 
 
     return (
-        <Box p={2}>
+        
+        <Box p={2} style={{ margin:"150px auto"}}>
             <Typography variant="h5" align="center">Upload X-RAY</Typography>
             <Typography variant="body1" align="center">
                 *Upload a clear image of the patients X-Ray with a good resolution. (Accepted File Formats: png,jpeg,jpg)
@@ -143,17 +144,24 @@ export default function UserManagement() {
                         <AddIcon /> Add xray Image
                     </Fab>
                 </label>
-                
+                <br/>
                 <Button
+                    style={{
+                        borderRadius: "90px",
+                        backgroundColor: "#0b99d1",
+                        padding: "10px 20px",
+                        color:"rgb(255, 255, 255)",
+                        margin: "0 auto",
+                        fontSize: "15px"
+                    }}
                     variant="contained"
-                    color="primary"
                     className={classes.button}
                     onClick={handleViewResult}
                     startIcon={<CloudUploadIcon />}
                 >
                     Upload
                 </Button>
-                    
+                <br/>    
                 {
                     isImageValid && 
                     <Grow

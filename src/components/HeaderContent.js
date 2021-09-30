@@ -78,7 +78,7 @@ export const HeaderContentHospitalUser =() => {
             <div className="right-content">
                 <div className="right-text-container">
                 <h1>Welcome to National Hospital - Colombo</h1>
-                    <p className="black">"12th September, 2021 01.12 PM"</p>
+                    <p className="black">{new Date().toDateString()} {new Date().toLocaleTimeString()}</p>
                 </div>    
             </div> 
         </HeaderContentUserStyled>
@@ -154,19 +154,18 @@ const HeaderContentUserStyled = styled.div`
         align-items: center;
         margin: 0 auto;
         justify-items:center;
-        
         padding-left: 5rem;
         .black{
             color:black;
-            font-size: 1.5rem;
-            padding-left: 6rem;
+            font-size: 1rem;
+            padding-left: 2rem;
         }
         h1{
             font-size: 3rem;
             font-weight: 600;
             justify-content: center;
             @media screen and (max-width: 768px){
-                font-size: 1.5rem;
+                font-size: 1rem;
             }
         }
 

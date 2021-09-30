@@ -5,7 +5,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
 import { NavLink, NavMenu ,Nav} from '../../Navigation/NavebarElement';
 import logo from '../../img/logo7.png'
-import {Navbars} from '../../Navigation/Navbar';
+
+import {NavbarsHospitalUser} from '../../Navigation/Navbar';
+
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -48,7 +50,7 @@ export default function HosUserNav() {
                         <Avatar className={classes.avat} variant="circular" src="/broken-image.jpg"  style={{marginLeft:'30px'}}/>
                     </NavMenu>
                     
-                    <Navbars/>
+                    <NavbarsHospitalUser/>
                 </Toolbar>
             </Nav>
         </React.Fragment>

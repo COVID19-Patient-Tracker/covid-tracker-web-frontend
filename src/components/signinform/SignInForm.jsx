@@ -61,13 +61,11 @@ function SignInForm(){
     return(
         <div className="form__wrapper">
             <div className="left__box">
-                <img src="/assets/image.png" alt="login_vector" style={{
-                    size: "500px",
-                    height: "641px",
-                    left: "88px",
-                }}></img>
+                <img src="/assets/loginback1.svg" alt="login_vector" className="left_color_back"></img>
+                <img src="/assets/login_left.png" alt="login_vector" className="left_image"></img>
             </div>
             <div className="right_box">
+                <img src="/assets/profile1.png" alt="login_vector" className="profile_image"></img>
                  <h1 className="login__banner">LOGIN</h1>
                  <form className="form">
                     <input value={email} type="text" id="email" name="email" placeholder="EMAIL" onChange={handleEmailInput} />
@@ -76,8 +74,7 @@ function SignInForm(){
                         <input type="checkbox" id="remember-me" name="remember-me" value="remember-me"></input>
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
-                    <input type="submit" value="sign in" onClick={signin}></input>
-                    <h4>Sign Up <Link to="/signup">Here</Link></h4>
+                    <input type="submit" value="Login" onClick={signin}></input>
                 </form>
             </div>
         </div>

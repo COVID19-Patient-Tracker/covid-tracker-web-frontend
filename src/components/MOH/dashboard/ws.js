@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     width: "90%",
   },
   info:{
-    padding:"80px"
+    padding:"50px"
     
   }
 }));

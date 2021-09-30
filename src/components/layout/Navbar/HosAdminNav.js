@@ -6,7 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { NavLink, NavMenu ,Nav} from '../../Navigation/NavebarElement';
 import logo from '../../img/logo7.png'
 
-import {NavbarsHospitalUser} from '../../Navigation/Navbar';
+import {NavbarsHospitalAdmin} from '../../Navigation/Navbar';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +38,7 @@ export default function HosUserNav() {
                 <Toolbar className={classes.toolbar}>
                     <img src={logo} alt="" style={{width:'10rem'}}/>
                     <NavMenu  >
-                        <NavLink to="/hospital/admin/dashboard" style={{marginLeft:'10rem'}}>
+                        <NavLink to="/hospital/admin/dashboard" style={{marginLeft:'30rem'}}>
                             DASHBOARD
                         </NavLink>
                         <NavLink to="/hospital/admin/user-management" style={{marginLeft:'-4rem'}}>
@@ -50,7 +50,7 @@ export default function HosUserNav() {
                         <Avatar className={classes.avat} variant="circular" src="/broken-image.jpg"  style={{marginLeft:'30px'}}/>
                     </NavMenu>
                     
-                    <NavbarsHospitalUser/>
+                    <NavbarsHospitalAdmin/>
                 </Toolbar>
             </Nav>
         </React.Fragment>

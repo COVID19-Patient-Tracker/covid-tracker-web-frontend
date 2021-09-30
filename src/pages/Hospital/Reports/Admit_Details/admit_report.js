@@ -1,19 +1,25 @@
 import { useState } from 'react';
 import DatePicker from "react-datepicker";
-
+import {MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import "../../../../components/css/forms.css"
 
 const AdmitRepo =() =>{
     const [fName, setfName] = useState('Nimal');
     const [lName, setlName] = useState('Perera');
-    const [email, setEmail] = useState('nimal80@gmail.com');
+    const [nic, setNIC] = useState('987710110V');
     const [phone, setlphone] = useState('0771234417');
     const [address, setaddress] = useState('No. 11, Gampaha');
-    const [gender, setgender] = useState('');
-    const [startDate, setStartDate] = useState(null);
-    const [age, setage] = useState('');
-
+    const [gender, setgender] = useState('male');    
+    const [adultchild, setadultchild] = useState('adult');
+    const [age, setage] = useState('23');
+    const [selectedDate, setSelectedDate] = useState('01/09/1998');
+    const handleDateChange = (date) => {
+        console.log(date);
+        setSelectedDate(date);
+    };
     return (
         <div style={{ margin:'0px 20px'}}>
             <h2>Update admitted patient details</h2>
@@ -28,16 +34,33 @@ const AdmitRepo =() =>{
                 <label>Last name:</label>
                 <input 
                     type="text"
-                    required
                     value={lName}
                     onChange = {(e) => setlName(e.target.value)}></input>
-               
-                <label>Email:</label>
-                <input 
-                    type="email"
+                <label>Birthday:</label>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                        format="dd/MM/yyyy"
+                        value={selectedDate}
+                        fullWidth
+                        required
+                        maxDate={new Date()}
+                        onChange={handleDateChange}
+                    /> 
+                </MuiPickersUtilsProvider>
+               <br/>
+               <label>Age:</label>
+                <input type="number" 
+                    min="0" 
+                    value={age}
                     required
-                    value={email}
-                    onChange = {(e) => setEmail(e.target.value)}></input>
+                    onChange = {(e) => setage(e.target.value)}/>
+
+                <label>NIC:</label>
+                <input 
+                    type="text"  
+                    required
+                    value={nic}
+                    onChange = {(e) => setNIC(e.target.value)}/>
 
                 <label>Phone number:</label>
                 <input 
@@ -57,24 +80,21 @@ const AdmitRepo =() =>{
                 <select
                     value={gender}
                     onChange = {(e) => setgender(e.target.value)}>
-                    <option value="select">--Select--</option>
                     <option value="male">Male</option> 
                     <option value="female">Female</option>
                     <option value="other">Other</option>
                 </select>
-                <label>Birthday:</label>
-                <DatePicker selected={startDate} 
-                    onChange={(date) => setStartDate(date)}
-                    dateFormat= 'dd/MM/yyyy'
-                    maxDate= {new Date()}
-                    showYearDropdown
-                    scrollableYearDropdown />
 
-                <label>Age:</label>
-                <input type="number" 
-                    min="0" 
-                    value={age}
-                    onChange = {(e) => setage(e.target.value)}/>
+                <label>Adult or child:</label>
+                <select
+                    value={adultchild}
+                    onChange = {(e) => setadultchild(e.target.value)}>
+                    <option value="adult">Adult</option> 
+                    <option value="child">Child</option>
+                </select>
+                
+
+                
                 <button style={{width:"200px",height:"35px", marginTop:"10px", alignSelf:"center", justifyContent:"center"}}>Update</button>
                 <hr className="hr" />
             </form>

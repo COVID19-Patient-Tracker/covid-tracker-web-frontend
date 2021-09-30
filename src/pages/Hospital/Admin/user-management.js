@@ -13,12 +13,12 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import AccountProfile from '../../../components/hospital/dashboard/Profile';
 
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'; 
 
 function TabPanel1(props) {
     const { children, value, index, ...other } = props;
 
-    return (
+    return ( 
         <div
             role="tabpanel"
             hidden={value !== index}

@@ -1,14 +1,11 @@
-
-
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
 import { Toolbar } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Avatar from '@material-ui/core/Avatar';
-import { NavLink, NavMenu ,Nav, NavBtn, NavBtnLink} from '../../Navigation/NavebarElement';
+import { NavLink, NavMenu ,Nav} from '../../Navigation/NavebarElement';
 import logo from '../../img/logo7.png'
-import Navbars from '../../Navigation/Navbar';
+import {NavbarsHospitalUser} from '../../Navigation/Navbar';
+import AccountMenu from './Avatar';
 const useStyles = makeStyles((theme) => ({
     appBar: {
         borderBottom: `1px solid ${theme.palette.divider}`,
@@ -30,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HosUserNav() {
     const classes = useStyles();
-
+    
     return (
         <React.Fragment>
             <CssBaseline />
@@ -53,10 +50,11 @@ export default function HosUserNav() {
                         <NavLink to="/hospital/user/upload-xray" style={{marginLeft:'-4rem'}}>
                             UPLOAD X-RAY
                         </NavLink>
-                        <Avatar className={classes.avat} variant="circular" src="/broken-image.jpg"  style={{marginLeft:'30px'}}/>
+                        <AccountMenu/>
+                        
                     </NavMenu>
                     
-                    <Navbars/>
+                    <NavbarsHospitalUser/>
                 </Toolbar>
             </Nav>
         </React.Fragment>

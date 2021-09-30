@@ -1,8 +1,6 @@
 import React from 'react';
 
-import background from '../../components/img/background.svg';
-
-import {Cards, Chart,ChartTotal,CardsTotal} from '../../components';
+import {CardsHospitalUser, ChartHospitalUser,ChartTotal,CardsTotal} from '../../components';
 import styles from '../../App.module.css';
 import {fetchData,fetchTotalData} from '../../api/index.js';
 import {HeaderContentHospitalUser} from '../../components/HeaderContent'; 
@@ -30,8 +28,8 @@ class UserManagement extends React.Component {
                     <img src="/assets/userback2.svg" alt='' style={{ backgroundSize:'cover',width: "100%", backgroundRepeat:'no-repeat'}} />
                 </div>
                 <div className={styles.user_container}>
-                    <Cards data={data}/>
-                    <Chart data={data}/>
+                    <CardsHospitalUser />
+                    <ChartHospitalUser/>
                     <CardsTotal data={dataTotal}/>
                     <ChartTotal data={dataTotal} /> 
                 </div>

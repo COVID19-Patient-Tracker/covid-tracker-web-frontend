@@ -3,17 +3,17 @@ import { Bar } from 'react-chartjs-2';
 
 import styles from './Chart.module.css';
 
-const Chart = ({ data: { local_new_cases, local_new_deaths} }) => {
+const Chart = () => {
   const barChart = (
-    local_new_cases ? (
+     (
       <Bar
         data={{
-          labels: ['Infected',  'Deaths'],
+          labels: ['Total Patients',  'Admitted', 'Recovered'],
           datasets: [
             {
               label: 'People',
-              backgroundColor: ['#7ae0f9', '#7af9f9'],
-              data: [local_new_cases,  local_new_deaths],
+              backgroundColor: ['#72d1e9', '#7af9f9','#7ae6f9'],
+              data: [1102, 21, 15],
             },
           ],
         }}
@@ -22,7 +22,7 @@ const Chart = ({ data: { local_new_cases, local_new_deaths} }) => {
           title: { display: true, text: `Current state in` },
         }}
       />
-    ) : null
+    ) 
   );
 
   

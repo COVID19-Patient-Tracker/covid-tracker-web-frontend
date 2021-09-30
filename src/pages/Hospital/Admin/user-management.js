@@ -202,7 +202,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
     rootBox: {
-        background: 'linear-gradient(45deg, #097079 30%, #77aae9 90%)',
+        background: 'linear-gradient(45deg, #76c7a9 30%, #4fd2f5 90%)',
     },
 }));
 
@@ -231,7 +231,7 @@ export default function UserManagement() {
         <Box
             className={classes.rootBox}
             p={{ xs: 1, sm: 4 }}
-            marginTop={4}
+            marginTop={18}
             marginBottom={4}
             marginLeft={{ sm: 30, xs: 0 }}
             marginRight={{ sm: 30, xs: 0 }}
@@ -247,7 +247,7 @@ export default function UserManagement() {
                     textColor="#000"
                     variant="fullWidth"
                     aria-label="full width tabs example"
-                    backgroundColor="#8c9"
+                    backgroundColor="#1299bc"
                 >
                     <Tab label="Add" icon={<PersonAddIcon />} {...a11yProps(0)} />
                     <Tab label="Remove" icon={<PersonAddDisabledIcon />} {...a11yProps(1)} />

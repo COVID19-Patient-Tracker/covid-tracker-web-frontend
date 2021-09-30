@@ -6,6 +6,7 @@ import { NavLink, NavMenu ,Nav} from '../../Navigation/NavebarElement';
 import logo from '../../img/logo7.png'
 import {NavbarsHospitalUser} from '../../Navigation/Navbar';
 import AccountMenu from './Avatar';
+
 const useStyles = makeStyles((theme) => ({
     appBar: {
         borderBottom: `1px solid ${theme.palette.divider}`,

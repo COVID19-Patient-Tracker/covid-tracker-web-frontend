@@ -31,9 +31,11 @@ const MOHDash = lazy(() => import("../pages/MOH/dashboard"));
 
 //hospital Admin
 const HospitalUserManagement = lazy(() => import("../pages/Hospital/Admin/user-management"));
-const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
+const HospitalAdminDash = lazy(() => import("../pages/Hospital/Admin/hospitalAdminDash"));
 const HospitalProfile  = lazy(() => import("../pages/Hospital/Admin/hospitalProfile"));
 
+//hospital User
+const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
 const UploadXray = lazy(() => import("../pages/Hospital/upload-xray"));
 const PatientManagement = lazy(() => import("../pages/Hospital/Report_dashboard"));
 const Repo = lazy(() => import("../pages/Hospital/report_main"));
@@ -107,7 +109,7 @@ const Router = () => {
                     <Route exact path={routes.MOHDASH} component={MOHDash} />
                     <Route exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} />  
                     {/* hospital-admin */}
-                    <Route exact path={routes.HOSDASH} component={HospitalDash} />
+                    <Route exact path={routes.HOSDASH} component={HospitalAdminDash} />
                     <Route exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} />
                     <Route exact path={routes.HOSPROFILE} component={HospitalProfile} />
 

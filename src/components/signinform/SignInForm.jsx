@@ -10,17 +10,17 @@ function SignInForm(){
     const auth = useAuth()
     const history = useHistory()
 
+    // setting value email
     const handleEmailInput = event => {
         setUserName(event.target.value)
     }
-
+    // setting value password
     const handlepasswordInput = event => {
         setPassword(event.target.value)
     }
     const  signin = async e => {
         e.preventDefault();
         auth.login(email,password)
-        // TODO : make a rquest to backend and get authorized - done
     }
 
     useEffect(() => {
@@ -29,10 +29,10 @@ function SignInForm(){
         // TODO : authorize JWT token before user logged in - done
         if(u){
             if(u.role === "MOH_ADMIN"){
-                history.push(routes.MOHDASH); // not sure about this
+                history.push(routes.MOHDASH); 
             }
             else if(u.role === "MOH_USER"){
-                history.push(routes.MOHDASH); // not sure about this
+                history.push(routes.MOHDASH); 
                 // TODO : send to MOH_USER dashboard
             }
             else if(u.role === "HOSPITAL_USER"){
@@ -61,13 +61,11 @@ function SignInForm(){
     return(
         <div className="form__wrapper">
             <div className="left__box">
-                <img src="/assets/image.png" alt="login_vector" style={{
-                    size: "500px",
-                    height: "641px",
-                    left: "88px",
-                }}></img>
+                <img src="/assets/loginback1.svg" alt="login_vector" className="left_color_back"></img>
+                <img src="/assets/login_left.png" alt="login_vector" className="left_image"></img>
             </div>
             <div className="right_box">
+                <img src="/assets/profile1.png" alt="login_vector" className="profile_image"></img>
                  <h1 className="login__banner">LOGIN</h1>
                  <form className="form">
                     <input value={email} type="text" id="email" name="email" placeholder="EMAIL" onChange={handleEmailInput} />
@@ -76,8 +74,8 @@ function SignInForm(){
                         <input type="checkbox" id="remember-me" name="remember-me" value="remember-me"></input>
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
-                    <input type="submit" value="sign in" onClick={signin}></input>
-                    <h4>Sign Up <Link to="/signup">Here</Link></h4>
+                    <input type="submit" value="Login" onClick={signin}></input>
+
                 </form>
             </div>
         </div>

@@ -85,6 +85,20 @@ export const HeaderContentHospitalUser =() => {
     )
 }
 
+export const HeaderContentMOH =() => {
+    return (
+        <HeaderContentUserStyled>
+            <div className="left-content"><img src='/assets/mohuser.png' alt='' className="homeimage"/></div> 
+            <div className="right-content">
+                <div className="right-text-container">
+                <h1>Welcome to Medical officer of health</h1>
+                    <p className="black">{new Date().toDateString()} {new Date().toLocaleTimeString()}</p>
+                </div>    
+            </div> 
+        </HeaderContentUserStyled>
+    )
+}
+
 const HeaderContentStyled = styled.div`
     position: absolute;
     margin-left: 7%;

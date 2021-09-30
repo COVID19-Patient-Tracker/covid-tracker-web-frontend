@@ -27,41 +27,31 @@ function TabPanel1(props) {
                 <Box p={2} bgcolor="#fff">
                     <form autoComplete="off">
                         <TextField
-                            id="first-name"
-                            label="First Name"
+                            id="name"
+                            label="Hospital name"
                             variant="outlined"
                             fullWidth
                             margin="normal"
                             required
                             type="text"
-                            inputProps={{ minLength: 3, maxLength: 15 }}
                         />
                         <TextField
-                            id="last-name"
-                            label="Last Name"
+                            id="address"
+                            label="Address"
                             variant="outlined"
                             fullWidth
                             margin="normal"
                             required
                             type="text"
-                            inputProps={{ minLength: 5, maxLength: 15 }}
                         />
                         <TextField
-                            id="nic"
-                            label="NIC"
+                            id="telephone"
+                            label="Telephone"
                             variant="outlined"
                             fullWidth
                             margin="normal"
                             required
-                        />
-                        <TextField
-                            id="email"
-                            label="Email"
-                            type="email"
-                            variant="outlined"
-                            fullWidth
-                            required
-                            margin="normal"
+                            type="text"
                         />
                         <Button
                             type="submit"
@@ -75,7 +65,7 @@ function TabPanel1(props) {
                                 backgroundColor:'#0b99d1'
                             }}
                         >
-                            SAVE USER
+                            SAVE HOSPITAL
                         </Button>
                     </form>
                 </Box>
@@ -99,14 +89,14 @@ function TabPanel2(props) {
                 <Box p={2} bgcolor="#fff">
                     <form autoComplete="off">
                         <TextField
-                            id="email"
-                            label="Email"
+                            id="name"
+                            label="Hospital name"
                             variant="outlined"
                             fullWidth
-                            required
                             margin="normal"
-                            helperText="*Enter user Email here"
-                            type="email"
+                            required
+                            type="text"
+                            helperText="*Enter hospital name here"
                             autoFocus
                         />
                         <Button
@@ -120,7 +110,7 @@ function TabPanel2(props) {
                                 backgroundColor:'#0b99d1'
                             }}
                         >
-                            REMOVE USER
+                            REMOVE HOSPITAL
                         </Button>
                     </form>
                 </Box>

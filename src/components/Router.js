@@ -25,9 +25,10 @@ const Guideline = lazy(() => import("../pages/Website/Guidelines"));
 const WebNews = lazy(() => import("../pages/Website/News"));
 const VaccineProgram = lazy(() => import("../pages/Website/Vaccination"));
 
-// moh
+// moh user
 const MOHUserManagement = lazy(() => import("../pages/MOH/user-management"));
 const MOHDash = lazy(() => import("../pages/MOH/dashboard"));
+const MOHHospitalManagement = lazy(() => import("../pages/MOH/hospital-management"));
 
 //hospital Admin
 const HospitalUserManagement = lazy(() => import("../pages/Hospital/Admin/user-management"));
@@ -107,7 +108,9 @@ const Router = () => {
                     {/* <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/> */}
                     {/* <PrivateRoute exact path={routes.MOHDASH} component={MOHDash} AuthorizedUserRoles={[roles.MOH_USER, roles.MOH_ADMIN]}/> */}
                     <Route exact path={routes.MOHDASH} component={MOHDash} />
-                    <Route exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} />  
+                    <Route exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} />
+                    <Route exact path={routes.MOHHOSPITALMANAGEMENT} component={MOHHospitalManagement} />
+
                     {/* hospital-admin */}
                     <Route exact path={routes.HOSDASH} component={HospitalAdminDash} />
                     <Route exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} />

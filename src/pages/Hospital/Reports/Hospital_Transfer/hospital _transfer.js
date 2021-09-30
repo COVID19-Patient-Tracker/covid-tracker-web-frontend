@@ -14,7 +14,7 @@ const HospitalTransfer = () => {
     reason: "",
   });
 
-  const [editFormData, setEditFormData] = useState({
+  const [editFormData] = useState({
     NIC: "",
     hospital: "",
     reason: "",

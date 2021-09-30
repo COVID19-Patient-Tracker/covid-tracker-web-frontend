@@ -7,7 +7,6 @@ import AddIcon from '@material-ui/icons/Add';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia'
-import { postRequest } from '../../api/utils';
 import { Alert } from '@material-ui/lab';
 import axios from "axios"
 const useStyles = makeStyles((theme) => ({

@@ -1,18 +1,19 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+
+import { Toolbar } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Avatar from '@material-ui/core/Avatar';
+import { NavLink, NavMenu ,Nav} from '../../Navigation/NavebarElement';
+import logo from '../../img/logo7.png'
+import Navbars from '../../Navigation/Navbar';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
         borderBottom: `1px solid ${theme.palette.divider}`,
-        backgroundColor: "#A9CDEF",
+        backgroundColor: "#FFFFFF00",
     },
-    toolbar: {
+    toolbar: { 
         flexWrap: 'wrap',
     },
     toolbarTitle: {
@@ -23,40 +24,34 @@ const useStyles = makeStyles((theme) => ({
     },
     navStyle: {
         fontStyle: "bold",
-    },
-    avat: {
-        backgroundColor: "#000"
     }
 }));
 
-export default function HosAdminNav() {
+export default function HosUserNav() {
     const classes = useStyles();
 
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+            <Nav >
                 <Toolbar className={classes.toolbar}>
-                    <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-                        COVID-SAFE
-                    </Typography>
-                    <nav className={classes.navStyle}>
-                        <Link variant="button" color="textPrimary" href="/hospital/admin/dashboard" className={classes.link}>
+                    <img src={logo} alt="" style={{width:'10rem'}}/>
+                    <NavMenu  >
+                        <NavLink to="/hospital/admin/dashboard" style={{marginLeft:'10rem'}}>
                             DASHBOARD
-                        </Link>
-                        <Link variant="button" color="textPrimary" href="/hospital/admin/user-management" className={classes.link}>
+                        </NavLink>
+                        <NavLink to="/hospital/admin/user-management" style={{marginLeft:'-4rem'}}>
                             USER MANAGEMENT
-                        </Link>
-                        <Link variant="button" color="textPrimary" href="/hospital/admin/hospital-profile" className={classes.link}>
+                        </NavLink>
+                        <NavLink to="/hospital/admin/hospital-profile" style={{marginLeft:'-4rem'}}>
                             HOSPITAL PROFILE
-                        </Link>
-                    </nav>
-                    <Avatar className={classes.avat} variant="circular" src="/broken-image.jpg" />
-                    {/* <Button href="#" color="primary" variant="contained" className={classes.link}>
-                        Login
-                    </Button> */}
+                        </NavLink>
+                        <Avatar className={classes.avat} variant="circular" src="/broken-image.jpg"  style={{marginLeft:'30px'}}/>
+                    </NavMenu>
+                    
+                    <Navbars/>
                 </Toolbar>
-            </AppBar>
+            </Nav>
         </React.Fragment>
     );
 }

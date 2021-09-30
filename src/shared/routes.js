@@ -17,6 +17,7 @@ export const MOHDASH = "/moh/user/dashboard"
 //hospital-admin
 export const HOSDASH = "/hospital/admin/dashboard" // ha
 export const HOSPITALUSERMANAGEMENT = "/hospital/admin/user-management"
+export const HOSPROFILE = "/hospital/admin/hospital-profile"
 
 //hospital-user
 export const HOSUSERDASH = "/hospital/user/dashboard" // hu

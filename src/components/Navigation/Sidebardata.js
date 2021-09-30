@@ -1,8 +1,3 @@
-import React from 'react';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
-
 export const SidebarData = [
   {
     title: 'COVID-STAT',
@@ -24,4 +19,9 @@ export const SidebarData = [
     path: '/public/news',
     cName: 'nav-text'
   },
+  {
+    title: 'Login',
+    path: '/login',
+    cName: 'nav-text'
+  }
 ];

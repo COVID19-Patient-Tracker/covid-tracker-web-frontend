@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1366" height="768" viewBox="0 0 1366 768">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #d4651c;
+        fill-rule: evenodd;
+      }
+
+      .cls-1 {
+        filter: url(#filter);
+      }
+
+      .cls-2 {
+        filter: url(#filter-2);
+      }
+    </style>
+    <filter id="filter" x="638" y="-87" width="1139" height="640.969" filterUnits="userSpaceOnUse">
+      <feImage preserveAspectRatio="none" x="638" y="-87" width="1139" height="640.969" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTEzOSIgaGVpZ2h0PSI2NDAuOTY5IiB2aWV3Qm94PSIwIDAgMTEzOSA2NDAuOTY5Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiB1cmwoI2xpbmVhci1ncmFkaWVudCk7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImxpbmVhci1ncmFkaWVudCIgeDE9IjU2OS41IiB5MT0iNjQwLjk2OSIgeDI9IjU2OS41IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2RjZmJmNSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjAuNSIgc3RvcC1jb2xvcj0iIzU2ZThmMiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0Y2M1ZjgiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IGNsYXNzPSJjbHMtMSIgd2lkdGg9IjExMzkiIGhlaWdodD0iNjQwLjk2OSIvPgo8L3N2Zz4K"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+    <filter id="filter-2" x="540" y="81" width="883" height="415" filterUnits="userSpaceOnUse">
+      <feImage preserveAspectRatio="none" x="540" y="81" width="883" height="415" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iODgzIiBoZWlnaHQ9IjQxNSIgdmlld0JveD0iMCAwIDg4MyA0MTUiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6IHVybCgjbGluZWFyLWdyYWRpZW50KTsKICAgICAgfQogICAgPC9zdHlsZT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ibGluZWFyLWdyYWRpZW50IiB4MT0iNDQxLjUiIHkxPSI0MTUiIHgyPSI0NDEuNSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM4NGY1ZGUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIwLjUiIHN0b3AtY29sb3I9IiM1NmU4ZjIiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmZmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCBjbGFzcz0iY2xzLTEiIHdpZHRoPSI4ODMiIGhlaWdodD0iNDE1Ii8+Cjwvc3ZnPgo="/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Artboard_1" data-name="Artboard 1">
+    <path id="Ellipse_1_copy" data-name="Ellipse 1 copy" class="cls-1" d="M1307.93-67.906a716.67,716.67,0,0,1,117.58,36.479c45.83,18.788,85.34,46.343,77.98,55.824-7.15,9.2-54.16-4.414-69.41,8.843-12.19,10.6-.78,33.656,17.15,48.915,49.1,41.782,149.71,19.116,210.25,43.665,174.38,70.715,133.29,399.217-3.68,426.969-63.21,12.808-185.21-79.672-280.87-113.858-149.58-53.454-287.56-63.639-335.17-55.271-85.533,15.03-158.627,81.31-242.1,71.576C694,442.913,609.651,331.17,646.978,293.568c17.253-17.381,109.1-20.115,128.471-23.853,41.4-7.989,109.8-24.859,110.383-46.439,0.608-22.555-76.459-37.2-72.712-53.864,4.78-21.251,134.894-10.987,161.274-49.4C1010.49,67.461,857.287-6.53,891.111-55.193c15.2-21.871,98.756-33.952,240.459-31.5C1201.19-85.5,1255.52-79.459,1307.93-67.906Z"/>
+    <path class="cls-2" d="M1086.63,113.317c47.03-4.438,81.83,1,92.85,6.146,30.29,14.156,35.79,41.649,27.68,66.416-9.6,14.566-10.59,26.331-2.02,35.092,26.05,26.624,123.62,5.611,173.88,31.325,91.09,46.607,25.91,202.591-61.79,211.938-42.26,4.5-68.7-27.6-126.61-26.368-41.67.889-66.75,16.44-95.55,28.35-68.58,28.366-163.959,33.611-255.92,27.558-133.071-8.759-297.681-59.015-299.137-121.135-0.757-32.284,41.09-58.228,62.123-68.4,51.83-25.065,113.514-17.9,143.829-43.022,43.814-36.314-43.78-90.905-4.051-138.781C759.677,101.03,800.378,80.576,840.5,81c56.933,0.6,75.961,42.954,138.765,47.384C1015.42,130.934,1045.3,117.218,1086.63,113.317Z"/>
+  </g>
+</svg>

@@ -231,7 +231,7 @@ export default function UserManagement() {
         <Box
             className={classes.rootBox}
             p={{ xs: 1, sm: 4 }}
-            marginTop={4}
+            marginTop={18}
             marginBottom={4}
             marginLeft={{ sm: 30, xs: 0 }}
             marginRight={{ sm: 30, xs: 0 }}

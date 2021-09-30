@@ -22,13 +22,13 @@ const sumCard2 = {
 const sumCard3 = {
     title: 'Discharged Patient Count',
     count: "8",
-    card_clr: { background: 'linear-gradient(45deg, #85d388 30%, #c1e9dd 90%)' },
+    card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
 };
 
 const sumCard4 = {
     title: 'Transfered Patient Count',
     count: "1",
-    card_clr: { background: 'linear-gradient(45deg, #85d388 30%, #c1e9dd 90%)' },
+    card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
 };
 //set2
 const sumCard5 = {
@@ -83,6 +83,10 @@ const useStyles = makeStyles((theme) => ({
     subcontainer: {
         paddingTop: theme.spacing(6),
         paddingBottom: theme.spacing(3),
+        [theme.breakpoints.down('xs')]: {
+            paddingTop: theme.spacing(4),
+            paddingBottom: theme.spacing(3),
+        },
     },
     cardcont: {
         alignSelf: "center",
@@ -91,6 +95,10 @@ const useStyles = makeStyles((theme) => ({
     totalcont: {
         margin: theme.spacing(3),
         padding: theme.spacing(4),
+        [theme.breakpoints.down('xs')]: {
+            margin: theme.spacing(2),
+            padding: theme.spacing(2),
+        },
     },
     covidcont: {
         margin: theme.spacing(2),

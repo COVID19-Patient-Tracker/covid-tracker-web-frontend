@@ -23,7 +23,7 @@ export default function HospitalProfile() {
 
 
     return (
-        <div className={classes.root} >
+        <Box className={classes.root} marginTop={18} >
             <Box p={{ xs: 2 }} m={{ xs: 2, sm: 8 }} minHeight={350} maxWidth={1000} border={2} borderRadius={10}>
                 <Grid container >
                     <Grid item xs={12} md={5}>
@@ -89,6 +89,6 @@ export default function HospitalProfile() {
                     </Grid>
                 </Grid>
             </Box>
-        </div>
+        </Box>
     )
 }

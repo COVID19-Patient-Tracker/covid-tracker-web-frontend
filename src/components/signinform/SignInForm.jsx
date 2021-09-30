@@ -7,6 +7,7 @@ import { useAuth } from '../AuthConext'
 function SignInForm(){
     const [email,setUserName] = useState('');
     const [password,setPassword] = useState('');
+    const [isValidLogin,setIsValidLogin] = useState(null);
     const auth = useAuth()
     const history = useHistory()
 
@@ -20,14 +21,22 @@ function SignInForm(){
     }
     const  signin = async e => {
         e.preventDefault();
-        auth.login(email,password)
+        auth.login(email,password);
     }
 
     useEffect(() => {
 
         var u = auth.currentUser;
+        var e = auth.error;
+        if(e){
+            setIsValidLogin(e);
+        }
+        else{
+            setIsValidLogin(null)
+        }
+
         // TODO : authorize JWT token before user logged in - done
-        if(u){
+        if(u && !e){
             if(u.role === "MOH_ADMIN"){
                 history.push(routes.MOHDASH); 
             }
@@ -55,7 +64,7 @@ function SignInForm(){
         return () => {
         }
 
-    }, [auth.currentUser,history])
+    }, [auth.currentUser,auth.error,history])
     
     
     return(
@@ -71,6 +80,7 @@ function SignInForm(){
                  <h1 className="login__banner">LOGIN</h1>
                  <form className="form">
                     <input value={email} type="text" id="email" name="email" placeholder="EMAIL" onChange={handleEmailInput} />
+                    {isValidLogin ? isValidLogin : "isValidLogin"}
                     <input type="password" id="password" name="password" placeholder="PASSWORD" onChange={handlepasswordInput} />
                     <div className="remember-me">
                         <input type="checkbox" id="remember-me" name="remember-me" value="remember-me"></input>

@@ -37,7 +37,7 @@ const MOHAdminDash = lazy(() => import("../pages/MOH/dashboard"));
 //hospital Admin
 const HospitalUserManagement = lazy(() => import("../pages/Hospital/Admin/user-management"));
 const HospitalAdminDash = lazy(() => import("../pages/Hospital/Admin/hospitalAdminDash"));
-const HospitalProfile  = lazy(() => import("../pages/Hospital/Admin/hospitalProfile"));
+const HospitalProfile = lazy(() => import("../pages/Hospital/Admin/hospitalProfile"));
 
 //hospital User
 const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
@@ -94,6 +94,9 @@ const Router = () => {
         case "public":
             navbar = <PublicNav />;
             break;
+        case "":
+            navbar = <PublicNav />;
+            break;
         default:
             navbar = "";
     }
@@ -105,6 +108,7 @@ const Router = () => {
                 <Switch>
                     {/* general */}
                     <Route exact path={routes.LOGIN} component={Login} />
+                    <Route exact path={routes.LANDING} component={HomePage} />
 
                     {/* moh-admin */}
                     <Route exact path={routes.MOHADMINDASH} component={MOHAdminDash} />
@@ -126,20 +130,20 @@ const Router = () => {
                     {/* <PrivateRoute exact path={routes.HOSUSERDASH} component={HospitalDash} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN,roles.HOSPITAL_USER]}/> */}
                     <Route exact path={routes.HOSUSERDASH} component={HospitalDash} />
                     <Route exact path={routes.XRAY} component={UploadXray} />
-                    <Route exact path={routes.REPODASH} component={PatientManagement}/>
-                    <Route exact path={routes.REPO} component={Repo}/>
-                    <Route exact path={routes.REPOSTATUS} component={RepoStatus}/>
-                    <Route exact path={routes.REPOHOS} component={RepoHos}/>
-                    <Route exact path={routes.REPOWARD} component={RepoWard}/>
-                    <Route exact path={routes.REPOTEST} component={RepoTest}/>
-                    <Route exact path={routes.ADMITREPO} component={AdmitRepo}/>
-                    <Route exact path={routes.HOSPITALTRANS} component={HospitalTrans}/>
-                    <Route exact path={routes.STATUS} component={Status}/>
-                    <Route exact path={routes.TEST} component={Test}/>
-                    <Route exact path={routes.WARDTRANS} component={WardTrans}/>
-                    <Route exact path={routes.COMPLETEREPORT} component={CompleteReport}/>
+                    <Route exact path={routes.REPODASH} component={PatientManagement} />
+                    <Route exact path={routes.REPO} component={Repo} />
+                    <Route exact path={routes.REPOSTATUS} component={RepoStatus} />
+                    <Route exact path={routes.REPOHOS} component={RepoHos} />
+                    <Route exact path={routes.REPOWARD} component={RepoWard} />
+                    <Route exact path={routes.REPOTEST} component={RepoTest} />
+                    <Route exact path={routes.ADMITREPO} component={AdmitRepo} />
+                    <Route exact path={routes.HOSPITALTRANS} component={HospitalTrans} />
+                    <Route exact path={routes.STATUS} component={Status} />
+                    <Route exact path={routes.TEST} component={Test} />
+                    <Route exact path={routes.WARDTRANS} component={WardTrans} />
+                    <Route exact path={routes.COMPLETEREPORT} component={CompleteReport} />
                     <Route exact path={routes.SEARCHPATIENT} component={SearchPatient} />
-                    <Route exact path={routes.ADDPATEINT} component={AddPatient}/>
+                    <Route exact path={routes.ADDPATEINT} component={AddPatient} />
 
                     {/* website */}
                     <Route exact path={routes.HOMEPAGE} component={HomePage} />
@@ -147,7 +151,7 @@ const Router = () => {
                     <Route exact path={routes.WEBNEWS} component={WebNews} />
                     <Route exact path={routes.VACCINEPROGRAM} component={VaccineProgram} />
 
-                    <PrivateRoute exact path={routes.PROTECTED} component={PlaceholderForProtectedRoute} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]} />
+                    <Route exact path={routes.PROTECTED} component={PlaceholderForProtectedRoute} />
                     <Route component={NotFound} />
                 </Switch>
             </ProvideAuth>

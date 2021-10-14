@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./../../components/css/table.css"
 import "./../../components/css/forms.css"
+import {Card } from '@material-ui/core';
 
 import data from "./mock-data -id.json";
 import './history';
@@ -8,7 +9,7 @@ import './history';
 import { useHistory } from 'react-router-dom';
 //import ReadOnlyRow from "./components/ReadOnlyRowMain";
 
-const ReadOnlyRow = ({ newresult, handleEditClick, handleDeleteClick }) => {
+const ReadOnlyRow = ({ newresult}) => {
   const history = useHistory();
   const handleClick = () => history.push('/hospital/user/admitReport');
   return (
@@ -27,7 +28,7 @@ const ReadOnlyRow = ({ newresult, handleEditClick, handleDeleteClick }) => {
   );
 };
 
-const WardTransfer = () => {
+const MainReport = () => {
   const [results] = useState(data);
   const [search, setSearch] = useState('');
   
@@ -37,10 +38,11 @@ const WardTransfer = () => {
   });
 
   return (
-    <div className="create">
+    <div className="create" style={{ margin:"150px auto"}}>
+    <Card variant="outlined" >
     <div className="app-container">
       <h2>Update admitted patient details</h2>
-      <input type="text" placeholder="search" onChange={ e => setSearch(e.target.value)}/>
+      <input type="text" placeholder="Search..." onChange={ e => setSearch(e.target.value)}/>
       <form>
         <table>
           <thead>
@@ -58,8 +60,10 @@ const WardTransfer = () => {
         </table>
       </form>
     </div>
+        </Card>
+
     </div>
   );
 };
 
-export default WardTransfer;
+export default MainReport;

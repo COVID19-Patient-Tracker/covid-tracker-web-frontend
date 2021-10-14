@@ -30,7 +30,7 @@ const Forbidden = () => (
                 <Box sx={{ textAlign: 'center' }}>
                     <img
                         alt="Under development"
-                        src="/assets/forbidden.jpg" // TODO :  add a appropriate access denied picture
+                        src="/assets/forbidden.svg" // TODO :  add a appropriate access denied picture
                         style={{
                             marginTop: 50,
                             display: 'inline-block',

@@ -1,3 +1,14 @@
 .homeimage {
   position: relative;
 }
+
+.addpatient {
+  padding: spacing(3);
+  width: 60%;
+  margin: 120px auto;
+}
+@media screen and (max-width: 768px) {
+  .addpatient {
+    width: 100%;
+  }
+}

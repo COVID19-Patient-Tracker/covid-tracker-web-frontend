@@ -25,12 +25,21 @@ const Guideline = lazy(() => import("../pages/Website/Guidelines"));
 const WebNews = lazy(() => import("../pages/Website/News"));
 const VaccineProgram = lazy(() => import("../pages/Website/Vaccination"));
 
-// moh
+// moh user
 const MOHUserManagement = lazy(() => import("../pages/MOH/user-management"));
 const MOHDash = lazy(() => import("../pages/MOH/dashboard"));
+const MOHHospitalManagement = lazy(() => import("../pages/MOH/hospital-management"));
 
-//hospital
-const HospitalUserManagement = lazy(() => import("../pages/Hospital/user-management"));
+// moh admin
+const MOHAdminUserManagement = lazy(() => import("../pages/MOH/admin-user-management"));
+const MOHAdminDash = lazy(() => import("../pages/MOH/dashboard"));
+
+//hospital Admin
+const HospitalUserManagement = lazy(() => import("../pages/Hospital/Admin/user-management"));
+const HospitalAdminDash = lazy(() => import("../pages/Hospital/Admin/hospitalAdminDash"));
+const HospitalProfile  = lazy(() => import("../pages/Hospital/Admin/hospitalProfile"));
+
+//hospital User
 const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
 const UploadXray = lazy(() => import("../pages/Hospital/upload-xray"));
 const PatientManagement = lazy(() => import("../pages/Hospital/Report_dashboard"));
@@ -46,6 +55,7 @@ const Test = lazy(() => import("../pages/Hospital/Reports/PCR_Antigen_Results/pc
 const WardTrans = lazy(() => import("../pages/Hospital/Reports/Ward_Transfer/ward_transfer_main"));
 const CompleteReport = lazy(() => import("../pages/Hospital/update_patient_detal"));
 const AddPatient = lazy(() => import("../pages/Hospital/addPatient"));
+const SearchPatient = lazy(() => import("../pages/Hospital/searchPatient"));
 
 function PlaceholderForProtectedRoute() {
     return (
@@ -97,18 +107,24 @@ const Router = () => {
                     <Route exact path={routes.LOGIN} component={Login} />
 
                     {/* moh-admin */}
-
+                    <Route exact path={routes.MOHADMINDASH} component={MOHAdminDash} />
+                    <Route exact path={routes.MOHADMINMANAGEMENT} component={MOHAdminUserManagement} />
                     {/* moh-user */}
-                    <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/>
-                    <PrivateRoute exact path={routes.MOHDASH} component={MOHDash} AuthorizedUserRoles={[roles.MOH_USER, roles.MOH_ADMIN]}/>
-                      
+                    {/* <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/> */}
+                    {/* <PrivateRoute exact path={routes.MOHDASH} component={MOHDash} AuthorizedUserRoles={[roles.MOH_USER, roles.MOH_ADMIN]}/> */}
+                    <Route exact path={routes.MOHDASH} component={MOHDash} />
+                    <Route exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} />
+                    <Route exact path={routes.MOHHOSPITALMANAGEMENT} component={MOHHospitalManagement} />
+
                     {/* hospital-admin */}
-                    <Route exact path={routes.HOSDASH} component={HospitalDash} />
+                    <Route exact path={routes.HOSDASH} component={HospitalAdminDash} />
                     <Route exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} />
+                    <Route exact path={routes.HOSPROFILE} component={HospitalProfile} />
 
 
                     {/* hospital-user */}
-                    <PrivateRoute exact path={routes.HOSUSERDASH} component={HospitalDash} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN,roles.HOSPITAL_USER]}/>
+                    {/* <PrivateRoute exact path={routes.HOSUSERDASH} component={HospitalDash} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN,roles.HOSPITAL_USER]}/> */}
+                    <Route exact path={routes.HOSUSERDASH} component={HospitalDash} />
                     <Route exact path={routes.XRAY} component={UploadXray} />
                     <Route exact path={routes.REPODASH} component={PatientManagement}/>
                     <Route exact path={routes.REPO} component={Repo}/>
@@ -122,6 +138,7 @@ const Router = () => {
                     <Route exact path={routes.TEST} component={Test}/>
                     <Route exact path={routes.WARDTRANS} component={WardTrans}/>
                     <Route exact path={routes.COMPLETEREPORT} component={CompleteReport}/>
+                    <Route exact path={routes.SEARCHPATIENT} component={SearchPatient} />
                     <Route exact path={routes.ADDPATEINT} component={AddPatient}/>
 
                     {/* website */}

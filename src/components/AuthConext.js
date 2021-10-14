@@ -11,7 +11,7 @@ export function useAuth(){
 function useProvideAuth(){
     
     const [currentUser, setCurrentUser] = useState(null);
-    const [error,setError] = useState(null)
+    const [exception,setException] = useState(null)
     
     useEffect(() => {
         if(localStorage.getItem(`CPT-user-details`) && localStorage.getItem(`CPT-jwt-token`)){
@@ -37,19 +37,18 @@ function useProvideAuth(){
                     setCurrentUser(data)
                     localStorage.setItem(`CPT-jwt-token`,headers.authorization);
                     localStorage.setItem(`CPT-user-details`,JSON.stringify(data));
-                    setError(null)
+                    setException(null)
                 }
                 else if(response.error){
                     const {error,headers} = response
-                    setError(error.response.data.exception)
+                    console.log(error.response.data.exception)
+                    setException(error.response.data.exception)
                 }
             })
             .catch((e) => {
-                console.log(e)
-                setError(e)
+                setException(e)
             });
 
-        return {currentUser,error};
     }
 
     async function logout(email,password){
@@ -61,7 +60,8 @@ function useProvideAuth(){
     return {
         login,
         logout,
-        error,
+        setException,
+        exception,
         currentUser
       };
 }

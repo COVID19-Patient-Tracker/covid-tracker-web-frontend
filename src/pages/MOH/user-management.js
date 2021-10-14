@@ -1,123 +1,224 @@
 import React from 'react';
+import { useState } from "react";
+import { useTheme } from '@material-ui/core/styles';
 
-import { FormControl, FormHelperText, InputLabel, makeStyles, MenuItem, Select } from "@material-ui/core";
-import { Box, Grid, Card, CardHeader, TextField, Button } from '@material-ui/core';
+import { Box, TextField, Button, AppBar, Tabs, Tab, makeStyles} from '@material-ui/core';
+import SwipeableViews from 'react-swipeable-views';
+
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
+
+import PropTypes from 'prop-types'; 
+
+function TabPanel1(props) {
+    const { children, value, index, ...other } = props;
+
+    return ( 
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`full-width-tabpanel-${index}`}
+            aria-labelledby={`full-width-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box p={2} bgcolor="#fff">
+                    <form autoComplete="off">
+                        <TextField
+                            id="first-name"
+                            label="First Name"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            required
+                            type="text"
+                            inputProps={{ minLength: 3, maxLength: 15 }}
+                        />
+                        <TextField
+                            id="last-name"
+                            label="Last Name"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            required
+                            type="text"
+                            inputProps={{ minLength: 5, maxLength: 15 }}
+                        />
+                        <TextField
+                            id="nic"
+                            label="NIC"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            required
+                        />
+                        <TextField
+                            id="email"
+                            label="Email"
+                            type="email"
+                            variant="outlined"
+                            fullWidth
+                            required
+                            margin="normal"
+                        />
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            startIcon={<SaveIcon />}
+                            style={{
+                                borderRadius: "50px",
+                                margin: "10px",
+                                fontSize: "15px",
+                                color: "rgb(255, 255, 255)",
+                                backgroundColor:'#0b99d1'
+                            }}
+                        >
+                            SAVE USER
+                        </Button>
+                    </form>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+function TabPanel2(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`full-width-tabpanel-${index}`}
+            aria-labelledby={`full-width-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box p={2} bgcolor="#fff">
+                    <form autoComplete="off">
+                        <TextField
+                            id="email"
+                            label="Email"
+                            variant="outlined"
+                            fullWidth
+                            required
+                            margin="normal"
+                            helperText="*Enter user Email here"
+                            type="email"
+                            autoFocus
+                        />
+                        <Button
+                            variant="contained"
+                            startIcon={<DeleteIcon />}
+                            style={{
+                                borderRadius: "50px",
+                                margin: "10px",
+                                fontSize: "15px",
+                                color: "rgb(255, 255, 255)",
+                                backgroundColor:'#0b99d1'
+                            }}
+                        >
+                            REMOVE USER
+                        </Button>
+                    </form>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+
+
+TabPanel1.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+};
+TabPanel2.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+};
+
+
+function a11yProps(index) {
+    return {
+        id: `full-width-tab-${index}`,
+        'aria-controls': `full-width-tabpanel-${index}`,
+    };
+}
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        padding: theme.spacing(3),
+    rootBox: {
+        background: 'linear-gradient(45deg, #76c7a9 30%, #4fd2f5 90%)',
     },
-    cardStyle: {
-        //backgroundColor: "#e9e2f1",
-    },
-    formStyle: {
-        //backgroundColor: "#e9e2f1",
-    },
-    textAlign: {
-        textAlign: "left"
-    }
 }));
+
 
 export default function UserManagement() {
 
     const classes = useStyles();
-    const [usertype, setUserType] = React.useState('');
 
-    const handleChange = (event) => {
-        setUserType(event.target.value);
+    const theme = useTheme();
+    const [value, setValue] = React.useState(0);
+    const [showUser, setShowUser] = useState(false);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    const handleShowUser = () => {
+        setShowUser(true);
+    }
+    const handleChangeIndex = (index) => {
+        setValue(index);
     };
 
     return (
-        <div className={classes.root}>
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={6} md={6}>
-                    <Card className={classes.cardStyle} variant="outlined">
-                        <CardHeader title="Add User" subheader="Add new users to the system" />
-                        <Box p={2} textAlign="center" >
-                            <form autoComplete="off">
-                                <FormControl fullWidth variant="outlined" className={classes.textAlign}>
-                                    <InputLabel id="demo-simple-select-outlined-label">User Type</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-outlined-label"
-                                        id="demo-simple-select-outlined"
-                                        value={usertype}
-                                        onChange={handleChange}
-                                        label="usertype"
-                                    >
-                                        <MenuItem value="ADMIN">Admin</MenuItem>
-                                        <MenuItem value="USER">User</MenuItem>
-                                    </Select>
-                                    <FormHelperText>Required</FormHelperText>
-                                </FormControl>
-                                <TextField
-                                    id="first-name"
-                                    label="First Name"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                />
-                                <TextField
-                                    id="last-name"
-                                    label="Last Name"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                />
-                                <TextField
-                                    id="nic"
-                                    label="NIC"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                />
-                                <TextField
-                                    id="email"
-                                    label="Email"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                />
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                    startIcon={<SaveIcon />}
-                                >
-                                    SAVE USER
-                                </Button>
-                            </form>
-                        </Box>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                    <Card>
-                        <CardHeader title="Remove User" subheader="Remove users from the system" />
-                        <Box p={2} textAlign="center" >
-                            <form autoComplete="off">
-                                <TextField
-                                    id="nic"
-                                    label="NIC"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                    helperText="*Enter user NIC here"
-                                />
-                            </form>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                startIcon={<DeleteIcon />}
-                            >
-                                REMOVE USER
-                            </Button>
-                        </Box>
-                    </Card>
-                </Grid>
-            </Grid>
-        </div>
-    )
-}
 
+        <Box
+            className={classes.rootBox}
+            p={{ xs: 1, sm: 4 }}
+            marginTop={18}
+            marginBottom={4}
+            marginLeft={{ sm: 30, xs: 0 }}
+            marginRight={{ sm: 30, xs: 0 }}
+            bgcolor="#bcbfc1"
+            borderRadius={8}
+
+        >
+            <AppBar position="static">
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    indicatorColor="secondary"
+                    textColor="#000"
+                    variant="fullWidth"
+                    aria-label="full width tabs example"
+                    style={{
+                        backgroundColor:'#0b99d1'
+                    }}
+                >
+                    <Tab label="Add" icon={<PersonAddIcon />} {...a11yProps(0)} />
+                    <Tab label="Remove" icon={<PersonAddDisabledIcon />} {...a11yProps(1)} />
+                    
+                </Tabs>
+            </AppBar>
+            <SwipeableViews
+                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                index={value}
+                onChangeIndex={handleChangeIndex}
+            >
+                <TabPanel1 value={value} index={0} dir={theme.direction}>
+
+                </TabPanel1>
+                <TabPanel2 value={value} index={1} dir={theme.direction}>
+
+                </TabPanel2>
+                
+            </SwipeableViews>
+        </Box>
+    );
+}

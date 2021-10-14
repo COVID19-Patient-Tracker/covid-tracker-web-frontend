@@ -5,7 +5,7 @@ const CurrentStatus =() =>{
     const [status, setstatus] = useState('');
     
     return (
-        <div>
+        <div style={{ margin:'0px 20px'}}>
             <h2>Record patient's current status</h2>
             <form>
                 <label>Current status:</label>

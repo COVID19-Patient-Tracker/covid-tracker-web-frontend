@@ -3,11 +3,10 @@ import "./../../components/css/table.css"
 import "./../../components/css/forms.css"
 import data from "./mock-data -id.json";
 import './history';
-
+import {Card } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-//import ReadOnlyRow from "./components/ReadOnlyRowMain";
 
-const ReadOnlyRow = ({ newresult, handleEditClick, handleDeleteClick }) => {
+const ReadOnlyRow = ({ newresult}) => {
   const history = useHistory();
   const handleClick = () => history.push('/hospital/user/testResult');
   return (
@@ -26,13 +25,20 @@ const ReadOnlyRow = ({ newresult, handleEditClick, handleDeleteClick }) => {
   );
 };
 
-const WardTransfer = () => {
+const TestResult = () => {
   const [results] = useState(data);
-
+  const [search, setSearch] = useState('');
+  
+  const filterID = results.filter(id => {
+    return id.NIC.toLowerCase().includes( search.toLowerCase())
+  });
   return (
-    <div className="create">
+    <div className="create" style={{ margin:"150px auto"}}>
+    <Card variant="outlined" >
     <div className="app-container">
       <h2>Record PCR antigen test results</h2>
+      <input type="text" placeholder="Search..." onChange={ e => setSearch(e.target.value)}/>
+
       <form>
         <table>
           <thead>
@@ -42,7 +48,7 @@ const WardTransfer = () => {
             </tr>
           </thead>
           <tbody>
-            {results.map((newresult) => (
+            {filterID.map((newresult) => (
               <ReadOnlyRow newresult={newresult}/>
                 
             ))}
@@ -50,8 +56,9 @@ const WardTransfer = () => {
         </table>
       </form>
     </div>
+    </Card>
     </div>
   );
 };
 
-export default WardTransfer;
+export default TestResult;

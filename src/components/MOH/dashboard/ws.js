@@ -8,10 +8,12 @@ import Collapse from '@material-ui/core/Collapse';
 
 const useStyles = makeStyles((theme) => ({
   root:{
-
+    margin: "-15% auto",
+    width: "90%",
   },
   info:{
-    padding:"80px"
+    padding:"50px"
+    
   }
 }));
 
@@ -42,7 +44,7 @@ export default function GroupedSearch(props) {
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.title}
         style={{ width: "auto",padding:"20px" }}
-        renderInput={(params) => <TextField {...params} label="select hospital name to see more data" variant="outlined" />}
+        renderInput={(params) => <TextField {...params} label="Select hospital name to see more data" variant="outlined" />}
         onChange={getOption}
       />
       {/* show info */}

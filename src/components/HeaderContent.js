@@ -71,6 +71,34 @@ export const HeaderContentNews =() => {
     )
 }
 
+export const HeaderContentHospitalUser =() => {
+    return (
+        <HeaderContentUserStyled>
+            <div className="left-content"><img src='/assets/hospitaluser1.png' alt='' className="homeimage"/></div> 
+            <div className="right-content">
+                <div className="right-text-container">
+                <h1>Welcome to National Hospital - Colombo</h1>
+                    <p className="black">{new Date().toDateString()} {new Date().toLocaleTimeString()}</p>
+                </div>    
+            </div> 
+        </HeaderContentUserStyled>
+    )
+}
+
+export const HeaderContentMOH =() => {
+    return (
+        <HeaderContentUserStyled>
+            <div className="left-content"><img src='/assets/mohuser.png' alt='' className="homeimage"/></div> 
+            <div className="right-content">
+                <div className="right-text-container">
+                <h1>Welcome to Medical officer of health</h1>
+                    <p className="black">{new Date().toDateString()} {new Date().toLocaleTimeString()}</p>
+                </div>    
+            </div> 
+        </HeaderContentUserStyled>
+    )
+}
+
 const HeaderContentStyled = styled.div`
     position: absolute;
     margin-left: 7%;
@@ -101,6 +129,57 @@ const HeaderContentStyled = styled.div`
             
             @media screen and (max-width: 768px){
                 font-size: 1.5rem;
+            }
+        }
+
+        .black{
+            padding: 1.4rem 0;
+            font-size: 1.5rem;
+            line-height: 1.8rem;
+            display: flex;
+            @media screen and (max-width: 768px){
+                padding-right: 6rem;
+                padding: 0rem 0;
+                font-size: 1rem;
+                display: none;
+            }
+        }
+        
+    }
+`;
+
+const HeaderContentUserStyled = styled.div`
+    position: absolute;
+    margin-left: 7%;
+    margin-top: 5%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    @media screen and (max-width: 768px){
+        margin-top: 20%;
+    }
+    .homeimage{
+        display: flex;
+        @media screen and (max-width: 768px){
+                width: 80%;
+            }
+    }
+    .right-content{
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        justify-items:center;
+        padding-left: 5rem;
+        .black{
+            color:black;
+            font-size: 1rem;
+            padding-left: 2rem;
+        }
+        h1{
+            font-size: 3rem;
+            font-weight: 600;
+            justify-content: center;
+            @media screen and (max-width: 768px){
+                font-size: 1rem;
             }
         }
 

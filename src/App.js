@@ -2,8 +2,6 @@ import React from 'react';
 import Router from './components/Router';
 import Footer from './components/layout/Footer';
 import { makeStyles } from "@material-ui/core";
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme from './styles/theme';
 
 /**
  * Layout Styles
@@ -25,18 +23,15 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
     const classes = useStyles()
-
     
     return (
         <React.Fragment>
-            <ThemeProvider theme={theme}>
-                <div className={classes.root}>
-                    <div className={classes.component}>
-                        <Router />
-                    </div>
-                    <Footer />
+            <div className={classes.root}>
+                <div className={classes.component}>
+                    <Router />
                 </div>
-            </ThemeProvider>
+                <Footer />
+            </div>
         </React.Fragment>
     );
 }

@@ -14,15 +14,15 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(hospitalname, count) {
+  return { hospitalname, count};
 }
 
 const rows = [
-  createData('Positive Cases', 159, 6.0, 24, 4.0),
-  createData('Recovered', 237, 9.0, 37, 4.3),
-  createData('Deaths', 262, 16.0, 24, 6.0),
-  createData('Remaining Capacity', 356, 16.0, 49, 3.9),
+  createData('Positive Cases', 159),
+  createData('Recovered', 237),
+  createData('Deaths', 262),
+  createData('Remaining Capacity', 356),
 ];
 
 export default function Info() {
@@ -34,22 +34,16 @@ export default function Info() {
         <TableHead>
           <TableRow>
             <TableCell>Statistics of "Hospital Name"</TableCell>
-            <TableCell align="right">Counts</TableCell>
-            <TableCell align="right">Mean</TableCell>
-            <TableCell align="right">Standard Deviation</TableCell>
-            <TableCell align="right">Variance</TableCell>
+            <TableCell align="center">Counts</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
+            <TableRow key={row.hospitalname}>
+              <TableCell component="th" scope="row" >
+                {row.hospitalname}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="center">{row.count}</TableCell>
             </TableRow>
           ))}
         </TableBody>

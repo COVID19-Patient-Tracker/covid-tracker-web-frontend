@@ -16,10 +16,12 @@ function SignInForm(){
     const [open, setOpen] = React.useState(false);
 
     const handleClose = (event, reason) => {
+        // when click away set exception  to null
       if (reason === 'clickaway') {
         auth.setException(null);
         return;
       }
+      // when exception is closed set exceptions to null
       auth.setException(null);
       setOpen(false);
       setIsValidLogin(null);
@@ -39,11 +41,12 @@ function SignInForm(){
     }
 
     useEffect(() => {
-
+        
         var u = auth.currentUser;
         var e = auth.exception;
         console.log(e)
         if(e){
+            // if any exception, it is a invalid login and show the exception message
             setIsValidLogin(e);
             setOpen(true)
         }
@@ -87,13 +90,11 @@ function SignInForm(){
     return(
         <div className="form__wrapper">
             <div className="left__box">
-                <img src="/assets/image.png" alt="login_vector" style={{
-                    size: "500px",
-                    height: "641px",
-                    left: "88px",
-                }}></img>
+                <img src="/assets/loginback1.svg" alt="login_vector" className="left_color_back"></img>
+                <img src="/assets/login_left.png" alt="login_vector" className="left_image"></img>
             </div>
             <div className="right_box">
+                <img src="/assets/profile1.png" alt="login_vector" className="profile_image"></img>
                  <h1 className="login__banner">LOGIN</h1>
                  <form className="form">
                     <input value={email} type="text" id="email" name="email" placeholder="EMAIL" onChange={handleEmailInput} />
@@ -107,7 +108,7 @@ function SignInForm(){
                             {isValidLogin}
                         </Alert>
                     </Snackbar>
-                    <input type="submit" value="sign in" onClick={signin}></input>
+                    <input type="submit" value="Login" onClick={signin}></input>
                 </form>
             </div>
         </div>

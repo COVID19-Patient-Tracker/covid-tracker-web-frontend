@@ -16,10 +16,12 @@ function SignInForm(){
     const [open, setOpen] = React.useState(false);
 
     const handleClose = (event, reason) => {
+        // when click away set exception  to null
       if (reason === 'clickaway') {
         auth.setException(null);
         return;
       }
+      // when exception is closed set exceptions to null
       auth.setException(null);
       setOpen(false);
       setIsValidLogin(null);
@@ -39,11 +41,12 @@ function SignInForm(){
     }
 
     useEffect(() => {
-
+        
         var u = auth.currentUser;
         var e = auth.exception;
         console.log(e)
         if(e){
+            // if any exception, it is a invalid login and show the exception message
             setIsValidLogin(e);
             setOpen(true)
         }

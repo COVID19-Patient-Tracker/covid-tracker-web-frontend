@@ -15,10 +15,4 @@ export const SidebarDataMOHAdmin = [
     
     cName: 'nav-text'
   },
-  {
-    title: 'LOGOUT',
-    
-    cName: 'nav-text'
-  }
-
-];
+  ];

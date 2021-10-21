@@ -100,8 +100,9 @@ const Router = () => {
 
     return (
         <Suspense fallback={<Spinner />}>
-            {navbar}
+            
             <ProvideAuth>
+            {navbar}
                 <Switch>
                     {/* general */}
                     <Route exact path={routes.LOGIN} component={Login} />

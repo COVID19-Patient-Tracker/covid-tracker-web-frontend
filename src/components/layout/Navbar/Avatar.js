@@ -4,21 +4,34 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemButton from '@mui/material/ListItemButton';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import Logout from '@mui/icons-material/Logout';   
+import Logout from '@mui/icons-material/Logout';
+import { useAuth } from '../../AuthConext'
+
 
 export default function AccountMenu() {
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const auth = useAuth();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    event.stopPropagation();
   };
-  const handleClose = () => {
+  const handleLogout = () => {
+    auth.logout();
+  }
+  const handleClose = (e) => {
+    e.preventDefault();
     setAnchorEl(null);
   };
+  
   return (
+
     <React.Fragment>
+
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <Tooltip title="Profile">
           <IconButton onClick={handleClick} size="medium" sx={{ ml: 1 }}>
@@ -26,6 +39,7 @@ export default function AccountMenu() {
           </IconButton>
         </Tooltip>
       </Box>
+
       <Menu
         anchorEl={anchorEl}
         open={open}
@@ -60,14 +74,19 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
-          <Avatar /> Profile
+        <MenuItem   >
+          <Avatar /> 
+          <ListItemButton onClick={()=>console.log("Profile clicked")} >
+          Profile
+          </ListItemButton>
         </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
+        <MenuItem >
+          <ListItemIcon >
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          <ListItemButton  onClick={handleLogout} >
+           Logout
+          </ListItemButton>
         </MenuItem>
       </Menu>
     </React.Fragment>

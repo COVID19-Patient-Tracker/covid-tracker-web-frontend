@@ -6,10 +6,10 @@ import {BASE_URL} from '../shared/config'
 
 
 // Utility functions for making api calls
-export const getRequest = async (uri) => {
+export const getRequest = async (uri,headers) => {
     try {
 		let URL = BASE_URL + uri
-        let response = await axios.get(URL);
+        let response = await axios.get(URL,headers);
 
         return {
             data: response.data,

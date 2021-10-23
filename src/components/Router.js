@@ -117,7 +117,7 @@ const Router = () => {
                     <Route exact path={routes.MOHHOSPITALMANAGEMENT} component={MOHHospitalManagement} />
 
                     {/* hospital-admin */}
-                    <Route exact path={routes.HOSDASH} component={HospitalAdminDash} />
+                    <PrivateRoute exact path={routes.HOSDASH} component={HospitalAdminDash} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]}/>
                     <Route exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} />
                     <Route exact path={routes.HOSPROFILE} component={HospitalProfile} />
 

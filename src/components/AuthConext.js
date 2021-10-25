@@ -1,6 +1,5 @@
 import React, {useContext,useState,useEffect } from 'react'
 import { postRequest } from '../api/utils';
-import {BASE_URL} from '../shared/config'
 import { Link, useHistory } from 'react-router-dom'
 import * as routes from '../shared/routes'
 const AuthContext = React.createContext();
@@ -30,6 +29,7 @@ function useProvideAuth(){
             "email":email,
             "password":password
         }
+
         // made request to the backend
         postRequest(routes.LOGIN,postData)
             .then((response) => {
@@ -48,6 +48,7 @@ function useProvideAuth(){
                 }
             })
             .catch((e) => {
+                console.log(e)
                 setException(e)
             });
 

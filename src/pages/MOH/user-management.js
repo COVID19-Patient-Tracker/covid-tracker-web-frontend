@@ -13,9 +13,11 @@ import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import PropTypes from 'prop-types'; 
 
 function TabPanel1(props) {
+
     const { children, value, index, ...other } = props;
 
     return ( 
+
         <div
             role="tabpanel"
             hidden={value !== index}
@@ -23,7 +25,9 @@ function TabPanel1(props) {
             aria-labelledby={`full-width-tab-${index}`}
             {...other}
         >
+
             {value === index && (
+
                 <Box p={2} bgcolor="#fff">
                     <form autoComplete="off">
                         <TextField
@@ -36,6 +40,7 @@ function TabPanel1(props) {
                             type="text"
                             inputProps={{ minLength: 3, maxLength: 15 }}
                         />
+
                         <TextField
                             id="last-name"
                             label="Last Name"
@@ -46,6 +51,7 @@ function TabPanel1(props) {
                             type="text"
                             inputProps={{ minLength: 5, maxLength: 15 }}
                         />
+
                         <TextField
                             id="nic"
                             label="NIC"
@@ -54,6 +60,7 @@ function TabPanel1(props) {
                             margin="normal"
                             required
                         />
+
                         <TextField
                             id="email"
                             label="Email"
@@ -63,6 +70,7 @@ function TabPanel1(props) {
                             required
                             margin="normal"
                         />
+
                         <Button
                             type="submit"
                             variant="contained"
@@ -78,13 +86,17 @@ function TabPanel1(props) {
                             SAVE USER
                         </Button>
                     </form>
+                
                 </Box>
             )}
+
         </div>
+
     );
 }
 
 function TabPanel2(props) {
+    
     const { children, value, index, ...other } = props;
 
     return (

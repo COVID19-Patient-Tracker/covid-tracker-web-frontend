@@ -28,7 +28,7 @@ window.addEventListener('offline', function(e) {
 
 window.addEventListener('online', function(e) { 
   online = navigator.onLine;
-  store.dispatch({ type: 'todos/todoAdded', payload: online })
+  store.dispatch({ type: 'onlineStatus', payload: online })
 });
 
 

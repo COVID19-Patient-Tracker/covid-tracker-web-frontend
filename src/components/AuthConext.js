@@ -15,7 +15,6 @@ function useProvideAuth(){
     const history = useHistory();
 
     async function logout(){
-        
         localStorage.removeItem(`CPT-jwt-token`);
         localStorage.removeItem(`CPT-user-details`);
         localStorage.removeItem(`todos`);
@@ -24,7 +23,6 @@ function useProvideAuth(){
     }
     
     useEffect(() => {
-
         if(localStorage.getItem(`CPT-user-details`) && localStorage.getItem(`CPT-jwt-token`)){
             setCurrentUser(JSON.parse(localStorage.getItem(`CPT-user-details`)));
         }
@@ -35,7 +33,6 @@ function useProvideAuth(){
     }, [])
 
     async function login(email,password){
-
         const postData = {
             "email":email,
             "password":password
@@ -62,9 +59,8 @@ function useProvideAuth(){
                 console.log(e)
                 setException(e)
             });
-    }
 
-    
+    }
 
     return {
         login,

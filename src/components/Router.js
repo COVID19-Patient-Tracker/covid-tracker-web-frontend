@@ -108,39 +108,39 @@ const Router = () => {
                     <Route exact path={routes.LOGIN} component={Login} />
 
                     {/* moh-admin */}
-                    <Route exact path={routes.MOHADMINDASH} component={MOHAdminDash} />
-                    <Route exact path={routes.MOHADMINMANAGEMENT} component={MOHAdminUserManagement} />
+                    <PrivateRoute exact path={routes.MOHADMINDASH} component={MOHAdminDash}  AuthorizedUserRoles={[roles.MOH_ADMIN]}/>
+                    <PrivateRoute exact path={routes.MOHADMINMANAGEMENT} component={MOHAdminUserManagement}  AuthorizedUserRoles={[roles.MOH_ADMIN]}/>
                     {/* moh-user */}
                     {/* <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/> */}
                     {/* <PrivateRoute exact path={routes.MOHDASH} component={MOHDash} AuthorizedUserRoles={[roles.MOH_USER, roles.MOH_ADMIN]}/> */}
-                    <Route exact path={routes.MOHDASH} component={MOHDash} />
-                    <Route exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} />
-                    <Route exact path={routes.MOHHOSPITALMANAGEMENT} component={MOHHospitalManagement} />
+                    <PrivateRoute exact path={routes.MOHDASH} component={MOHDash}  AuthorizedUserRoles={[roles.MOH_USER]}/>
+                    <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement}  AuthorizedUserRoles={[roles.MOH_USER]}/>
+                    <PrivateRoute exact path={routes.MOHHOSPITALMANAGEMENT} component={MOHHospitalManagement}  AuthorizedUserRoles={[roles.MOH_USER]}/>
 
                     {/* hospital-admin */}
-                    <Route exact path={routes.HOSDASH} component={HospitalAdminDash} />
-                    <Route exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} />
-                    <Route exact path={routes.HOSPROFILE} component={HospitalProfile} />
+                    <PrivateRoute exact path={routes.HOSDASH} component={HospitalAdminDash}  AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]}/>
+                    <PrivateRoute exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement}  AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]}/>
+                    <PrivateRoute exact path={routes.HOSPROFILE} component={HospitalProfile}  AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]}/>
 
 
                     {/* hospital-user */}
                     {/* <PrivateRoute exact path={routes.HOSUSERDASH} component={HospitalDash} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN,roles.HOSPITAL_USER]}/> */}
-                    <Route exact path={routes.HOSUSERDASH} component={HospitalDash} />
-                    <Route exact path={routes.XRAY} component={UploadXray} />
-                    <Route exact path={routes.REPODASH} component={PatientManagement}/>
-                    <Route exact path={routes.REPO} component={Repo}/>
-                    <Route exact path={routes.REPOSTATUS} component={RepoStatus}/>
-                    <Route exact path={routes.REPOHOS} component={RepoHos}/>
-                    <Route exact path={routes.REPOWARD} component={RepoWard}/>
-                    <Route exact path={routes.REPOTEST} component={RepoTest}/>
-                    <Route exact path={routes.ADMITREPO} component={AdmitRepo}/>
-                    <Route exact path={routes.HOSPITALTRANS} component={HospitalTrans}/>
-                    <Route exact path={routes.STATUS} component={Status}/>
-                    <Route exact path={routes.TEST} component={Test}/>
-                    <Route exact path={routes.WARDTRANS} component={WardTrans}/>
-                    <Route exact path={routes.COMPLETEREPORT} component={CompleteReport}/>
-                    <Route exact path={routes.SEARCHPATIENT} component={SearchPatient} />
-                    <Route exact path={routes.ADDPATEINT} component={AddPatient}/>
+                    <PrivateRoute exact path={routes.HOSUSERDASH} component={HospitalDash}  AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.XRAY} component={UploadXray}  AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.REPODASH} component={PatientManagement} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.REPO} component={Repo} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.REPOSTATUS} component={RepoStatus} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.REPOHOS} component={RepoHos} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.REPOWARD} component={RepoWard} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.REPOTEST} component={RepoTest} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.ADMITREPO} component={AdmitRepo} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.HOSPITALTRANS} component={HospitalTrans} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.STATUS} component={Status} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.TEST} component={Test} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.WARDTRANS} component={WardTrans} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.COMPLETEREPORT} component={CompleteReport} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.SEARCHPATIENT} component={SearchPatient}  AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.ADDPATEINT} component={AddPatient} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
 
                     {/* website */}
                     <Route exact path={routes.HOMEPAGE} component={HomePage} />

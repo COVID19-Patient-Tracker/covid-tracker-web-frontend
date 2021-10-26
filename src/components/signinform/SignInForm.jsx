@@ -73,7 +73,7 @@ function SignInForm(){
         }
         else{
             // if any exception, it is a invalid login and show the exception message
-            // when in offline mode if user tried to login push email and password into redux store to login
+            // when in offline mode if user tried to login, push email and password into redux store to login
             // back when connectivty is back
             store.dispatch({type:"login/whenOnline",payload:{email:email,password:password}})
             setIsValidLogin("no internet connection.Will automatically log in when connection is back");
@@ -96,26 +96,21 @@ function SignInForm(){
             setOpen(false)
         }
 
-        // TODO : authorize JWT token before user logged in - done
         if(u && !e){
             if(u.role === "MOH_ADMIN"){
                 history.push(routes.MOHADMINDASH); 
             }
             else if(u.role === "MOH_USER"){
                 history.push(routes.MOHDASH); 
-                // TODO : send to MOH_USER dashboard
             }
             else if(u.role === "HOSPITAL_USER"){
                 history.push(routes.HOSUSERDASH);
-                // TODO : send to HOSPITAL_USER dasjhboard
             }
             else if(u.role === "HOSPITAL_ADMIN"){
                 history.push(routes.HOSDASH);
-                // TODO : send to HOSPITAL_ADMIN dashboard
             }
             else if(u.role === "MOH_ADMIN"){
                 history.push(routes.MOHADMINDASH);
-                // TODO : send to MOH_ADMIN dashboard
             }
         }
         return () => {

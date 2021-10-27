@@ -111,7 +111,7 @@ function SignInForm(){
             }
             else if(u.role === "HOSPITAL_ADMIN"){
                 history.push(routes.HOSDASH);
-                // TODO : send to HOSPITAL_ADMIN dashboard
+                // send to HOSPITAL_ADMIN dashboard
             }
             else if(u.role === "MOH_ADMIN"){
                 history.push(routes.MOHADMINDASH);

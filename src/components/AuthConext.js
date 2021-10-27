@@ -14,6 +14,7 @@ function useProvideAuth(){
     const [exception,setException] = useState(null)
     const history = useHistory();
 
+    // logout function
     async function logout(){
         localStorage.removeItem(`CPT-jwt-token`);
         localStorage.removeItem(`CPT-user-details`);
@@ -32,6 +33,7 @@ function useProvideAuth(){
         
     }, [])
 
+    // login function
     async function login(email,password){
         const postData = {
             "email":email,
@@ -69,6 +71,7 @@ function useProvideAuth(){
         exception,
         currentUser
       };
+      
 }
 export function ProvideAuth({children}){
     const auth = useProvideAuth();    

@@ -9,11 +9,32 @@ import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
+import store from '../../store'
 
 import PropTypes from 'prop-types'; 
 
 function TabPanel1(props) {
     const { children, value, index, ...other } = props;
+    const [isOnline,setIsOnline] = useState(true);
+    
+    // after press submit if user not online push them into todo in store
+    useEffect(() => {
+        // subscribe for change of react redux store
+        const unsubscribe = store.subscribe(() =>{
+            // global states that saved in store
+            let globalState = store.getState();
+            const online = globalState.onlineStatus;
+            // set online status
+            setIsOnline(online)
+
+        });
+        return () => {
+            // unsubscribe for the store change event - otherwies it will create a loop
+            unsubscribe();
+        }
+    }, [store.getState().onlineStatus])
+
+    // handling inputs
 
     return ( 
         <div

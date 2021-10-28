@@ -25,7 +25,7 @@ export const PrivateRoute = ({component : Component, ...rest}) => {
                     setValidated(false)
                     authorities.forEach(auth => {
                         if(auth.authority === `ROLE_${currentUserRole}`){
-                            setValidated(true) // comapre with stored user role for forged data and set validated true
+                            setValidated(true) // compare with stored user role for forged data and set validated true
                             return;
                         }
                     });

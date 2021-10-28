@@ -8,12 +8,24 @@ export function useAuth(){
     return useContext(AuthContext);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 function useProvideAuth(){
     
     const [currentUser, setCurrentUser] = useState(null);
     const [exception,setException] = useState(null)
     const history = useHistory();
-
     // logout function
     async function logout(){
         localStorage.removeItem(`CPT-jwt-token`);
@@ -43,7 +55,6 @@ function useProvideAuth(){
         // made request to the backend
         postRequest(routes.LOGIN,postData)
             .then((response) => {
-                
                 if(response.data){
                     const {data,headers} = response
                     setCurrentUser(data)

@@ -1,12 +1,17 @@
 import axios from "axios";
 
 
-// Utility functions for making api calls
-export const getRequest = async (uri) => {
-    try {
-		let URL = uri
-        let response = await axios.get(URL);
 
+
+
+
+
+// Utility functions for making api calls
+export const getRequest = async (uri,headers) => {
+    try {
+      
+        let URL = uri
+        let response = await axios.get(URL);
         return {
             data: response.data,
             error: null

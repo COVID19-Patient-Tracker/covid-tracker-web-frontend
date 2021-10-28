@@ -1,25 +1,12 @@
 import React, {useContext,useState,useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import * as routes from '../shared/backendRoutes'
+import * as routes from '../shared/BackendRoutes'
 import { postRequest } from '../api/utils';
 const AuthContext = React.createContext();
 
 export function useAuth(){
     return useContext(AuthContext);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function useProvideAuth(){
     

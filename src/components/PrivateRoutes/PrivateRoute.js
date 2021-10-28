@@ -1,7 +1,7 @@
 import { postRequest } from '../../api/utils';
 import { Redirect, Route } from "react-router-dom";
 import * as routes from "../../shared/routes";
-import * as backendroutes from "../../shared/backendRoutes";
+import * as backendroutes from "../../shared/BackendRoutes";
 import Forbidden from "../../pages/InfoPages/Forbidden";
 import React, {useState,useEffect} from 'react'
 

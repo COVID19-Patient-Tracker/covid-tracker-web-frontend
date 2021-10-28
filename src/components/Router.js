@@ -110,6 +110,7 @@ const Router = () => {
                     {/* moh-admin */}
                     <PrivateRoute exact path={routes.MOHADMINDASH} component={MOHAdminDash} AuthorizedUserRoles={[roles.MOH_ADMIN]}/>
                     <PrivateRoute exact path={routes.MOHADMINMANAGEMENT} component={MOHAdminUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/>
+                    
                     {/* moh-user */}
                     {/* <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/> */}
                     {/* <PrivateRoute exact path={routes.MOHDASH} component={MOHDash} AuthorizedUserRoles={[roles.MOH_USER, roles.MOH_ADMIN]}/> */}

@@ -1,8 +1,3 @@
-function nextTodoId(todos) {
-    const maxId = todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1)
-    return maxId + 1
-  }
-
 const initialState = {
     todos: [],
     onlineStatus : false,
@@ -40,7 +35,6 @@ export default function appReducer(state = initialState, action) {
                 // and the new todo object
                 {
                     // Use an auto-incrementing numeric ID for this example
-                    id: nextTodoId(state.todos),
                     data: action.payload,
                     completed: false
                 }
@@ -48,7 +42,14 @@ export default function appReducer(state = initialState, action) {
         }
       }
 
-      case 'todos/todoComplted': {
+      case 'todos/reset' : {
+        return {
+          ...state,
+          todos: []
+        }
+      }
+
+      case 'todos/todoCompleted': {
         return {
           // Again copy the entire state object
           ...state,

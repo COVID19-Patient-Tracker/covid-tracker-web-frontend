@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import ListItemButton from '@mui/material/ListItemButton';
 import { SidebarData } from './Sidebardata';
 import { SidebarDataHospitalAdmin } from './SidebardataHospitalAdmin';
 import { SidebarDataMOHuser } from './SidebardataMOHuser';
 import { SidebarDataHospitaluser } from './SidebardataHospitaluser';
 import { SidebarDataMOHAdmin } from './SidebardataMOHAdmin';
 import './Navbar.css';
+import { useAuth } from '../AuthConext'
 import { IconContext } from 'react-icons';
 import { Bars } from './NavebarElement';
 
 
 export const Navbars =() => {
+
   const [sidebar, setSidebar] = useState(false);
+
+  const auth = useAuth();
+
   const showSidebar = () => setSidebar(!sidebar);
+
+  const handleLogout = () => {
+    auth.logout();
+  }
+
   return (
     <>
       <IconContext.Provider value={{ color: '#757575' }}>
@@ -38,6 +49,9 @@ export const Navbars =() => {
                 </li>
               );
             })}
+            <ListItemButton  onClick={handleLogout} >
+           Logout
+          </ListItemButton>
           </ul>
         </nav>
       </IconContext.Provider>
@@ -46,8 +60,17 @@ export const Navbars =() => {
 }
 
 export const NavbarsHospitalUser =() => {
+
   const [sidebar, setSidebar] = useState(false);
+
+  const auth = useAuth();
+
   const showSidebar = () => setSidebar(!sidebar);
+
+  const handleLogout = () => {
+    auth.logout();
+  }
+
   return (
     <>
       <IconContext.Provider value={{ color: '#757575' }}>
@@ -72,6 +95,11 @@ export const NavbarsHospitalUser =() => {
                 </li>
               );
             })}
+            <li>
+            <ListItemButton  onClick={handleLogout} >
+              Logout
+            </ListItemButton>
+            </li>
           </ul>
         </nav>
       </IconContext.Provider>
@@ -80,8 +108,17 @@ export const NavbarsHospitalUser =() => {
 }
 
 export const NavbarsMOHUser =() => {
+
   const [sidebar, setSidebar] = useState(false);
+
+  const auth = useAuth();
+
   const showSidebar = () => setSidebar(!sidebar);
+
+  const handleLogout = () => {
+    auth.logout();
+  }
+
   return (
     <>
       <IconContext.Provider value={{ color: '#757575' }}>
@@ -106,6 +143,9 @@ export const NavbarsMOHUser =() => {
                 </li>
               );
             })}
+            <ListItemButton  onClick={handleLogout} >
+           Logout
+          </ListItemButton>
           </ul>
         </nav>
       </IconContext.Provider>
@@ -114,8 +154,17 @@ export const NavbarsMOHUser =() => {
 }
 
 export const NavbarsMOHAdmin =() => {
+
   const [sidebar, setSidebar] = useState(false);
+
+  const auth = useAuth();
+
   const showSidebar = () => setSidebar(!sidebar);
+
+  const handleLogout = () => {
+    auth.logout();
+  }
+
   return (
     <>
       <IconContext.Provider value={{ color: '#757575' }}>
@@ -140,6 +189,9 @@ export const NavbarsMOHAdmin =() => {
                 </li>
               );
             })}
+            <ListItemButton  onClick={handleLogout} >
+           Logout
+          </ListItemButton>
           </ul>
         </nav>
       </IconContext.Provider>
@@ -148,8 +200,17 @@ export const NavbarsMOHAdmin =() => {
 }
 
 export const NavbarsHospitalAdmin =() => {
+
   const [sidebar, setSidebar] = useState(false);
+
+  const auth = useAuth();
+
   const showSidebar = () => setSidebar(!sidebar);
+
+  const handleLogout = () => {
+    auth.logout();
+  }
+
   return (
     <>
       <IconContext.Provider value={{ color: '#757575' }}>
@@ -174,6 +235,9 @@ export const NavbarsHospitalAdmin =() => {
                 </li>
               );
             })}
+            <ListItemButton  onClick={handleLogout} >
+           Logout
+          </ListItemButton>
           </ul>
         </nav>
       </IconContext.Provider>

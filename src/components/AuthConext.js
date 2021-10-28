@@ -1,19 +1,39 @@
 import React, {useContext,useState,useEffect } from 'react'
-import { postRequest } from '../api/utils';
-import {BASE_URL} from '../shared/config'
 import { Link, useHistory } from 'react-router-dom'
-import * as routes from '../shared/routes'
+import * as routes from '../shared/backendRoutes'
+import { postRequest } from '../api/utils';
 const AuthContext = React.createContext();
 
 export function useAuth(){
     return useContext(AuthContext);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 function useProvideAuth(){
     
     const [currentUser, setCurrentUser] = useState(null);
     const [exception,setException] = useState(null)
     const history = useHistory();
+    // logout function
+    async function logout(){
+        localStorage.removeItem(`CPT-jwt-token`);
+        localStorage.removeItem(`CPT-user-details`);
+        localStorage.removeItem(`todos`);
+        setCurrentUser(null)
+        history.push("/login");
+    }
     
     useEffect(() => {
         if(localStorage.getItem(`CPT-user-details`) && localStorage.getItem(`CPT-jwt-token`)){
@@ -25,11 +45,13 @@ function useProvideAuth(){
         
     }, [])
 
+    // login function
     async function login(email,password){
         const postData = {
             "email":email,
             "password":password
         }
+
         // made request to the backend
         postRequest(routes.LOGIN,postData)
             .then((response) => {
@@ -47,16 +69,10 @@ function useProvideAuth(){
                 }
             })
             .catch((e) => {
+                console.log(e)
                 setException(e)
             });
 
-    }
-
-    async function logout(){
-        localStorage.removeItem(`CPT-jwt-token`);
-        localStorage.removeItem(`CPT-user-details`);
-        setCurrentUser(null)
-        history.push("/login");
     }
 
     return {
@@ -66,6 +82,7 @@ function useProvideAuth(){
         exception,
         currentUser
       };
+      
 }
 export function ProvideAuth({children}){
     const auth = useProvideAuth();    

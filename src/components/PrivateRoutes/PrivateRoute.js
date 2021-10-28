@@ -1,6 +1,7 @@
 import { postRequest } from '../../api/utils';
 import { Redirect, Route } from "react-router-dom";
 import * as routes from "../../shared/routes";
+import * as backendroutes from "../../shared/backendRoutes";
 import Forbidden from "../../pages/InfoPages/Forbidden";
 import React, {useState,useEffect} from 'react'
 
@@ -16,7 +17,7 @@ export const PrivateRoute = ({component : Component, ...rest}) => {
     const headers = {headers:{"Authorization": `${JWTtoken}`}}
 
     useEffect(() => { 
-        postRequest(routes.VALIDATETOKEN,null,headers)
+        postRequest(backendroutes.VALIDATETOKEN,null,headers)
             .then((response) => {
                 const authorities = response.data.authorities; // get authorities from validated token response
                 if(currentUser){

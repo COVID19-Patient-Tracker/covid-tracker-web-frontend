@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Router from './components/Router';
+
 import Footer from './components/layout/Footer';
+
+
+
+
+
 import store from './store'
-import { useSelector } from 'react-redux'
-
-
-
 import { makeStyles } from "@material-ui/core";
+
+
+
 import InfoBox from "./components/InfoBox/InfoBox"
 import { SendSpecifiedRequest } from "./api/utils"
 
@@ -74,8 +79,7 @@ const App = () => {
         for (let index = 0; index < todos.length; index++) {
 
             const todo = todos[index];
-            setCount(count = count + 99/99); console.log(todos.length)
-
+            setCount(count = count + 99/99); 
             SendSpecifiedRequest(todo.data.url,todo.data.inputs,todo.data.headers,todo.data.method)
                 .then((response) => {
                     const {data,error} = response

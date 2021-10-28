@@ -120,17 +120,7 @@ export default function Guidelines() {
             <Box p={{ sm: 3, xs: 1 }} m={{ xs: 2, sm: 3 }} textAlign="-webkit-center" >
                 <Typography variant="h4" align="center" style={{ fontWeight: 700 }} gutterBottom>Symptoms</Typography>
                 <Typography variant="body1" align="center" gutterBottom>You can minimize your chance of being infected by taking simple precautions.</Typography>
-                <Box m={{ sm: 3, xs: 1 }}>
-                    <Grid container spacing={3} className={classes.container}>
-                        <Grid item xs={12} md={6}>
-                            <img src="/assets/symp.jpg" alt="symp3" className={classes.imgdiv} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <img src="/assets/symp2.jpg" alt="symp2" className={classes.imgdiv} />
-                        </Grid>
-                    </Grid>
-
-                </Box>
+                <img src="/assets/symp.jpg" alt="symp3" className={classes.imgdiv} />            
             </Box>
 
             <Box p={{ xs: 1, sm: 3 }} m={{ xs: 1, sm: 3 }} textAlign="-webkit-center" >
@@ -139,7 +129,7 @@ export default function Guidelines() {
                 <List className={classes.listStyle}>
                     <ListItem alignItems="flex-start">
                         <ListItemAvatar>
-                            <Avatar alt="Remy Sharp" src="/assets/image.png" />
+                            <Avatar alt="Remy Sharp" src="/assets/guidelineimage1.png" />
                         </ListItemAvatar>
                         <ListItemText
                             primary="Maintain Distance"
@@ -160,7 +150,7 @@ export default function Guidelines() {
                     <Divider variant="inset" component="li" />
                     <ListItem alignItems="flex-start">
                         <ListItemAvatar>
-                            <Avatar alt="Travis Howard" src="/assets/dash-cover.jpg" />
+                            <Avatar alt="Travis Howard" src="/assets/maskimage.jpg" />
                         </ListItemAvatar>
                         <ListItemText
                             primary="Wear a mask"
@@ -181,7 +171,7 @@ export default function Guidelines() {
                     <Divider variant="inset" component="li" />
                     <ListItem alignItems="flex-start">
                         <ListItemAvatar>
-                            <Avatar alt="Cindy Baker" src="/assets/vaccine.jpg" />
+                            <Avatar alt="Cindy Baker" src="/assets/washhand.jpg" />
                         </ListItemAvatar>
                         <ListItemText
                             primary="Wash Hand"
@@ -202,7 +192,7 @@ export default function Guidelines() {
                     <Divider variant="inset" component="li" />
                     <ListItem alignItems="flex-start">
                         <ListItemAvatar>
-                            <Avatar alt="Cindy Baker" src="/assets/home-back.jpg" />
+                            <Avatar alt="Cindy Baker" src="/assets/vaccineimage1.jpg" />
                         </ListItemAvatar>
                         <ListItemText
                             primary="Get Vaccination"

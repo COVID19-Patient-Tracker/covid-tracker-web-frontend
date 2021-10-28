@@ -78,7 +78,7 @@ function SignInForm(){
                  <h1 className="login__banner">LOGIN</h1>
                  <form className="form">
                     <input value={email} type="text" id="email" name="email" placeholder="EMAIL" onChange={handleEmailInput} />
-                    {isValidLogin ? isValidLogin : "isValidLogin"}
+                    
                     <input type="password" id="password" name="password" placeholder="PASSWORD" onChange={handlepasswordInput} />
                     <div className="remember-me">
                         <input type="checkbox" id="remember-me" name="remember-me" value="remember-me"></input>

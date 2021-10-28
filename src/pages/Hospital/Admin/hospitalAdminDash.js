@@ -114,7 +114,7 @@ export default function HospitalAdminDash() {
     const headers = {headers:{"Authorization": `${JWTtoken}`}}
     const classes = useStyles();
     const auth = useAuth();
-    const [hospitalInfo,sethospitalInfo] = useState(null)
+    const [hospitalInfo,sethospitalInfo] = useState(null) // includes all hosital details
     const [infoLoaded, setinfoLoaded] = useState(false)
 
     React.useEffect(() => {
@@ -127,7 +127,7 @@ export default function HospitalAdminDash() {
             .then((response) => {
                 console.log(response)
                 if(response.data){
-                    sethospitalInfo(response.data.Info.hospital[0])
+                    sethospitalInfo(response.data.Info.hospital[0]);
                     setinfoLoaded(true)
                 }
                 else if(response.error){

@@ -9,7 +9,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import store from '../../store'
 import PropTypes from 'prop-types'; 
-import * as routes from '../../shared/backendRoutes'
+import * as routes from '../../shared/BackendRoutes'
 import { putRequest } from '../../api/utils';
 import { Alert } from '@mui/material';
 

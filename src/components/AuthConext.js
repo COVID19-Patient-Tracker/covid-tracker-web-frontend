@@ -1,7 +1,7 @@
 import React, {useContext,useState,useEffect } from 'react'
-import { postRequest } from '../api/utils';
 import { Link, useHistory } from 'react-router-dom'
-import * as routes from '../shared/routes'
+import * as routes from '../shared/backendRoutes'
+import { postRequest } from '../api/utils';
 const AuthContext = React.createContext();
 
 export function useAuth(){

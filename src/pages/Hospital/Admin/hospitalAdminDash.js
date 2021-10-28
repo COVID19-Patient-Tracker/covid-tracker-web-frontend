@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Grid, Container, Typography, makeStyles } from '@material-ui/core';
 
 import { HeaderContentHospitalUser } from '../../../components/HeaderContent';
 import CustomCalendar from "../../../components/hospital/dashboard/CustomCalendar"
 import SummaryCard from '../../../components/hospital/dashboard/SummaryCard';
-
+import { useAuth } from "../../../components/AuthConext"
 import styles from '../../../App.module.css';
+import { getRequest } from '../../../api/utils';
+import * as routes from "../../../shared/BackendRoutes";
 
 
 const sumCard1 = {
@@ -108,11 +110,41 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HospitalAdminDash() {
 
+    const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
+    const headers = {headers:{"Authorization": `${JWTtoken}`}}
     const classes = useStyles();
+    const auth = useAuth();
+    const [hospitalInfo,sethospitalInfo] = useState(null) // includes all hosital details
+    const [infoLoaded, setinfoLoaded] = useState(false)
+
+    React.useEffect(() => {
+        const user_id = {
+            "id":auth.currentUser.id,
+        }
+
+        // made request to the backend
+        getRequest(routes.GETHOSPITALUSERDETAILS + user_id.id,headers)
+            .then((response) => {
+                console.log(response)
+                if(response.data){
+                    sethospitalInfo(response.data.Info.hospital[0]);
+                    setinfoLoaded(true)
+                }
+                else if(response.error){
+                    alert(response.error)
+                }
+            })
+            .catch((e) => {
+
+            });
+        return () => {
+        }
+    }, [])
+
 
     return (
         <React.Fragment>
-            <HeaderContentHospitalUser />
+            {hospitalInfo ? <HeaderContentHospitalUser props={hospitalInfo}/> : "loading"}
             <div>
                 <img src="/assets/userback2.svg" alt='' style={{ backgroundSize: 'cover', width: "100%", backgroundRepeat: 'no-repeat' }} />
             </div>

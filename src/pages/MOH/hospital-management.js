@@ -13,11 +13,9 @@ import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import PropTypes from 'prop-types'; 
 
 function TabPanel1(props) {
-
     const { children, value, index, ...other } = props;
 
     return ( 
-
         <div
             role="tabpanel"
             hidden={value !== index}
@@ -25,52 +23,36 @@ function TabPanel1(props) {
             aria-labelledby={`full-width-tab-${index}`}
             {...other}
         >
-
             {value === index && (
-
                 <Box p={2} bgcolor="#fff">
                     <form autoComplete="off">
                         <TextField
-                            id="first-name"
-                            label="First Name"
+                            id="name"
+                            label="Hospital name"
                             variant="outlined"
                             fullWidth
                             margin="normal"
                             required
                             type="text"
-                            inputProps={{ minLength: 3, maxLength: 15 }}
                         />
-
                         <TextField
-                            id="last-name"
-                            label="Last Name"
+                            id="address"
+                            label="Address"
                             variant="outlined"
                             fullWidth
                             margin="normal"
                             required
                             type="text"
-                            inputProps={{ minLength: 5, maxLength: 15 }}
                         />
-
                         <TextField
-                            id="nic"
-                            label="NIC"
+                            id="telephone"
+                            label="Telephone"
                             variant="outlined"
                             fullWidth
                             margin="normal"
                             required
+                            type="text"
                         />
-
-                        <TextField
-                            id="email"
-                            label="Email"
-                            type="email"
-                            variant="outlined"
-                            fullWidth
-                            required
-                            margin="normal"
-                        />
-
                         <Button
                             type="submit"
                             variant="contained"
@@ -83,20 +65,16 @@ function TabPanel1(props) {
                                 backgroundColor:'#0b99d1'
                             }}
                         >
-                            SAVE USER
+                            SAVE HOSPITAL
                         </Button>
                     </form>
-                
                 </Box>
             )}
-
         </div>
-
     );
 }
 
 function TabPanel2(props) {
-    
     const { children, value, index, ...other } = props;
 
     return (
@@ -111,14 +89,14 @@ function TabPanel2(props) {
                 <Box p={2} bgcolor="#fff">
                     <form autoComplete="off">
                         <TextField
-                            id="email"
-                            label="Email"
+                            id="name"
+                            label="Hospital name"
                             variant="outlined"
                             fullWidth
-                            required
                             margin="normal"
-                            helperText="*Enter user Email here"
-                            type="email"
+                            required
+                            type="text"
+                            helperText="*Enter hospital name here"
                             autoFocus
                         />
                         <Button
@@ -132,7 +110,7 @@ function TabPanel2(props) {
                                 backgroundColor:'#0b99d1'
                             }}
                         >
-                            REMOVE USER
+                            REMOVE HOSPITAL
                         </Button>
                     </form>
                 </Box>

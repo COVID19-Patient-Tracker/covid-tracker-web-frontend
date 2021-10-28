@@ -1,16 +1,17 @@
 import axios from "axios";
 
-import {BASE_URL} from '../shared/config'
+
+
 
 
 
 
 // Utility functions for making api calls
-export const getRequest = async (uri) => {
+export const getRequest = async (uri,headers) => {
     try {
-		let URL = BASE_URL + uri
-        let response = await axios.get(URL);
-
+      
+        let URL = uri
+        let response = await axios.get(URL,headers);
         return {
             data: response.data,
             error: null
@@ -23,10 +24,9 @@ export const getRequest = async (uri) => {
     }
 }
 
-
 export const postRequest = async (uri, data, headers) => {
 	try {
-		let URL = BASE_URL + uri
+		let URL = uri
 		let response = await axios.post(URL, data, headers);
 
 		return response;
@@ -40,10 +40,10 @@ export const postRequest = async (uri, data, headers) => {
 
 
 
-export const deleteRequest = async (uri) => {
+export const deleteRequest = async (uri, headers) => {
 	try {
-		let URL = BASE_URL + uri
-		let response = await axios.delete(URL);
+		let URL = uri
+		let response = await axios.delete(URL, headers);
 
 		return {
 			data: response.data,
@@ -59,10 +59,10 @@ export const deleteRequest = async (uri) => {
 
 
 
-export const putRequest = async (uri, data) => {
+export const putRequest = async (uri, data, headers) => {
 	try {
-		let URL = BASE_URL + uri
-		let response = await axios.put(URL, data);
+		let URL = uri
+		let response = await axios.put(URL, data, headers);
 
 		return {
 			data: response.data,
@@ -73,5 +73,25 @@ export const putRequest = async (uri, data) => {
 			data: null,
 			error: error
 		};
+	}
+};
+
+export const SendSpecifiedRequest = async (uri, data, headers, method) => {
+	let promise;
+	switch (method) {
+		case "POST":
+			promise = postRequest(uri,data,headers)
+			return promise
+		case "GET":
+			promise = getRequest(uri,data,headers)
+			return promise
+		case "PUT":
+			promise = putRequest(uri,data,headers)
+			return promise
+		case "DELETE":
+			promise = deleteRequest(uri,data,headers)
+			return promise
+		default:
+			break;
 	}
 };

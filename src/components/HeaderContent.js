@@ -71,13 +71,28 @@ export const HeaderContentNews =() => {
     )
 }
 
-export const HeaderContentHospitalUser =() => {
+export const HeaderContentHospitalUser =({props}) => {
+    // props - hospital info
     return (
         <HeaderContentUserStyled>
             <div className="left-content"><img src='/assets/hospitaluser1.png' alt='' className="homeimage"/></div> 
             <div className="right-content">
                 <div className="right-text-container">
-                <h1>Welcome to National Hospital - Colombo</h1>
+                <h1>Welcome to {props.name}</h1>
+                    <p className="black">{new Date().toDateString()} {new Date().toLocaleTimeString()}</p>
+                </div>    
+            </div> 
+        </HeaderContentUserStyled>
+    )
+}
+
+export const HeaderContentMOH =() => {
+    return (
+        <HeaderContentUserStyled>
+            <div className="left-content"><img src='/assets/mohuser.png' alt='' className="homeimage"/></div> 
+            <div className="right-content">
+                <div className="right-text-container">
+                <h1>Welcome to Medical officer of health</h1>
                     <p className="black">{new Date().toDateString()} {new Date().toLocaleTimeString()}</p>
                 </div>    
             </div> 

@@ -11,7 +11,7 @@ export const getRequest = async (uri,headers) => {
     try {
       
         let URL = uri
-        let response = await axios.get(URL,headers);
+        let response = await axios.get(URL);
         return {
             data: response.data,
             error: null

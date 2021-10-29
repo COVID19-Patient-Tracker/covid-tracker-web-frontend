@@ -71,10 +71,7 @@ function TabPanel1(props) {
         e.preventDefault();
 
         if(isOnline){
-
-
             var putData = inputs; // submit data
-
             // made request to the backend
             putRequest(routes.MOH_ADD_USER_URL, putData, headers)
                 .then((response) => {
@@ -144,7 +141,7 @@ function TabPanel1(props) {
                             >
                                 <option aria-label="None" value="" />
                                 <option value="MOH_ADMIN">MOH ADMIN</option>
-                                <option value="MOH USER">MOH USER</option>
+                                <option value="MOH_USER">MOH USER</option>
                             </Select>
                         </FormControl>
                         <TextField

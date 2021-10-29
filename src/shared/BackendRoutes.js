@@ -15,3 +15,7 @@ export const GETHOSPITALUSERDETAILS = BASE_URL + "/management/api/V1/hospital/us
 
 // token validation
 export const VALIDATETOKEN = BASE_URL + "/validate/token/jwt"
+
+export const HOS_ADD_USER_URL = BASE_URL + "/management/api/V1/MOH/user/user/add"
+
+export const GET_ALL_HOSPITALS_URL = BASE_URL + "/management/api/V1/hospital/user/hospitals/all"

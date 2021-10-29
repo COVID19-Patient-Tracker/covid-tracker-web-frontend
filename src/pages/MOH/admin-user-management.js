@@ -144,7 +144,7 @@ function TabPanel1(props) {
                             >
                                 <option aria-label="None" value="" />
                                 <option value="MOH_ADMIN">MOH ADMIN</option>
-                                <option value="MOH USER">MOH USER</option>
+                                <option value="MOH_USER">MOH USER</option>
                             </Select>
                         </FormControl>
                         <TextField

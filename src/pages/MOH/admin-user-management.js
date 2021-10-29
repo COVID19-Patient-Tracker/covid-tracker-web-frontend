@@ -71,10 +71,7 @@ function TabPanel1(props) {
         e.preventDefault();
 
         if(isOnline){
-
-
             var putData = inputs; // submit data
-
             // made request to the backend
             putRequest(routes.MOH_ADD_USER_URL, putData, headers)
                 .then((response) => {

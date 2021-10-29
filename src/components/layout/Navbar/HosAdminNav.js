@@ -2,9 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Toolbar } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Avatar from '@material-ui/core/Avatar';
 import { NavLink, NavMenu ,Nav} from '../../Navigation/NavebarElement';
 import logo from '../../img/logo7.png'
+import AccountMenu from './Avatar';
 
 import {NavbarsHospitalAdmin} from '../../Navigation/Navbar';
 
@@ -47,9 +47,8 @@ export default function HosUserNav() {
                         <NavLink to="/hospital/admin/hospital-profile" style={{marginLeft:'-4rem'}}>
                             HOSPITAL PROFILE
                         </NavLink>
-                        <Avatar className={classes.avat} variant="circular" src="/broken-image.jpg"  style={{marginLeft:'30px'}}/>
                     </NavMenu>
-                    
+                    <AccountMenu/>
                     <NavbarsHospitalAdmin/>
                 </Toolbar>
             </Nav>

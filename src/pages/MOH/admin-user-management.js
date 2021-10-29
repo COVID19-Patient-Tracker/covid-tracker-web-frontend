@@ -1,19 +1,115 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from "react";
 import { useTheme } from '@material-ui/core/styles';
-
-import { Box, TextField, Button, AppBar, Tabs, Tab, makeStyles,FormControl,Select, InputLabel} from '@material-ui/core';
+import { Box, TextField, Button, AppBar, Tabs, Tab, makeStyles,FormControl,Select, InputLabel, Snackbar} from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
-
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
-
+import store from '../../store'
 import PropTypes from 'prop-types'; 
+import * as routes from '../../shared/BackendRoutes'
+import { putRequest } from '../../api/utils';
+import { Alert } from '@mui/material';
 
 function TabPanel1(props) {
+
     const { children, value, index, ...other } = props;
+    const [isOnline,setIsOnline] = useState(true);
+    const [inputs,setInputs] = useState({
+        first_name:"",
+        last_name:"",
+        nic:"",
+        email:""
+    }); 
+    const [reqSuccess,setReqSuccess] = useState(false);
+    const [errors,setErrors] = useState({}); // errors in inputs
+    const [open, setOpen] = React.useState(false);
+    const [syncMessage, setSynceMessage] = React.useState(null);
+    const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
+    const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
+
+    // for snack bar
+    const handleClose = (event, reason) => {
+        // when click away set exception  to null
+      if (reason === 'clickaway') {
+        return;
+      }
+      setOpen(false);
+    };
+
+    // after press submit if user not online push them into todo in store
+    useEffect(() => {
+        // subscribe for change of react redux store
+        const unsubscribe = store.subscribe(() =>{
+            // global states that saved in store
+            let globalState = store.getState();
+            const online = globalState.onlineStatus;
+            console.log("in useEffect of moh-UMngmnt",online)
+            // set online status
+            setIsOnline(online);
+        });
+        return () => {
+            // unsubscribe for the store change event - otherwies it will create a loop
+            unsubscribe();
+        }
+    }, [])
+
+    // handling inputs
+    const handleChange = (e) => {
+        e.preventDefault();
+        setInputs(
+            {
+                ...inputs, 
+                [e.target.name]:e.target.value
+            })
+    }
+
+    const submit = (e) => {
+        
+        e.preventDefault();
+
+        if(isOnline){
+
+
+            var putData = inputs; // submit data
+
+            // made request to the backend
+            putRequest(routes.MOH_ADD_USER_URL, putData, headers)
+                .then((response) => {
+                    if(response.data){
+                        const {data,headers} = response
+                        setErrors({});
+                        setReqSuccess(true)
+                    }
+                    else if(response.error){
+                        const {error,headers} = response
+                        setErrors({...error.response.data}) // set errors of inputs and show
+                        setReqSuccess(false)
+                    }
+                })
+                .catch((e) => {
+                    setReqSuccess(false)
+                });
+
+        }else{
+            // TODO : show warning method that it will synced with backend when online
+            setSynceMessage("you're offline now. changes you make will automatically sync with database");
+            setOpen(true)
+            // push to store
+            store.dispatch({
+                type:"todos/todoAdded",
+                payload:{
+                        inputs:inputs,
+                        url:routes.MOH_ADD_USER_URL,
+                        method:"PUT",
+                        headers:headers
+                    }
+                }
+            )
+        }
+    }
 
     return ( 
         <div
@@ -23,14 +119,28 @@ function TabPanel1(props) {
             aria-labelledby={`full-width-tab-${index}`}
             {...other}
         >
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                                {syncMessage}
+                            </Alert>
+                        </Snackbar>
             {value === index && (
                 <Box p={2} bgcolor="#fff">
                     <form autoComplete="off">
                         <FormControl variant="outlined" fullWidth required>
-                            <InputLabel htmlFor="outlined-type">User Type</InputLabel>
+                            
+                            <InputLabel 
+                                error={errors.role ? true:false} 
+                                htmlFor="outlined-type"
+                                helperText={errors.role ? errors.role : null}
+                            >
+                                    User Type
+                            </InputLabel>
                             <Select autoFocus
                                 native
                                 label="User Type"
+                                onChange={handleChange}
+                                name="role"
                             >
                                 <option aria-label="None" value="" />
                                 <option value="MOH_ADMIN">MOH ADMIN</option>
@@ -38,46 +148,64 @@ function TabPanel1(props) {
                             </Select>
                         </FormControl>
                         <TextField
+                            error={errors.first_name ? true:false}
                             id="first-name"
                             label="First Name"
+                            name="first_name"
                             variant="outlined"
                             fullWidth
                             margin="normal"
                             required
                             type="text"
                             inputProps={{ minLength: 3, maxLength: 15 }}
+                            onChange={handleChange}
+                            helperText={errors.first_name ? errors.first_name : null}
                         />
                         <TextField
+                            error={errors.last_name ? true:false}
+                            helperText={errors.last_name ? errors.last_name : null}
+
                             id="last-name"
                             label="Last Name"
+                            name="last_name"
                             variant="outlined"
                             fullWidth
                             margin="normal"
                             required
                             type="text"
                             inputProps={{ minLength: 5, maxLength: 15 }}
+                            onChange={handleChange}
                         />
                         <TextField
+                            error={errors.nic ? true:false}
+                            helperText={errors.nic ? errors.nic : null}
                             id="nic"
                             label="NIC"
+                            name="nic"
                             variant="outlined"
                             fullWidth
                             margin="normal"
                             required
+                            onChange={handleChange}
                         />
                         <TextField
+                            error={errors.email ? true:false}
+                            helperText={errors.email ? errors.email : null}
                             id="email"
                             label="Email"
+                            name="email"
                             type="email"
                             variant="outlined"
                             fullWidth
                             required
                             margin="normal"
+                            onChange={handleChange}
                         />
                         <Button
                             type="submit"
                             variant="contained"
                             startIcon={<SaveIcon />}
+                            onClick={submit}
                             style={{
                                 borderRadius: "50px",
                                 margin: "10px",
@@ -88,6 +216,16 @@ function TabPanel1(props) {
                         >
                             SAVE USER
                         </Button>
+                        {
+                            reqSuccess == true
+                                ? <Alert severity="success">user added</Alert> 
+                                : null
+                        }
+                        {
+                            (errors.exception && errors.exception == "user already exists in db") && reqSuccess == false
+                                ? <Alert severity="error">user already exists</Alert> 
+                                : null
+                        }
                     </form>
                 </Box>
             )}

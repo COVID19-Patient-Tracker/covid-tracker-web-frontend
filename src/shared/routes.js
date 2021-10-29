@@ -2,6 +2,7 @@
 export const LANDING = "/";
 export const LOGIN = "/login";
 
+
 //public site
 export const PUBLIC = "/public"
 export const HOMEPAGE = "/public/home"
@@ -9,19 +10,23 @@ export const GUIDELINE = "/public/guideline"
 export const WEBNEWS = "/public/news"
 export const VACCINEPROGRAM = "/public/vaccine-program"
 
+
 //moh-admin
 export const MOHADMINMANAGEMENT = "/moh/admin/user-management"
 export const MOHADMINDASH = "/moh/admin/dashboard"
+
 
 //moh-user
 export const MOHUSERMANAGEMENT = "/moh/user/user-management"
 export const MOHDASH = "/moh/user/dashboard"
 export const MOHHOSPITALMANAGEMENT = "/moh/user/hospital-management"
 
+
 //hospital-admin
 export const HOSDASH = "/hospital/admin/dashboard" // ha
 export const HOSPITALUSERMANAGEMENT = "/hospital/admin/user-management"
 export const HOSPROFILE = "/hospital/admin/hospital-profile"
+
 
 //hospital-user
 export const HOSUSERDASH = "/hospital/user/dashboard" // hu
@@ -41,8 +46,6 @@ export const COMPLETEREPORT = "/hospital/user/completeReport"
 export const SEARCHPATIENT = "/hospital/user/searchpatient"
 export const ADDPATEINT = "/hospital/user/addPatient"
 
-// token validation
-export const VALIDATETOKEN = "/validate/token/jwt"
 
 export const PROTECTED = "/protected" // for testing
 //define the route url here and use it. Easy to change later

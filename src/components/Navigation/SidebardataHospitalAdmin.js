@@ -19,10 +19,4 @@ export const SidebarDataHospitalAdmin = [
     
     cName: 'nav-text'
   },
-  {
-    title: 'LOGOUT',
-    
-    cName: 'nav-text'
-  }
-
-];
+  ];

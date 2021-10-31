@@ -12,29 +12,29 @@ import * as routes from "../../../shared/BackendRoutes";
 
 
 const sumCard1 = {
-    title: 'Registered Patient Count',
+    title: 'Registered covid Patient Count',
     count: "57",
     card_clr: { background: 'linear-gradient(45deg, #4fd2f5 30%, #ccebeb 90%)' },
 };
 const sumCard2 = {
-    title: 'Admitted Patient Count',
+    title: 'Admitted covid Patient Count',
     count: "12",
     card_clr: { background: 'linear-gradient(45deg, #4fd2f5 30%, #ccebeb 90%)' },
 };
 const sumCard3 = {
-    title: 'Discharged Patient Count',
+    title: 'Discharged covid Patient Count',
     count: "8",
     card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
 };
 
 const sumCard4 = {
-    title: 'Transfered Patient Count',
+    title: 'Transfered covid Patient Count',
     count: "1",
     card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
 };
 //set2
 const sumCard5 = {
-    title: 'Total Patient Count',
+    title: 'Total covid Patient Count',
     count: "570",
     card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
 };
@@ -115,6 +115,8 @@ export default function HospitalAdminDash() {
     const classes = useStyles();
     const auth = useAuth();
     const [hospitalInfo,sethospitalInfo] = useState(null) // includes all hosital details
+    // hospital statistics are here
+    const [hospitalStatistics,sethospitalStatistics] = useState(null) // includes all hosital details
     const [infoLoaded, setinfoLoaded] = useState(false)
 
     React.useEffect(() => {
@@ -128,7 +130,19 @@ export default function HospitalAdminDash() {
                 console.log(response)
                 if(response.data){
                     sethospitalInfo(response.data.Info.hospital[0]);
-                    setinfoLoaded(true)
+                    getRequest(routes.GET_STATISTICS + response.data.Info.hospital[0].hospital_id,headers)
+                        .then((response) => {
+                            if(response.data){
+                                sethospitalStatistics(response.data.statistics);
+                                setinfoLoaded(true)
+                            }
+                            else if(response.error){
+                                alert(response.error)
+                }
+            })
+            .catch((e) => {
+
+            });
                 }
                 else if(response.error){
                     alert(response.error)

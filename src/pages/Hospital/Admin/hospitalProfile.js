@@ -5,6 +5,13 @@ import { Grid, Box, TextField, Button } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 
 
+
+import { useAuth } from "../../../components/AuthConext"
+import styles from '../../../App.module.css';
+import { getRequest } from '../../../api/utils';
+import * as routes from "../../../shared/BackendRoutes";
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         textAlign: "-webkit-center",
@@ -19,7 +26,41 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HospitalProfile() {
 
+    const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
+    const headers = {headers:{"Authorization": `${JWTtoken}`}}
     const classes = useStyles();
+    const auth = useAuth();
+    const [hospitalInfo,sethospitalInfo] = React.useState(null) // includes all hosital details
+    // hospital statistics are here
+    const [infoLoaded, setinfoLoaded] = React.useState(false)
+
+    React.useEffect(() => {
+        const user_id = {
+            "id":auth.currentUser.id,
+        }
+
+        // made request to the backend
+        getRequest(routes.GETHOSPITALUSERDETAILS + user_id.id,headers)
+            .then((response) => {
+                console.log(response)
+                if(response.data){
+                    sethospitalInfo(response.data.Info.hospital[0]);
+                    setinfoLoaded(true)
+                    
+            .catch((e) => {
+
+            });
+                }
+                else if(response.error){
+                    alert(response.error)
+                }
+            })
+            .catch((e) => {
+
+            });
+        return () => {
+        }
+    }, [])
 
 
     return (
@@ -39,7 +80,7 @@ export default function HospitalProfile() {
                                     label="Hospital Name"
                                     fullWidth
                                     margin="normal"
-                                    value=" District General Hospital - Colombo"
+                                    value={infoLoaded ? hospitalInfo.name : "loading"}
                                     type="text"
                                     InputProps={{ readOnly: true }}
                                     inputProps={{ minLength: 3, maxLength: 15 }}
@@ -49,7 +90,7 @@ export default function HospitalProfile() {
                                     label="Address"
                                     fullWidth
                                     margin="normal"
-                                    value=" N0: 101, Colombo South, Colombo"
+                                    value={infoLoaded ? hospitalInfo.address : "loading"}
                                     required
                                     type="text"
                                     InputProps={{ readOnly: true }}
@@ -60,7 +101,7 @@ export default function HospitalProfile() {
                                     label="Telephone"
                                     fullWidth
                                     margin="normal"
-                                    value="011-4576972"
+                                    value={infoLoaded ? hospitalInfo.telephone : "loading"}
                                     InputProps={{ readOnly: true }}
                                     required
                                 />
@@ -70,7 +111,7 @@ export default function HospitalProfile() {
                                     type="number"
                                     fullWidth
                                     margin="normal"
-                                    value="2600"
+                                    value="9999"
                                     require
                                     InputProps={{ readOnly: true }}
                                 />

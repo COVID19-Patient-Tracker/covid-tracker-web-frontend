@@ -11,7 +11,6 @@ import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import { useEffect } from 'react';
 import { FormControl,Select, InputLabel, Snackbar} from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
-
 import store from '../../store'
 import * as routes from '../../shared/BackendRoutes'
 import { putRequest, getRequest, deleteRequest } from '../../api/utils';
@@ -132,13 +131,11 @@ function TabPanel1(props) {
             aria-labelledby={`full-width-tab-${index}`}
             {...other}
         >
-
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                                {syncMessage}
-                            </Alert>
-                        </Snackbar>
-                        
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    {syncMessage}
+                </Alert>
+            </Snackbar>
             {value === index && (
             <Box p={2} bgcolor="#fff">
             <form autoComplete="off">
@@ -198,7 +195,7 @@ function TabPanel1(props) {
                     >
                             Hospital
                     </InputLabel>
-                    <Select autoFocus
+                    <Select
                         native
                         label="User Type"
                         onChange={handleChange}

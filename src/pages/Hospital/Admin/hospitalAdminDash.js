@@ -13,7 +13,7 @@ import * as routes from "../../../shared/BackendRoutes";
 
 const sumCard1 = {
     title: 'Registered covid Patient Count',
-    count: "57",
+    count: "98",
     card_clr: { background: 'linear-gradient(45deg, #4fd2f5 30%, #ccebeb 90%)' },
 };
 const sumCard2 = {

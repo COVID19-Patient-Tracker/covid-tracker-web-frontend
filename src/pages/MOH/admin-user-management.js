@@ -341,7 +341,6 @@ function TabPanel2(props) {
                 });
 
         }else{
-            // TODO : show warning method that it will synced with backend when online
             setSynceMessage("you're offline now. changes you make will automatically sync with database");
             setOpen(true)
             

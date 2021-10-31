@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from "react";
 import { useTheme } from '@material-ui/core/styles';
-import { Box, TextField, Button, AppBar, Tabs, Tab, makeStyles,FormControl,Select, InputLabel, Snackbar} from '@material-ui/core';
+import { FormControl,Select, InputLabel, Snackbar} from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -12,6 +12,10 @@ import PropTypes from 'prop-types';
 import * as routes from '../../shared/BackendRoutes'
 import { putRequest } from '../../api/utils';
 import { Alert } from '@mui/material';
+import { Box, TextField, Button, AppBar, Tabs, Tab, makeStyles, TableContainer, TableHead, TableRow, TableCell, TableBody} from '@material-ui/core';
+import { getRequest, deleteRequest } from '../../api/utils';
+import Paper from '@mui/material/Paper';
+import { Table } from 'react-bootstrap';
 
 function TabPanel1(props) {
 
@@ -232,6 +236,117 @@ function TabPanel1(props) {
 
 function TabPanel2(props) {
     const { children, value, index, ...other } = props;
+    const [isOnline,setIsOnline] = useState(true);
+    const [inputs,setInputs] = useState({ role:""}); 
+    const [reqSuccess,setReqSuccess] = useState(false);
+    const [errors,setErrors] = useState({}); // errors in inputs
+    const [open, setOpen] = React.useState(false);
+    const [users, setUsers] = React.useState([]);
+    const [syncMessage, setSynceMessage] = React.useState(null);
+    const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
+    const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
+
+    // for snack bar
+    const handleClose = (event, reason) => {
+        // when click away set exception  to null
+      if (reason === 'clickaway') {
+        return;
+      }
+      setOpen(false);
+    };
+
+
+    // handling inputs
+    const handleChange = (e) => {
+        e.preventDefault();
+        setInputs(
+            {
+                ...inputs, 
+                [e.target.name]:e.target.value
+            })
+    }
+
+    const submit = (e) => {
+        
+        e.preventDefault();
+
+        if(isOnline){
+
+            // made request to the backend
+            getRequest(routes.GET_ALL_USERS_BY_ROLE + inputs.role, headers)
+                .then((response) => {
+                    if(response.data){
+                        const {data,headers} = response
+                        setUsers(data.users)
+                        console.log(data.users)
+                        setErrors({});
+                        setReqSuccess(true)
+                    }
+                    else if(response.error){
+                        const {error,headers} = response
+                        setErrors({...error.response.data}) // set errors of inputs and show
+                        setReqSuccess(false)
+                    }
+                })
+                .catch((e) => {
+                    setReqSuccess(false)
+                });
+
+        }else{
+            // TODO : show warning method that it will synced with backend when online
+            setSynceMessage("you're offline now. changes you make will automatically sync with database");
+            setOpen(true)
+            
+        }
+    }
+
+    const deleteUserById = (userId) => {
+        
+        if(isOnline){
+
+            // made request to the backend
+            deleteRequest(routes.DELETE_MOH_USERS_BY_ID + userId, headers)
+                .then((response) => {
+                    if(response.data){
+                        const {data,headers} = response
+                        setErrors({});
+                        setReqSuccess(true)
+                        getRequest(routes.GET_ALL_USERS_BY_ROLE + inputs.role, headers)
+                            .then((response) => {
+                                if(response.data){
+                                    const {data,headers} = response
+                                    setUsers(data.users)
+                                    console.log(data.users)
+                                    setErrors({});
+                                    setReqSuccess(true)
+                                }
+                                else if(response.error){
+                                    const {error,headers} = response
+                                    setErrors({...error.response.data}) // set errors of inputs and show
+                                    setReqSuccess(false)
+                                }
+                            })
+                            .catch((e) => {
+                                setReqSuccess(false)
+                            });
+                    }
+                    else if(response.error){
+                        const {error,headers} = response
+                        setErrors({...error.response.data}) // set errors of inputs and show
+                        setReqSuccess(false)
+                    }
+                })
+                .catch((e) => {
+                    setReqSuccess(false)
+                });
+
+        }else{
+            // TODO : show warning method that it will synced with backend when online
+            setSynceMessage("you're offline now. changes you make will automatically sync with database");
+            setOpen(true)
+            
+        }
+    }
 
     return (
         <div
@@ -241,23 +356,39 @@ function TabPanel2(props) {
             aria-labelledby={`full-width-tab-${index}`}
             {...other}
         >
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                                {syncMessage}
+                            </Alert>
+                        </Snackbar>
+                        
             {value === index && (
                 <Box p={2} bgcolor="#fff">
                     <form autoComplete="off">
-                        <TextField
-                            id="email"
-                            label="Email"
-                            variant="outlined"
-                            fullWidth
-                            required
-                            margin="normal"
-                            helperText="*Enter user Email here"
-                            type="email"
-                            autoFocus
-                        />
+                        <FormControl variant="outlined" fullWidth required>
+                            <InputLabel 
+                                error={errors.role ? true:false} 
+                                htmlFor="outlined-type"
+                                helperText={errors.role ? errors.role : null}
+                            >
+                                    User Type
+                            </InputLabel>
+                            <Select autoFocus
+                                native
+                                label="User Type"
+                                onChange={handleChange}
+                                name="role"
+                            >
+                                <option aria-label="None" value="" />
+                                <option value="MOH_ADMIN">MOH ADMIN</option>
+                                <option value="MOH_USER">MOH USER</option>
+                            </Select>
+                        </FormControl>
                         <Button
+                            type="submit"
                             variant="contained"
-                            startIcon={<DeleteIcon />}
+                            startIcon={<SaveIcon />}
+                            onClick={submit}
                             style={{
                                 borderRadius: "50px",
                                 margin: "10px",
@@ -265,9 +396,66 @@ function TabPanel2(props) {
                                 color: "rgb(255, 255, 255)",
                                 backgroundColor:'#0b99d1'
                             }}
-                        >
-                            REMOVE USER
+                    >
+                        GET ALL USERS
                         </Button>
+                        <TableContainer component={Paper}>
+                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell>USER ID</TableCell>
+                                  <TableCell align="right">EMAIL</TableCell>
+                                  <TableCell align="right">FIRST NAME</TableCell>
+                                  <TableCell align="right">LSAT NAME</TableCell>
+                                  <TableCell align="right">NIC</TableCell>
+                                  <TableCell align="right">DELETE USER</TableCell>
+                                  <TableCell align="right"></TableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                {users.map((row) => (
+                                  <TableRow
+                                    key={row.name}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                  >
+                                    <TableCell component="th" scope="row">
+                                      {row.userDetails.user_id}
+                                    </TableCell>
+                                    <TableCell align="right">{row.userDetails.email}</TableCell>
+                                    <TableCell align="right">{row.userDetails.first_name}</TableCell>
+                                    <TableCell align="right">{row.userDetails.last_name}</TableCell>
+                                    <TableCell align="right">{row.userDetails.nic}</TableCell>
+                                    <TableCell align="right">
+                                        <Button
+                                            variant="contained"
+                                            startIcon={<SaveIcon />}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                if(window.confirm('Are you sure you want to delete user of id ?' + row.userDetails.user_id)){
+
+                                                    deleteUserById(row.userDetails.user_id)
+                                                }
+                                            }}
+                                            style={{
+                                                borderRadius: "50px",
+                                                margin: "10px",
+                                                fontSize: "15px",
+                                                color: "rgb(255, 255, 255)",
+                                                backgroundColor:'#ff0101'
+                                            }}
+                                            value={row.userDetails.user_id}
+                                        >
+                                            Delete
+                                        </Button>
+                                        </TableCell>
+                                  </TableRow>
+                                ))}
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                        {users.map(user => {
+                           
+                        })}
                     </form>
                 </Box>
             )}

@@ -13,7 +13,7 @@ import * as routes from '../../../shared/BackendRoutes'
 import AccountProfile from '../../../components/hospital/dashboard/Profile';
 import { Alert } from '@mui/material';
 import PropTypes from 'prop-types'; 
-import {putRequest} from '../../../api/utils'
+import {postRequest, getRequest} from '../../../api/utils'
 
 function TabPanel1(props) {
     const { children, value, index, ...other } = props;
@@ -28,6 +28,7 @@ function TabPanel1(props) {
     const [errors,setErrors] = useState({}); // errors in inputs
     const [open, setOpen] = React.useState(false);
     const [syncMessage, setSynceMessage] = React.useState(null);
+    const [Hospitals,setHospitals] = useState([]);
     const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
     const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
 
@@ -39,6 +40,18 @@ function TabPanel1(props) {
       }
       setOpen(false);
     };
+
+    // get all hospitals
+    useEffect(() => {
+        getRequest(routes.GET_ALL_HOSPITALS_URL,headers)
+            .then((response => {
+                if(response.data) {
+                    setErrors({})
+                    setHospitals(response.data.hospitals);
+                }
+                if(response.error) setErrors({...response.error.response.data});
+            }))
+    }, [])
 
     // after press submit if user not online push them into todo in store
     useEffect(() => {
@@ -75,7 +88,7 @@ function TabPanel1(props) {
             console.log('click')
             var putData = inputs; // submit data
             // made request to the backend
-            putRequest(routes.HOSPITAL_ADMIN_ADD_USER_URL, putData, headers)
+            postRequest(routes.HOSPITAL_ADMIN_ADD_USER_URL, putData, headers)
                 .then((response) => {
                     if(response.data){
                         const {data,headers} = response
@@ -103,7 +116,7 @@ function TabPanel1(props) {
                 payload:{
                         inputs:inputs,
                         url:routes.HOSPITAL_ADMIN_ADD_USER_URL,
-                        method:"PUT",
+                        method:"POST",
                         headers:headers
                     }
                 }
@@ -144,7 +157,7 @@ function TabPanel1(props) {
                             >
                                 <option aria-label="None" value="" />
                                 <option value="HOSPITAL_ADMIN">HOSPITAL ADMIN</option>
-                                <option value="HOSPITAL USER">HOSPITAL USER</option>
+                                <option value="HOSPITAL_USER">HOSPITAL USER</option>
                             </Select>
                         </FormControl>
                         <TextField
@@ -175,6 +188,24 @@ function TabPanel1(props) {
                             inputProps={{ minLength: 5, maxLength: 15 }}
                             onChange={handleChange}
                         />
+                        <FormControl variant="outlined" fullWidth required>
+                        <InputLabel 
+                            error={errors.role ? true:false} 
+                            htmlFor="outlined-type"
+                            helperText={errors.role ? errors.role : null}
+                        >
+                            Hospital
+                        </InputLabel>
+                        <Select autoFocus
+                            native
+                            label="User Type"
+                            onChange={handleChange}
+                            name="hospital_id"
+                        >
+                            <option aria-label="None" value="" />
+                                {Hospitals.map((hospital) => <option value={hospital.hospital_id}>{hospital.name}</option>)}
+                            </Select>
+                        </FormControl>
                         <TextField
                             error={errors.nic ? true:false}
                             helperText={errors.nic ? errors.nic : null}

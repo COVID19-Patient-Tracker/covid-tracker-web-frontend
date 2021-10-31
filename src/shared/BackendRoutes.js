@@ -10,5 +10,6 @@ export const ADD_HOSPITAL = BASE_URL + "/management/api/V1/MOH/user/hospital/add
 export const GET_ALL_HOSPITALS_URL = BASE_URL + "/management/api/V1/hospital/user/hospitals/all"
 export const DELETE_USERS_BY_ID = BASE_URL + "/management/api/V1/MOH/user/delete/" // should add id
 export const GET_ALL_USERS_BY_ROLE = BASE_URL + "/app/V1/user/get/users/" // should add role
+export const GET_STATISTICS = BASE_URL + "/management/api/V1/statistics/all/" // should add role
 export const DELETE_HOSPITAL = BASE_URL + "/management/api/V1/MOH/user/hospital/delete/"
 export const DELETE_MOH_USERS_BY_ID = BASE_URL + "/management/api/V1/MOH/admin/delete/"

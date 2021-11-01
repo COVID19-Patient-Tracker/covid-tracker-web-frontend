@@ -8,7 +8,7 @@ import "../../../../components/css/forms.css"
 import { getRequest } from "../../../../api/utils";
 import * as routes from '../../../../shared/BackendRoutes';
 
-const AdmitRepo =(props) =>{
+const AdmitRepo =() =>{
     const [search, setSearch] = useState('');
     const [isOnline,setIsOnline] = useState(true);
     const [reqSuccess,setReqSuccess] = useState(false);
@@ -20,7 +20,7 @@ const AdmitRepo =(props) =>{
     const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
 
     //const { data } = props.location
-    console.log(props.location)
+    //console.log(props.location)
     const [fName, setfName] = useState('Nimal');
     const [lName, setlName] = useState('Perera');
     const [nic, setNIC] = useState('987710110V');

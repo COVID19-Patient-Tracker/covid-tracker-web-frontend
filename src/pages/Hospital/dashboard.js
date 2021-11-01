@@ -21,7 +21,8 @@ class UserManagement extends React.Component {
         const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
         const headers = {headers:{"Authorization": `${JWTtoken}`}}
         const response = await getRequest(routes.GETHOSPITALUSERDETAILS + user.id,headers);console.log(response)
-        this.setState({data:fetchedData, dataTotal:fetchedTotalData, hospitalInfo:response.data.Info.hospital[0]})
+        const statisticsResponse = await getRequest(routes.GET_STATISTICS + response.data.Info.hospital[0].hospital_id,headers)
+        this.setState({data:fetchedData, dataTotal:fetchedTotalData, hospitalInfo:response.data.Info.hospital[0], statisticsResponse: response.data.statistics})
     }
     render() {
         const {data} = this.state;
@@ -46,4 +47,3 @@ class UserManagement extends React.Component {
 }
 
 export default UserManagement;
-

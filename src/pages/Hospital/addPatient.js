@@ -274,9 +274,9 @@ export default function UserManagement() {
                         />
                         <FormControl variant="outlined" fullWidth required>
                             <InputLabel 
-                                error={errors.role ? true:false} 
+                                error={errors.hospital_id ? true:false} 
                                 htmlFor="outlined-type"
-                                helperText={errors.role ? errors.role : null}
+                                helperText={errors.hospital_id ? errors.hospital_id : null}
                             >
                                     Hospital
                             </InputLabel>

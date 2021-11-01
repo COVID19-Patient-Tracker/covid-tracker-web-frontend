@@ -1,12 +1,26 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import {MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import "../../../../components/css/forms.css"
+import { getRequest } from "../../../../api/utils";
+import * as routes from '../../../../shared/BackendRoutes';
 
-const AdmitRepo =() =>{
+const AdmitRepo =(props) =>{
+    const [search, setSearch] = useState('');
+    const [isOnline,setIsOnline] = useState(true);
+    const [reqSuccess,setReqSuccess] = useState(false);
+    const [errors,setErrors] = useState({}); // errors in inputs
+    const [open, setOpen] = React.useState(false);
+    const [patients, setPatients] = React.useState([]);
+    const [syncMessage, setSynceMessage] = React.useState(null);
+    const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
+    const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
+
+    //const { data } = props.location
+    console.log(props.location)
     const [fName, setfName] = useState('Nimal');
     const [lName, setlName] = useState('Perera');
     const [nic, setNIC] = useState('987710110V');
@@ -20,6 +34,38 @@ const AdmitRepo =() =>{
         console.log(date);
         setSelectedDate(date);
     };
+
+    // get all patients
+  useEffect(() => {
+       
+    if(isOnline){
+        // made request to the backend
+        getRequest(routes.GET_ALL_PATIENTS_URL, headers)
+            .then((response) => {
+                if(response.data){
+                    const {data,headers} = response
+                    setPatients(data.patients)
+                    console.log(data.patients)
+                    setErrors({});
+                    setReqSuccess(true)
+                }
+                else if(response.error){
+                    const {error,headers} = response
+                    setErrors({...error.response.data}) // set errors of inputs and show
+                    setReqSuccess(false)
+                }
+            })
+            .catch((e) => {
+                setReqSuccess(false)
+            });
+
+    }else{
+        // TODO : show warning method that it will synced with backend when online
+        setSynceMessage("you're offline now. changes you make will automatically sync with database");
+        setOpen(true)
+        
+    }
+  },[]);
     return (
         <div style={{ margin:'0px 20px'}}>
             <h2>Update admitted patient details</h2>

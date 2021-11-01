@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from "react";
 import { useTheme } from '@material-ui/core/styles';
 
-import { Box, TextField, Button, AppBar, Tabs, Tab, makeStyles, TableContainer, TableHead, TableRow, TableCell, TableBody} from '@material-ui/core';
+import { Box, TextField, Button, AppBar, Tabs, Tab, makeStyles, TableContainer, TableHead, TableRow, TableCell, TableBody, CircularProgress} from '@material-ui/core';
 
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -24,6 +24,7 @@ function TabPanel1(props) {
     const [isOnline,setIsOnline] = useState(true);
     const [inputs,setInputs] = useState({ email:"", first_name:"",last_name:"",nic:""}); 
     const [reqSuccess,setReqSuccess] = useState(false);
+    const [reqSubmitted,setReqSubmitted] = useState(false);
     const [errors,setErrors] = useState({}); // errors in inputs
     const [open, setOpen] = React.useState(false);
     const [syncMessage, setSynceMessage] = React.useState(null);
@@ -79,11 +80,11 @@ function TabPanel1(props) {
     }
 
     const submit = (e) => {
-        
+        setReqSuccess(false)
         e.preventDefault();
 
         if(isOnline){
-
+            setReqSubmitted(true);
             var putData = inputs; // submit data
 
             // made request to the backend
@@ -93,11 +94,13 @@ function TabPanel1(props) {
                         const {data,headers} = response
                         setErrors({});
                         setReqSuccess(true)
+                        setReqSubmitted(false);
                     }
                     else if(response.error){
                         const {error,headers} = response
                         setErrors({...error.response.data}) // set errors of inputs and show
                         setReqSuccess(false)
+                        setReqSubmitted(false);
                     }
                 })
                 .catch((e) => {
@@ -242,9 +245,15 @@ function TabPanel1(props) {
                         color: "rgb(255, 255, 255)",
                         backgroundColor:'#0b99d1'
                     }}
+                    disabled={reqSubmitted ? true : false}
                 >
                     SAVE USER
                 </Button>
+                {
+                    reqSubmitted == true
+                        ? <CircularProgress size={30}/> 
+                        : null
+                }
                 {
                     reqSuccess == true
                         ? <Alert severity="success">user added</Alert> 

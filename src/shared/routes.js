@@ -42,7 +42,7 @@ export const REPOSTATUS = "/hospital/user/checkStatus"
 export const REPOHOS = "/hospital/user/checkHospital"
 export const REPOWARD = "/hospital/user/checkWard"
 export const REPOTEST = "/hospital/user/checkResult"
-export const COMPLETEREPORT = "/hospital/user/completeReport"
+export const COMPLETEREPORT = "/hospital/user/completeReport/:id"
 export const SEARCHPATIENT = "/hospital/user/searchpatient"
 export const ADDPATEINT = "/hospital/user/addPatient"
 

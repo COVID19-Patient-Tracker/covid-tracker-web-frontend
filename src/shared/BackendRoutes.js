@@ -19,3 +19,4 @@ export const DELETE_HOSPITAL = BASE_URL + "/management/api/V1/MOH/user/hospital/
 export const DELETE_MOH_USERS_BY_ID = BASE_URL + "/management/api/V1/MOH/admin/delete/"
 export const DELETE_HOSPITAL_USERS_BY_ID = BASE_URL + "/management/api/V1/hospital/admin/delete/"
 export const GET_ALL_PATIENTS_URL = BASE_URL + "/management/api/V1/hospital/user/patients/all"
+export const GET_PATIENT_BY_ID = BASE_URL + "/management/api/V1/hospital/user/getPatientDetails/" // should add id of the user

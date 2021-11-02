@@ -7,8 +7,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../../../../components/css/forms.css"
 import { getRequest } from "../../../../api/utils";
 import * as routes from '../../../../shared/BackendRoutes';
+import {
+   useParams
+} from 'react-router-dom'
 
 const AdmitRepo =() =>{
+    const {id} = useParams()
+    
     const [search, setSearch] = useState('');
     const [isOnline,setIsOnline] = useState(true);
     const [reqSuccess,setReqSuccess] = useState(false);
@@ -18,7 +23,7 @@ const AdmitRepo =() =>{
     const [syncMessage, setSynceMessage] = React.useState(null);
     const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
     const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
-
+    
     //const { data } = props.location
     //console.log(props.location)
     const [fName, setfName] = useState('Nimal');
@@ -34,13 +39,14 @@ const AdmitRepo =() =>{
         console.log(date);
         setSelectedDate(date);
     };
-
-    // get all patients
+    
+        
+    // get patient by id
   useEffect(() => {
-       
+      
     if(isOnline){
         // made request to the backend
-        getRequest(routes.GET_ALL_PATIENTS_URL, headers)
+        getRequest(routes.GET_PATIENT_BY_ID + id, headers)
             .then((response) => {
                 if(response.data){
                     const {data,headers} = response
@@ -66,10 +72,13 @@ const AdmitRepo =() =>{
         
     }
   },[]);
+  
     return (
+        
         <div style={{ margin:'0px 20px'}}>
             <h2>Update admitted patient details</h2>
             <form>
+                
                 <label>First name:</label>
                 <input 
                     type="text"  

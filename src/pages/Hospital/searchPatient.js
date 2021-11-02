@@ -8,6 +8,11 @@ import * as routes from '../../shared/BackendRoutes'
 import {Card, Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { getRequest } from "../../api/utils";
+import { Link } from 'react-router-dom';
+function clickMe(someParameter){
+     //do with event
+     console.log(someParameter);
+}
 
 const PatientSearch = () => {
   const [search, setSearch] = useState('');
@@ -19,10 +24,10 @@ const PatientSearch = () => {
   const [syncMessage, setSynceMessage] = React.useState(null);
   const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
   const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
-
-  const history = useHistory();
-  const handleClick = () => history.push('/hospital/user/completeReport');
   
+  const history = useHistory();
+  //const handleClick = (data) => history.push({pathname:'/hospital/user/completeReport', state:data});
+  const handleClick = (id) => history.push(`/hospital/user/completeReport/${id}`);
   // get all patients
   useEffect(() => {
        
@@ -83,14 +88,13 @@ const PatientSearch = () => {
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   
                 >
-                  <TableCell component="th" scope="row" >{row.nic}</TableCell>
+                  <TableCell component="th" scope="row" id="nic">{row.nic}</TableCell>
                   <TableCell component="th" scope="row" >{row.first_name}</TableCell>
                   <TableCell component="th" scope="row" >{row.last_name}</TableCell>
                   <TableCell component="th" scope="row" >{row.hospital_id}</TableCell>
                   <TableCell style={{width:"10px"}}>
-                      <Button
-                        onClick={handleClick}
-                        to={{pathname:'/admit_report.js', data:row.patient_id}}
+                      <Button 
+                        onClick={()=>handleClick(row.patient_id)}
                           style={{
                               borderRadius: "40px",
                               fontSize: "15px",

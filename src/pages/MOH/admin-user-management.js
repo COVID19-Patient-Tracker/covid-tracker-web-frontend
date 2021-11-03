@@ -1,10 +1,13 @@
+
+
+
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import { useState } from "react";
 import { useTheme } from '@material-ui/core/styles';
 import { FormControl,Select, InputLabel, Snackbar} from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import SaveIcon from '@material-ui/icons/Save';
-import DeleteIcon from '@material-ui/icons/Delete';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import store from '../../store'
@@ -80,12 +83,11 @@ function TabPanel1(props) {
             putRequest(routes.MOH_ADD_USER_URL, putData, headers)
                 .then((response) => {
                     if(response.data){
-                        const {data,headers} = response
                         setErrors({});
                         setReqSuccess(true)
                     }
                     else if(response.error){
-                        const {error,headers} = response
+                        const {error} = response
                         setErrors({...error.response.data}) // set errors of inputs and show
                         setReqSuccess(false)
                     }

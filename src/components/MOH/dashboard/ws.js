@@ -14,15 +14,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function GroupedSearch(props) {
+
     const classes = useStyles();
     const {items} = props
     const [statistics, setstatistics] = useState([])
     const [hospitalId, sethospitalId] = useState(null)
     const [reqSuccess,setReqSuccess] = useState(false);
-    const [errors,setErrors] = useState({}); // errors in inputs
+
     const options = items.hosInfos.map((option) => {
     
         const firstLetter = option.name[0].toUpperCase();
+
         return {
             firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
             ...option,
@@ -30,21 +32,22 @@ export default function GroupedSearch(props) {
     });
 
     const getOption = (event,value) => {
+
       sethospitalId(value)
       setstatistics([])
+
       if(value){
+        
           getRequest(routes.GET_STATISTICS + value.hospital_id)
           .then((response) => {
               if(response.data){
-                  const {data,headers} = response
+                  const {data} = response
                   setstatistics(data.statistics[0])
                   console.log(data.statistics[0])
-                  setErrors({});
                   setReqSuccess(true)
               }
               else if(response.error){
-                  const {error,headers} = response
-                  setErrors({...error.response.data}) // set errors of inputs and show
+                  const {error} = response
                   setReqSuccess(false)
               }
           })
@@ -64,6 +67,7 @@ export default function GroupedSearch(props) {
         renderInput={(params) => <TextField {...params} label="Select hospital name to see more data" variant="outlined" />}
         onChange={getOption}
       />
+
       {/* show info */}
       <Collapse in={hospitalId}><React.Fragment>{reqSuccess ? <Info className={classes.info} props={statistics} /> : "loading"}</React.Fragment></Collapse>
     </div>

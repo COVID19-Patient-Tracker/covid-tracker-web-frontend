@@ -2,10 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Router from './components/Router';
 import Footer from './components/layout/Footer';
 import store from './store'
-import { useSelector } from 'react-redux'
-
-
-
 import { makeStyles } from "@material-ui/core";
 import InfoBox from "./components/InfoBox/InfoBox"
 import { SendSpecifiedRequest } from "./api/utils"

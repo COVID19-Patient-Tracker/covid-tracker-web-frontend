@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import {CardsHospitalUser, ChartHospitalUser,ChartTotal,CardsTotal} from '../../components';
 import styles from '../../App.module.css';
 import {fetchData,fetchTotalData} from '../../api/index.js';
 import {HeaderContentHospitalUser} from '../../components/HeaderContent'; 
-import { useAuth } from '../../components/AuthConext';
 import { getRequest } from '../../api/utils';
 import * as routes from "../../shared/BackendRoutes";
 

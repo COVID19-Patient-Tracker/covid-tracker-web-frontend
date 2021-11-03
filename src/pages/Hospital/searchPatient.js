@@ -8,61 +8,64 @@ import * as routes from '../../shared/BackendRoutes'
 import {Card, Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { getRequest } from "../../api/utils";
-import { Link } from 'react-router-dom';
-function clickMe(someParameter){
-     //do with event
-     console.log(someParameter);
-}
+import { useAuth } from "../../components/AuthConext";
 
 const PatientSearch = () => {
   const [search, setSearch] = useState('');
-  const [isOnline,setIsOnline] = useState(true);
   const [reqSuccess,setReqSuccess] = useState(false);
   const [errors,setErrors] = useState({}); // errors in inputs
-  const [open, setOpen] = React.useState(false);
-  const [patients, setPatients] = React.useState([]);
-  const [syncMessage, setSynceMessage] = React.useState(null);
+  const [patients, setPatients] = useState([]);
+  const [hospitalInfo,sethospitalInfo] = useState([]) // includes all hosital details
   const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
   const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
-  
   const history = useHistory();
-  //const handleClick = (data) => history.push({pathname:'/hospital/user/completeReport', state:data});
-  const handleClick = (id) => history.push(`/hospital/user/completeReport/${id}`);
-  // get all patients
-  useEffect(() => {
-       
-    if(isOnline){
-        // made request to the backend
-        getRequest(routes.GET_ALL_PATIENTS_URL, headers)
-            .then((response) => {
-                if(response.data){
-                    const {data,headers} = response
-                    setPatients(data.patients)
-                    setErrors({});
-                    setReqSuccess(true)
-                }
-                else if(response.error){
-                    const {error,headers} = response
-                    setErrors({...error.response.data}) // set errors of inputs and show
-                    setReqSuccess(false)
-                }
-            })
-            .catch((e) => {
-                setReqSuccess(false)
-            });
+  const auth = useAuth();
 
-    }else{
-        // TODO : show warning method that it will synced with backend when online
-        setSynceMessage("you're offline now. changes you make will automatically sync with database");
-        setOpen(true)
-        
+  const handleClick = (id) => history.push(`/hospital/user/completeReport/${id}`);
+
+  //Get patient using the hospital id
+  useEffect(() => {
+    const user_id = {
+        "id":auth.currentUser.id,
     }
-  },[]);
+
+    // made request to the backend
+    getRequest(routes.GETHOSPITALUSERDETAILS + user_id.id,headers)
+      .then((response) => {
+        console.log(response)
+        if(response.data){
+          sethospitalInfo(response.data.Info.hospital[0]);
+          getRequest(routes.GET_PATIENT_BY_HOSPITAL_ID + response.data.Info.hospital[0].hospital_id,headers)
+            .then((response) => {
+              if(response.data){
+                setPatients(response.data.patient);
+                setErrors({});
+                setReqSuccess(true)
+              }
+              else if(response.error){
+                const {error,headers} = response
+                setErrors({...error.response.data}) // set errors of inputs and show
+                setReqSuccess(false)
+              }
+            })
+            .catch((e) => {});
+            }
+            else if(response.error){
+              const {error,headers} = response
+              setErrors({...error.response.data}) // set errors of inputs and show
+              setReqSuccess(false)
+            }
+          })
+          .catch((e) => {
+        });
+      return () => {
+    }
+  }, [])
   
   const filterID = patients.filter(id => {
     return id.nic.toLowerCase().includes( search.toLowerCase())
   });
-
+  
   return (
     <div className="create" style={{ margin:"150px auto"}}>
     <Card variant="outlined" >
@@ -77,21 +80,19 @@ const PatientSearch = () => {
                 <TableCell >NIC</TableCell>
                 <TableCell>First Name</TableCell>
                 <TableCell>Last Name</TableCell>
-                <TableCell>Hos id</TableCell>
                 <TableCell >Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody >
               {filterID.map((row) => (
+                //hospitalInfo.hospital_id==row.hospital_id? 
                 <TableRow
                   key={row.name}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}                 
                 >
                   <TableCell component="th" scope="row" id="nic">{row.nic}</TableCell>
                   <TableCell component="th" scope="row" >{row.first_name}</TableCell>
                   <TableCell component="th" scope="row" >{row.last_name}</TableCell>
-                  <TableCell component="th" scope="row" >{row.hospital_id}</TableCell>
                   <TableCell style={{width:"10px"}}>
                       <Button 
                         onClick={()=>handleClick(row.patient_id)}

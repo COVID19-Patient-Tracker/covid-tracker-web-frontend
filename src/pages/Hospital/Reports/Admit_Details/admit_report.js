@@ -7,14 +7,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../../../../components/css/forms.css"
 import { getRequest } from "../../../../api/utils";
 import * as routes from '../../../../shared/BackendRoutes';
-import {
-   useParams
-} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 
 const AdmitRepo =() =>{
-    const {id} = useParams()
     
-    const [search, setSearch] = useState('');
+    const {id} = useParams()
     const [isOnline,setIsOnline] = useState(true);
     const [reqSuccess,setReqSuccess] = useState(false);
     const [errors,setErrors] = useState({}); // errors in inputs
@@ -39,19 +36,30 @@ const AdmitRepo =() =>{
         console.log(date);
         setSelectedDate(date);
     };
-    
+
+    // // get all hospitals
+    // useEffect(() => {
+    //     getRequest(routes.GET_ALL_HOSPITALS_URL,headers)
+    //         .then((response => {
+    //             if(response.data) {
+    //                 setErrors({})
+    //                 setHospitals(response.data.hospitals);
+    //             }
+    //             if(response.error) setErrors({...response.error.response.data});
+    //         }))
+    // }, [])
         
     // get patient by id
   useEffect(() => {
       
-    if(isOnline){
+   if(isOnline){
+
         // made request to the backend
-        getRequest(routes.GET_PATIENT_BY_ID + id, headers)
+        getRequest(routes.GET_PATIENT_BY_ID +id , headers)
             .then((response) => {
                 if(response.data){
                     const {data,headers} = response
-                    setPatients(data.patients)
-                    console.log(data.patients)
+                    setPatients(data.Info)
                     setErrors({});
                     setReqSuccess(true)
                 }
@@ -65,34 +73,42 @@ const AdmitRepo =() =>{
                 setReqSuccess(false)
             });
 
-    }else{
-        // TODO : show warning method that it will synced with backend when online
-        setSynceMessage("you're offline now. changes you make will automatically sync with database");
-        setOpen(true)
-        
-    }
-  },[]);
-  
+        }else{
+            // TODO : show warning method that it will synced with backend when online
+            setSynceMessage("you're offline now. changes you make will automatically sync with database");
+            setOpen(true)
+            
+        }
+    },[]);
+
     return (
         
         <div style={{ margin:'0px 20px'}}>
             <h2>Update admitted patient details</h2>
-            <form>
+            {/* {patients.map((row) => (
+                    
+                ))} */}
+            <form >
                 
                 <label>First name:</label>
                 <input 
                     type="text"  
                     required
-                    value={fName}
+                    value={patients.first_name}
                     onChange = {(e) => setfName(e.target.value)}/>
 
                 <label>Last name:</label>
                 <input 
                     type="text"
-                    value={lName}
+                    value={patients.last_name}
                     onChange = {(e) => setlName(e.target.value)}></input>
                 <label>Birthday:</label>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <input 
+                    type="date"
+                    value={patients.dob}
+                    onChange={handleDateChange}></input>
+                
+                {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardDatePicker
                         format="dd/MM/yyyy"
                         value={selectedDate}
@@ -101,12 +117,12 @@ const AdmitRepo =() =>{
                         maxDate={new Date()}
                         onChange={handleDateChange}
                     /> 
-                </MuiPickersUtilsProvider>
-               <br/>
+                </MuiPickersUtilsProvider> */}
+             
                <label>Age:</label>
                 <input type="number" 
                     min="0" 
-                    value={age}
+                    value={patients.age}
                     required
                     onChange = {(e) => setage(e.target.value)}/>
 
@@ -114,27 +130,36 @@ const AdmitRepo =() =>{
                 <input 
                     type="text"  
                     required
-                    value={nic}
+                    value={patients.nic}
                     onChange = {(e) => setNIC(e.target.value)}/>
 
                 <label>Phone number:</label>
                 <input 
                     type="text"
                     required
-                    value={phone}
+                    value={patients.contact_no}
                     onChange = {(e) => setlphone(e.target.value)}></input>
 
                 <label>Address:</label>
                 <input 
                     type="text"
                     required
-                    value={address}
+                    value={patients.address}
                     onChange = {(e) => setaddress(e.target.value)}></input>
+                            
+                {/* <label>Hospital:</label>
+                <select
+                    value={patients.hospital_id}
+                    onChange = {(e) => setgender(e.target.value)}>
+                    <option value="Select"></option> 
+                    {Hospitals.map((hospital) => <option value={hospital.hospital_id}>{hospital.name}</option>)}
+                </select> */}
 
                 <label>Gender:</label>
                 <select
-                    value={gender}
+                    value={patients.gender}
                     onChange = {(e) => setgender(e.target.value)}>
+                    <option value="Select"></option> 
                     <option value="male">Male</option> 
                     <option value="female">Female</option>
                     <option value="other">Other</option>
@@ -142,8 +167,9 @@ const AdmitRepo =() =>{
 
                 <label>Adult or child:</label>
                 <select
-                    value={adultchild}
+                    value={patients.is_child}
                     onChange = {(e) => setadultchild(e.target.value)}>
+                    <option value="Select"></option> 
                     <option value="adult">Adult</option> 
                     <option value="child">Child</option>
                 </select>

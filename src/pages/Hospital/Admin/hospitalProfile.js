@@ -1,13 +1,10 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/styles';
+import React, { useState, useEffect } from 'react'
 
+import { makeStyles } from '@material-ui/styles';
 import { Grid, Box, TextField, Button } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 
-
-
 import { useAuth } from "../../../components/AuthConext"
-import styles from '../../../App.module.css';
 import { getRequest } from '../../../api/utils';
 import * as routes from "../../../shared/BackendRoutes";
 
@@ -26,40 +23,36 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HospitalProfile() {
 
-    const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
-    const headers = {headers:{"Authorization": `${JWTtoken}`}}
     const classes = useStyles();
-    const auth = useAuth();
-    const [hospitalInfo,sethospitalInfo] = React.useState(null) // includes all hosital details
-    // hospital statistics are here
-    const [infoLoaded, setinfoLoaded] = React.useState(false)
 
-    React.useEffect(() => {
+    const JWTtoken = localStorage.getItem('CPT-jwt-token'); // get stored jwt token stored when previous login
+    const headers = { headers: { "Authorization": `${JWTtoken}` } };
+    const auth = useAuth();
+    const [hospitalInfo, sethospitalInfo] = useState(null); // includes all hosital details
+    const [infoLoaded, setinfoLoaded] = useState(false);
+
+    useEffect(() => {
         const user_id = {
-            "id":auth.currentUser.id,
+            "id": auth.currentUser.id,
         }
 
         // made request to the backend
-        getRequest(routes.GETHOSPITALUSERDETAILS + user_id.id,headers)
+        getRequest(routes.GETHOSPITALUSERDETAILS + user_id.id, headers)
             .then((response) => {
-                console.log(response)
-                if(response.data){
+                console.log(response);
+                if (response.data) {
                     sethospitalInfo(response.data.Info.hospital[0]);
-                    setinfoLoaded(true)
-                    
-            .catch((e) => {
-
-            });
+                    setinfoLoaded(true);
                 }
-                else if(response.error){
-                    alert(response.error)
+                else if (response.error) {
+                    alert(response.error);
                 }
             })
             .catch((e) => {
-
+                console.log(e);
+                alert(e);
             });
-        return () => {
-        }
+
     }, [])
 
 
@@ -100,6 +93,7 @@ export default function HospitalProfile() {
                                     id="nic"
                                     label="Telephone"
                                     fullWidth
+                                    type="text"
                                     margin="normal"
                                     value={infoLoaded ? hospitalInfo.telephone : "loading"}
                                     InputProps={{ readOnly: true }}
@@ -108,10 +102,10 @@ export default function HospitalProfile() {
                                 <TextField
                                     id="capacity"
                                     label="Patient Capacity"
-                                    type="number"
+                                    type="text"
                                     fullWidth
                                     margin="normal"
-                                    value="9999"
+                                    value={infoLoaded ? hospitalInfo.capacity : "loading"}
                                     require
                                     InputProps={{ readOnly: true }}
                                 />
@@ -132,4 +126,4 @@ export default function HospitalProfile() {
             </Box>
         </Box>
     )
-}
+};

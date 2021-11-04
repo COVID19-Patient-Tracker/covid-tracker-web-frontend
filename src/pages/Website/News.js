@@ -38,7 +38,7 @@ export default function WebNews() {
                     {dummynews.map((newes) => {
                         return (
                             <Grid item xs={12} md={4}>
-                                <MediaCard
+                                <MediaCard key={newes.id}
                                     newsdata={newes}
                                 />
                             </Grid>

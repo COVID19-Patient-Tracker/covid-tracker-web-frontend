@@ -16,7 +16,7 @@ const user = {
 
 export default function AccountProfile(props) {
 
-    const { userData, closeFunction } = props;
+    const { userData, closeFunction, deleteFunction } = props;
 
     return (
       <Card>
@@ -71,10 +71,18 @@ export default function AccountProfile(props) {
         </Box>
       </CardContent>
       <Divider />
-      <CardActions>
+      <CardActions style={{justifyContent: 'center'}}>
+      <Button
+          variant="contained"
+          onClick={deleteFunction}
+          color='secondary'
+        >
+          DELETE USER
+        </Button>
         <Button
-          variant="outlined"
+          variant="contained"
           onClick={closeFunction}
+          color='primary'
         >
           CLOSE
         </Button>

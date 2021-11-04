@@ -37,7 +37,7 @@ const MOHAdminDash = lazy(() => import("../pages/MOH/dashboard"));
 //hospital Admin
 const HospitalUserManagement = lazy(() => import("../pages/Hospital/Admin/user-management"));
 const HospitalAdminDash = lazy(() => import("../pages/Hospital/Admin/hospitalAdminDash"));
-const HospitalProfile  = lazy(() => import("../pages/Hospital/Admin/hospitalProfile"));
+const HospitalProfile = lazy(() => import("../pages/Hospital/Admin/hospitalProfile"));
 
 //hospital User
 const HospitalDash = lazy(() => import("../pages/Hospital/dashboard"));
@@ -94,55 +94,60 @@ const Router = () => {
         case "public":
             navbar = <PublicNav />;
             break;
+        case "":
+            navbar = <PublicNav />;
+            break;
         default:
             navbar = "";
     }
 
     return (
         <Suspense fallback={<Spinner />}>
-            
+
             <ProvideAuth>
-            {navbar}
+                {navbar}
                 <Switch>
                     {/* general */}
                     <Route exact path={routes.LOGIN} component={Login} />
 
                     {/* moh-admin */}
-                    <PrivateRoute exact path={routes.MOHADMINDASH} component={MOHAdminDash} AuthorizedUserRoles={[roles.MOH_ADMIN]}/>
-                    <PrivateRoute exact path={routes.MOHADMINMANAGEMENT} component={MOHAdminUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/>
-                    
+                    <PrivateRoute exact path={routes.MOHADMINDASH} component={MOHAdminDash} AuthorizedUserRoles={[roles.MOH_ADMIN]} />
+                    <PrivateRoute exact path={routes.MOHADMINMANAGEMENT} component={MOHAdminUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]} />
+
                     {/* moh-user */}
                     {/* <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} AuthorizedUserRoles={[roles.MOH_ADMIN]}/> */}
                     {/* <PrivateRoute exact path={routes.MOHDASH} component={MOHDash} AuthorizedUserRoles={[roles.MOH_USER, roles.MOH_ADMIN]}/> */}
-                    <PrivateRoute exact path={routes.MOHDASH} component={MOHDash}  AuthorizedUserRoles={[roles.MOH_USER]}/>
-                    <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement}  AuthorizedUserRoles={[roles.MOH_USER]}/>
-                    <PrivateRoute exact path={routes.MOHHOSPITALMANAGEMENT} component={MOHHospitalManagement}  AuthorizedUserRoles={[roles.MOH_USER]}/>
+                    <PrivateRoute exact path={routes.MOHDASH} component={MOHDash} AuthorizedUserRoles={[roles.MOH_USER]} />
+                    <PrivateRoute exact path={routes.MOHUSERMANAGEMENT} component={MOHUserManagement} AuthorizedUserRoles={[roles.MOH_USER]} />
+                    <PrivateRoute exact path={routes.MOHHOSPITALMANAGEMENT} component={MOHHospitalManagement} AuthorizedUserRoles={[roles.MOH_USER]} />
 
                     {/* hospital-admin */}
-                    <PrivateRoute exact path={routes.HOSDASH} component={HospitalAdminDash}  AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]}/>
-                    <PrivateRoute exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement}  AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]}/>
-                    <PrivateRoute exact path={routes.HOSPROFILE} component={HospitalProfile}  AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]}/>
+                    <PrivateRoute exact path={routes.HOSDASH} component={HospitalAdminDash} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]} />
+                    <PrivateRoute exact path={routes.HOSPITALUSERMANAGEMENT} component={HospitalUserManagement} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]} />
+                    <PrivateRoute exact path={routes.HOSPROFILE} component={HospitalProfile} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN]} />
 
 
                     {/* hospital-user */}
                     {/* <PrivateRoute exact path={routes.HOSUSERDASH} component={HospitalDash} AuthorizedUserRoles={[roles.HOSPITAL_ADMIN,roles.HOSPITAL_USER]}/> */}
-                    <PrivateRoute exact path={routes.HOSUSERDASH} component={HospitalDash}  AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.XRAY} component={UploadXray}  AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.REPODASH} component={PatientManagement} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.REPO} component={Repo} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.REPOSTATUS} component={RepoStatus} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.REPOHOS} component={RepoHos} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.REPOWARD} component={RepoWard} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.REPOTEST} component={RepoTest} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.ADMITREPO} component={AdmitRepo} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.HOSPITALTRANS} component={HospitalTrans} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.STATUS} component={Status} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.TEST} component={Test} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.WARDTRANS} component={WardTrans} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.COMPLETEREPORT} component={CompleteReport} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.SEARCHPATIENT} component={SearchPatient}  AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
-                    <PrivateRoute exact path={routes.ADDPATEINT} component={AddPatient} AuthorizedUserRoles={[roles.HOSPITAL_USER]}/>
+                    <PrivateRoute exact path={routes.HOSUSERDASH} component={HospitalDash} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.XRAY} component={UploadXray} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.REPODASH} component={PatientManagement} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.REPO} component={Repo} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.REPOSTATUS} component={RepoStatus} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.REPOHOS} component={RepoHos} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.REPOWARD} component={RepoWard} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.REPOTEST} component={RepoTest} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.ADMITREPO} component={AdmitRepo} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.HOSPITALTRANS} component={HospitalTrans} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.STATUS} component={Status} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.TEST} component={Test} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.WARDTRANS} component={WardTrans} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.COMPLETEREPORT} component={CompleteReport} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.SEARCHPATIENT} component={SearchPatient} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.ADDPATEINT} component={AddPatient} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
 
+                    {/* landing */}
+                    <Route exact path={routes.LANDING} component={HomePage} />
                     {/* website */}
                     <Route exact path={routes.HOMEPAGE} component={HomePage} />
                     <Route exact path={routes.GUIDELINE} component={Guideline} />

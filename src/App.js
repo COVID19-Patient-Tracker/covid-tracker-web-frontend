@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Router from './components/Router';
-import Footer from './components/layout/Footer';
-import store from './store'
-import { useSelector } from 'react-redux'
-
-
-
 import { makeStyles } from "@material-ui/core";
+
+import Router from './components/Router';
+import store from './store'
 import InfoBox from "./components/InfoBox/InfoBox"
 import { SendSpecifiedRequest } from "./api/utils"
 
@@ -26,30 +22,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const App = () => {
-    const [syncing,setSyncing] = useState(false);
-    var [count,setCount] = useState(0);
+    const [syncing, setSyncing] = useState(false);
+    var [count, setCount] = useState(0);
     const classes = useStyles()
     let globalState = store.getState();
     const todos = globalState.todos // todos is a array with objects
 
     // when loading the app if there is todos to sync -> sync
     useEffect(() => {
-            let globalState = store.getState();
-            const online = globalState.onlineStatus;
-            const todos = globalState.todos 
-            // set online status
-            if(online && todos.length > 0){
-                setSyncing(true)
-                sendReqs(todos)
-            }
+        let globalState = store.getState();
+        const online = globalState.onlineStatus;
+        const todos = globalState.todos
+        // set online status
+        if (online && todos.length > 0) {
+            setSyncing(true)
+            sendReqs(todos)
+        }
         // subscribe for change of react redux store
-        const unsubscribe = store.subscribe(() =>{
+        const unsubscribe = store.subscribe(() => {
             // global states that saved in store
             let globalState = store.getState();
             const online = globalState.onlineStatus;
-            const todos = globalState.todos 
+            const todos = globalState.todos
             // set online status
-            if(online && todos.length > 0){
+            if (online && todos.length > 0) {
                 setSyncing(true)
                 sendReqs(todos)
             }
@@ -59,48 +55,48 @@ const App = () => {
             unsubscribe();
         }
     }, [])
-    
+
 
     // todos are set only when user has logged in, so requests in todos, synced when user has 
     // authorized
-    
+
     // for UX simulate network latency
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
-      }
-      
+    }
+
     const sendReqs = async (todos) => {
 
         for (let index = 0; index < todos.length; index++) {
 
             const todo = todos[index];
-            setCount(count = count + 99/99); console.log(todos.length)
+            setCount(count = count + 99 / 99); console.log(todos.length)
 
-            SendSpecifiedRequest(todo.data.url,todo.data.inputs,todo.data.headers,todo.data.method)
+            SendSpecifiedRequest(todo.data.url, todo.data.inputs, todo.data.headers, todo.data.method)
                 .then((response) => {
-                    const {data,error} = response
+                    const { data, error } = response
                     // TODO : error handling
-                    console.log(data,error)
+                    console.log(data, error)
                 }); // sending req
 
             await sleep(2000) // for UX
         }
 
-        if(count === todos.length) {
+        if (count === todos.length) {
             setSyncing(false)
             setCount(count = 0)
-            store.dispatch({type:"todos/reset"})
+            store.dispatch({ type: "todos/reset" })
         }
     }
-    
+
     return (
         <React.Fragment>
             <div className={classes.root}>
                 <div className={classes.component}>
-                    {syncing ? <InfoBox props={{infoMessage: "Synchronizing "+count+"/"+todos.length,progress:true}} /> : null}
+                    {syncing ? <InfoBox props={{ infoMessage: "Synchronizing " + count + "/" + todos.length, progress: true }} /> : null}
                     <Router />
                 </div>
-                <Footer />
+                {/* <Footer /> */}
             </div>
         </React.Fragment>
     );

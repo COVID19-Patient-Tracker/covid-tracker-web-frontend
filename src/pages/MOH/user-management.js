@@ -1,3 +1,7 @@
+
+
+
+/* eslint-disable */
 import React from 'react';
 import { useState } from "react";
 import { useTheme } from '@material-ui/core/styles';
@@ -5,13 +9,11 @@ import { useTheme } from '@material-ui/core/styles';
 import { Box, TextField, Button, AppBar, Tabs, Tab, makeStyles, TableContainer, TableHead, TableRow, TableCell, TableBody} from '@material-ui/core';
 
 import SaveIcon from '@material-ui/icons/Save';
-import DeleteIcon from '@material-ui/icons/Delete';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import { useEffect } from 'react';
 import { FormControl,Select, InputLabel, Snackbar} from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
-
 import store from '../../store'
 import * as routes from '../../shared/BackendRoutes'
 import { putRequest, getRequest, deleteRequest } from '../../api/utils';
@@ -51,7 +53,7 @@ function TabPanel1(props) {
                 }
                 if(response.error) setErrors({...response.error.response.data});
             }))
-    }, [])
+    },[])
 
     // after press submit if user not online push them into todo in store
     useEffect(() => {
@@ -91,12 +93,11 @@ function TabPanel1(props) {
             putRequest(routes.HOS_ADD_USER_URL, putData, headers)
                 .then((response) => {
                     if(response.data){
-                        const {data,headers} = response
                         setErrors({});
                         setReqSuccess(true)
                     }
                     else if(response.error){
-                        const {error,headers} = response
+                        const {error} = response
                         setErrors({...error.response.data}) // set errors of inputs and show
                         setReqSuccess(false)
                     }
@@ -132,13 +133,11 @@ function TabPanel1(props) {
             aria-labelledby={`full-width-tab-${index}`}
             {...other}
         >
-
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                                {syncMessage}
-                            </Alert>
-                        </Snackbar>
-                        
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    {syncMessage}
+                </Alert>
+            </Snackbar>
             {value === index && (
             <Box p={2} bgcolor="#fff">
             <form autoComplete="off">
@@ -198,7 +197,7 @@ function TabPanel1(props) {
                     >
                             Hospital
                     </InputLabel>
-                    <Select autoFocus
+                    <Select
                         native
                         label="User Type"
                         onChange={handleChange}
@@ -249,12 +248,12 @@ function TabPanel1(props) {
                     SAVE USER
                 </Button>
                 {
-                    reqSuccess == true
+                    reqSuccess === true
                         ? <Alert severity="success">user added</Alert> 
                         : null
                 }
                 {
-                    (errors.exception && errors.exception == "user already exists in db") && reqSuccess == false
+                    (errors.exception && errors.exception === "user already exists in db") && reqSuccess === false
                         ? <Alert severity="error">user already exists</Alert> 
                         : null
                 }
@@ -283,9 +282,11 @@ function TabPanel2(props) {
     // for snack bar
     const handleClose = (event, reason) => {
         // when click away set exception  to null
+        setIsOnline(true)
       if (reason === 'clickaway') {
         return;
       }
+      setReqSuccess(reqSuccess)
       setOpen(false);
     };
 
@@ -310,14 +311,14 @@ function TabPanel2(props) {
             getRequest(routes.GET_ALL_USERS_BY_ROLE + inputs.role, headers)
                 .then((response) => {
                     if(response.data){
-                        const {data,headers} = response
+                        const {data} = response
                         setUsers(data.users)
                         console.log(data.users)
                         setErrors({});
                         setReqSuccess(true)
                     }
                     else if(response.error){
-                        const {error,headers} = response
+                        const {error} = response
                         setErrors({...error.response.data}) // set errors of inputs and show
                         setReqSuccess(false)
                     }
@@ -342,20 +343,20 @@ function TabPanel2(props) {
             deleteRequest(routes.DELETE_USERS_BY_ID + userId, headers)
                 .then((response) => {
                     if(response.data){
-                        const {data,headers} = response
+                        const {headers} = response
                         setErrors({});
                         setReqSuccess(true)
                         getRequest(routes.GET_ALL_USERS_BY_ROLE + inputs.role, headers)
                             .then((response) => {
                                 if(response.data){
-                                    const {data,headers} = response
+                                    const {data} = response
                                     setUsers(data.users)
                                     console.log(data.users)
                                     setErrors({});
                                     setReqSuccess(true)
                                 }
                                 else if(response.error){
-                                    const {error,headers} = response
+                                    const {error} = response
                                     setErrors({...error.response.data}) // set errors of inputs and show
                                     setReqSuccess(false)
                                 }
@@ -365,7 +366,7 @@ function TabPanel2(props) {
                             });
                     }
                     else if(response.error){
-                        const {error,headers} = response
+                        const {error} = response
                         setErrors({...error.response.data}) // set errors of inputs and show
                         setReqSuccess(false)
                     }
@@ -487,9 +488,7 @@ function TabPanel2(props) {
                               </TableBody>
                             </Table>
                           </TableContainer>
-                        {users.map(user => {
-                           
-                        })}
+                        
                     </form>
                 </Box>
             )}
@@ -531,15 +530,11 @@ export default function UserManagement() {
 
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
-    const [showUser, setShowUser] = useState(false);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
-    const handleShowUser = () => {
-        setShowUser(true);
-    }
     const handleChangeIndex = (index) => {
         setValue(index);
     };

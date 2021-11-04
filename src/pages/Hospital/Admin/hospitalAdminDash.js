@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Grid, Container, Typography, makeStyles } from '@material-ui/core';
 
@@ -9,74 +9,6 @@ import { useAuth } from "../../../components/AuthConext"
 import styles from '../../../App.module.css';
 import { getRequest } from '../../../api/utils';
 import * as routes from "../../../shared/BackendRoutes";
-
-
-const sumCard1 = {
-    title: 'Registered covid Patient Count',
-    count: "57",
-    card_clr: { background: 'linear-gradient(45deg, #4fd2f5 30%, #ccebeb 90%)' },
-};
-const sumCard2 = {
-    title: 'Admitted covid Patient Count',
-    count: "12",
-    card_clr: { background: 'linear-gradient(45deg, #4fd2f5 30%, #ccebeb 90%)' },
-};
-const sumCard3 = {
-    title: 'Discharged covid Patient Count',
-    count: "8",
-    card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
-};
-
-const sumCard4 = {
-    title: 'Transfered covid Patient Count',
-    count: "1",
-    card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
-};
-//set2
-const sumCard5 = {
-    title: 'Total covid Patient Count',
-    count: "570",
-    card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
-};
-const sumCard6 = {
-    title: 'Availability',
-    count: "45",
-    card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
-};
-
-//set3
-const sumCard7 = {
-    title: 'Discovered Count',
-    count: "8",
-    card_clr: { background: 'linear-gradient(45deg, #4fd2f5 30%, #c1e9dd 90%)' },
-};
-
-const sumCard8 = {
-    title: 'Death Count',
-    count: "57",
-    card_clr: { background: 'linear-gradient(45deg, #f6609e 30%, #f1c3d6 90%)' },
-};
-const sumCard9 = {
-    title: 'Recovered Count',
-    count: "12",
-    card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
-};
-//set4
-const sumCard10 = {
-    title: 'Positive Cases',
-    count: "57",
-    card_clr: { background: 'linear-gradient(45deg, #4fd2f5 30%, #ccebeb 90%)' },
-};
-const sumCard11 = {
-    title: 'Death Count',
-    count: "12",
-    card_clr: { background: 'linear-gradient(45deg, #f6609e 30%, #f1c3d6 90%)' },
-};
-const sumCard12 = {
-    title: 'Recovered Count',
-    count: "8",
-    card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
-};
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -111,40 +43,40 @@ const useStyles = makeStyles((theme) => ({
 export default function HospitalAdminDash() {
 
     const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
-    const headers = {headers:{"Authorization": `${JWTtoken}`}}
+    const headers = { headers: { "Authorization": `${JWTtoken}` } }
     const classes = useStyles();
     const auth = useAuth();
-    const [hospitalInfo,sethospitalInfo] = useState(null) // includes all hosital details
+    const [hospitalInfo, sethospitalInfo] = useState(null) // includes all hosital details
     // hospital statistics are here
-    const [hospitalStatistics,sethospitalStatistics] = useState(null) // includes all hosital details
+    const [hospitalStatistics, sethospitalStatistics] = useState(null) // includes all hosital details
     const [infoLoaded, setinfoLoaded] = useState(false)
 
-    React.useEffect(() => {
+    useEffect(() => {
         const user_id = {
-            "id":auth.currentUser.id,
+            "id": auth.currentUser.id,
         }
-
         // made request to the backend
-        getRequest(routes.GETHOSPITALUSERDETAILS + user_id.id,headers)
+        getRequest(routes.GETHOSPITALUSERDETAILS + user_id.id, headers)
             .then((response) => {
                 console.log(response)
-                if(response.data){
+                if (response.data) {
                     sethospitalInfo(response.data.Info.hospital[0]);
-                    getRequest(routes.GET_STATISTICS + response.data.Info.hospital[0].hospital_id,headers)
+                    getRequest(routes.GET_STATISTICS + response.data.Info.hospital[0].hospital_id, headers)
                         .then((response) => {
-                            if(response.data){
+                            if (response.data) {
                                 sethospitalStatistics(response.data.statistics);
+                                console.log(response.data.statics);
                                 setinfoLoaded(true)
                             }
-                            else if(response.error){
+                            else if (response.error) {
                                 alert(response.error)
-                }
-            })
-            .catch((e) => {
+                            }
+                        })
+                        .catch((e) => {
 
-            });
+                        });
                 }
-                else if(response.error){
+                else if (response.error) {
                     alert(response.error)
                 }
             })
@@ -158,7 +90,7 @@ export default function HospitalAdminDash() {
 
     return (
         <React.Fragment>
-            {hospitalInfo ? <HeaderContentHospitalUser props={hospitalInfo}/> : "loading"}
+            {hospitalInfo ? <HeaderContentHospitalUser props={hospitalInfo} /> : "loading"}
             <div>
                 <img src="/assets/userback2.svg" alt='' style={{ backgroundSize: 'cover', width: "100%", backgroundRepeat: 'no-repeat' }} />
             </div>
@@ -188,18 +120,33 @@ export default function HospitalAdminDash() {
                             <Grid container spacing={5}>
 
                                 <Grid item xs={12} md={6} lg={6}>
-                                    <SummaryCard carddata={sumCard1} />
+                                    <SummaryCard carddata={{
+                                        title: 'Registered Patient Count',
+                                        count: "188",
+                                        card_clr: { background: 'linear-gradient(45deg, #4fd2f5 30%, #ccebeb 90%)' },
+                                    }} />
                                 </Grid>
                                 <Grid item xs={12} md={6} lg={6}>
-                                    <SummaryCard carddata={sumCard2} />
+                                    <SummaryCard carddata={{
+                                        title: 'Admitted Patient Count',
+                                        count: "12",
+                                        card_clr: { background: 'linear-gradient(45deg, #4fd2f5 30%, #ccebeb 90%)' },
+                                    }} />
                                 </Grid>
                                 <Grid item xs={12} md={6} lg={6}>
-                                    <SummaryCard carddata={sumCard3} />
+                                    <SummaryCard carddata={{
+                                        title: 'Discharged Patient Count',
+                                        count: "8",
+                                        card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
+                                    }} />
                                 </Grid>
                                 <Grid item xs={12} md={6} lg={6}>
-                                    <SummaryCard carddata={sumCard4} />
+                                    <SummaryCard carddata={{
+                                        title: 'Transfered Patient Count',
+                                        count: "1",
+                                        card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
+                                    }} />
                                 </Grid>
-
                             </Grid>
                         </Grid>
                     </Grid>
@@ -209,10 +156,18 @@ export default function HospitalAdminDash() {
 
                     <Grid container spacing={2} className={classes.totalcont}>
                         <Grid item xs={12} md={6}>
-                            <SummaryCard carddata={sumCard5} />
+                            <SummaryCard carddata={{
+                                title: 'Total Covid Patient Count',
+                                count: "570",
+                                card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
+                            }} />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <SummaryCard carddata={sumCard6} />
+                            <SummaryCard carddata={{
+                                title: 'Total Hospital Capacity',
+                                count: "45",
+                                card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
+                            }} />
 
                         </Grid>
                     </Grid>
@@ -222,13 +177,46 @@ export default function HospitalAdminDash() {
 
                     <Grid container spacing={2} className={classes.covidcont}>
                         <Grid item xs={12} md={4}>
-                            <SummaryCard carddata={sumCard7} />
+                            <SummaryCard carddata={{
+                                title: 'Discovered Count',
+                                count: "8",
+                                card_clr: { background: 'linear-gradient(45deg, #4fd2f5 30%, #c1e9dd 90%)' },
+                            }} />
                         </Grid>
                         <Grid item xs={12} md={4}>
-                            <SummaryCard carddata={sumCard8} />
+                            <SummaryCard carddata={{
+                                title: 'Death Count',
+                                count: "57",
+                                card_clr: { background: 'linear-gradient(45deg, #f6609e 30%, #f1c3d6 90%)' },
+                            }} />
                         </Grid>
                         <Grid item xs={12} md={4}>
-                            <SummaryCard carddata={sumCard9} />
+                            <SummaryCard carddata={{
+                                title: 'Recovered Count',
+                                count: "12",
+                                card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
+                            }} />
+                        </Grid>
+                    </Grid>
+
+                    <br></br><br></br>
+                    <Typography variant="h5" style={{ fontWeight: 700 }}>Covid Test Summary</Typography>
+
+                    <Grid container spacing={2} className={classes.totalcont}>
+                        <Grid item xs={12} md={6}>
+                            <SummaryCard carddata={{
+                                title: 'Total PCR Test Count',
+                                count: "25",
+                                card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
+                            }} />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <SummaryCard carddata={{
+                                title: 'Total Antigen Test Count',
+                                count: "45",
+                                card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
+                            }} />
+
                         </Grid>
                     </Grid>
 
@@ -236,13 +224,25 @@ export default function HospitalAdminDash() {
 
                     <Grid container spacing={2} className={classes.covidcont}>
                         <Grid item xs={12} md={4}>
-                            <SummaryCard carddata={sumCard10} />
+                            <SummaryCard carddata={{
+                                title: 'Positive Cases',
+                                count: "57",
+                                card_clr: { background: 'linear-gradient(45deg, #4fd2f5 30%, #ccebeb 90%)' },
+                            }} />
                         </Grid>
                         <Grid item xs={12} md={4}>
-                            <SummaryCard carddata={sumCard11} />
+                            <SummaryCard carddata={{
+                                title: 'Death Count',
+                                count: "12",
+                                card_clr: { background: 'linear-gradient(45deg, #f6609e 30%, #f1c3d6 90%)' },
+                            }} />
                         </Grid>
                         <Grid item xs={12} md={4}>
-                            <SummaryCard carddata={sumCard12} />
+                            <SummaryCard carddata={{
+                                title: 'Recovered Count',
+                                count: "8",
+                                card_clr: { background: 'linear-gradient(45deg, #3fe9e2 30%, #b4f1ee 90%)' },
+                            }} />
                         </Grid>
                     </Grid>
 

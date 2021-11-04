@@ -8,76 +8,89 @@ import {
   Divider,
   Typography
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Colombo',
-  country: 'Sri Lanka',
-  jobTitle: 'Senior Developer',
-  name: 'Nimal Jayasinghe',
-  timezone: 'GTM-7'
 };
 
-const AccountProfile = (props) => (
-  <Card {...props}>
-    <CardContent>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-        <Avatar
-          src={user.avatar}
+export default function AccountProfile(props) {
+
+    const { userData, closeFunction, deleteFunction } = props;
+
+    return (
+      <Card>
+      <CardContent>
+        <Box
           sx={{
-            height: 100,
-            width: 100
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column'
           }}
-        />
-        <Typography
-          color="textPrimary"
-          gutterBottom
-          variant="h5"
         >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body1"
-          gutterBottom
-        >
-          {`${user.city} ${user.country}`}
-        </Typography>
-        <Typography
-          variant="body1"
-          gutterBottom
-        >
-          NIC : 97857547V
-        </Typography>
-
-        <Typography
-          variant="body1"
-          gutterBottom
-        >
-          EMAIL : nimal@gmail.com
-        </Typography>
-      </Box>
-    </CardContent>
-    <Divider />
-    <CardActions>
-    <Button
-        variant="outlined"
-      >
-        EDIT
-      </Button>
+          <Avatar
+            src={user.avatar}
+            sx={{
+              height: 100,
+              width: 100
+            }}
+          />
+             <Typography
+            color="textSecondary"
+            variant="body1"
+            gutterBottom
+          >
+            {`User ID : ${userData.user_id}`}
+          </Typography>
+          <Typography
+            color="textPrimary"
+            gutterBottom
+            variant="h5"
+          >
+            {`${userData.first_name} ${userData.last_name}`}
+          </Typography>
+          <Typography
+            color="textSecondary"
+            variant="body1"
+            gutterBottom
+          >
+            {`User Role : ${userData.role}`}
+          </Typography>
+          <Typography
+            variant="body1"
+            gutterBottom
+          >
+            {userData.nic}
+          </Typography>
+          <Typography
+            variant="body1"
+            gutterBottom
+          >
+            {userData.email}
+          </Typography>
+        </Box>
+      </CardContent>
+      <Divider />
+      <CardActions style={{justifyContent: 'center'}}>
       <Button
-        variant="outlined"
-      >
-        CLOSE
-      </Button>
-    </CardActions>
-  </Card>
-);
+          variant="contained"
+          onClick={deleteFunction}
+          color='secondary'
+        >
+          DELETE USER
+        </Button>
+        <Button
+          variant="contained"
+          onClick={closeFunction}
+          color='primary'
+        >
+          CLOSE
+        </Button>
+      </CardActions>
+    </Card>
+    );
+}
 
-export default AccountProfile;
+AccountProfile.propTypes = {
+    carddata: PropTypes.object,
+  };

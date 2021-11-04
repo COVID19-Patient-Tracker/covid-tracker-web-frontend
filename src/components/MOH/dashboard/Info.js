@@ -13,27 +13,25 @@ const useStyles = makeStyles({
     minWidth: 650,
   },
 });
-
 function createData(hospitalname, count) {
   return { hospitalname, count};
 }
-
-const rows = [
-  createData('Positive Cases', 159),
-  createData('Recovered', 237),
-  createData('Deaths', 262),
-  createData('Remaining Capacity', 356),
-];
-
-export default function Info() {
+export default function Info({props}) {
   const classes = useStyles();
-
+  const rows = [
+    createData('Total PCRs', props.total_pcrs),
+    createData('Total RapidAntigens', props.total_antigens),
+    createData('Total Covid Patients', props.total_covid_patients),
+    createData('Total Active', props.total_actives),
+    createData('Total Deaths', props.total_deaths),
+    createData('Total Recovered', props.total_recovered),
+  ];
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Statistics of "Hospital Name"</TableCell>
+            <TableCell>Statistics of {new Date(props.date).toDateString()}</TableCell>
             <TableCell align="center">Counts</TableCell>
           </TableRow>
         </TableHead>

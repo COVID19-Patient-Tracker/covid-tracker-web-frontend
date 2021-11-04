@@ -36,20 +36,8 @@ const AdmitRepo =() =>{
         console.log(date);
         setSelectedDate(date);
     };
-
-    // // get all hospitals
-    // useEffect(() => {
-    //     getRequest(routes.GET_ALL_HOSPITALS_URL,headers)
-    //         .then((response => {
-    //             if(response.data) {
-    //                 setErrors({})
-    //                 setHospitals(response.data.hospitals);
-    //             }
-    //             if(response.error) setErrors({...response.error.response.data});
-    //         }))
-    // }, [])
         
-    // get patient by id
+// get patient by id
   useEffect(() => {
       
    if(isOnline){

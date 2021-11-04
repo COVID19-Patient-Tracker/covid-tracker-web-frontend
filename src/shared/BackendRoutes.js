@@ -21,3 +21,7 @@ export const DELETE_HOSPITAL_USERS_BY_ID = BASE_URL + "/management/api/V1/hospit
 export const GET_ALL_PATIENTS_URL = BASE_URL + "/management/api/V1/hospital/user/patients/all"
 export const GET_PATIENT_BY_ID = BASE_URL + "/management/api/V1/hospital/user/getPatientDetails/" // should add id of the user
 export const GET_PATIENT_BY_HOSPITAL_ID = BASE_URL + "/management/api/V1/hospital/user/getPatientByhosID/" // should add hospital id of the user
+export const GET_WARDS_BY_HOSPITAL_ID = BASE_URL + "/management/api/V1/hospital/user/hospital/wards/" // should add hospital id of the user
+export const ADD_WARD_TRANSFER = BASE_URL + "/management/api/V1/hospital/user/hospital/updateHistoryRecord/data" 
+export const GET_HOSPITAL_INFO_BY_HOSPITAL_ID = BASE_URL + "/management/api/V1/hospital/admin/getHospitalDetails/" // should add id of the user
+export const UPDATE_HOSPITAL_INFO = BASE_URL + "/management/api/V1/hospital/admin/hospital/updateDetials" 

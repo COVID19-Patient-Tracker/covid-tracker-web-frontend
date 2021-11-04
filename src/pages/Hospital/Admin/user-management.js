@@ -8,9 +8,9 @@ import { Table } from 'react-bootstrap';
 import SwipeableViews from 'react-swipeable-views';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
+import SearchIcon from '@material-ui/icons/Search';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
-import SearchIcon from '@material-ui/icons/Search';
 import store from '../../../store';
 import * as routes from '../../../shared/BackendRoutes'
 import AccountProfile from '../../../components/hospital/dashboard/Profile';
@@ -420,7 +420,7 @@ function TabPanel2(props) {
                         <Button
                             type="submit"
                             variant="contained"
-                            startIcon={<SaveIcon />}
+                            startIcon={<SearchIcon />}
                             onClick={submit}
                             style={{
                                 borderRadius: "50px",
@@ -439,7 +439,7 @@ function TabPanel2(props) {
                                   <TableCell>USER ID</TableCell>
                                   <TableCell align="right">EMAIL</TableCell>
                                   <TableCell align="right">FIRST NAME</TableCell>
-                                  <TableCell align="right">LSAT NAME</TableCell>
+                                  <TableCell align="right">LAST NAME</TableCell>
                                   <TableCell align="right">NIC</TableCell>
                                   <TableCell align="right">DELETE USER</TableCell>
                                   <TableCell align="right"></TableCell>
@@ -461,7 +461,7 @@ function TabPanel2(props) {
                                     <TableCell align="right">
                                         <Button
                                             variant="contained"
-                                            startIcon={<SaveIcon />}
+                                            startIcon={<DeleteIcon />}
                                             onClick={(e) => {
                                                 e.preventDefault();
                                                 if(window.confirm('Are you sure you want to delete user of id ?' + row.userDetails.user_id)){

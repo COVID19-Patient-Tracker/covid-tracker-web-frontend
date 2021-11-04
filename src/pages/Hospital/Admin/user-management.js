@@ -1,10 +1,13 @@
+/* eslint-disable */
 import React from 'react';
 import { useState, useEffect } from "react";
 import { useTheme } from '@material-ui/core/styles';
 
 import { Box, TextField, Button, AppBar, Tabs, Tab, makeStyles, FormControl, Select, InputLabel, Snackbar } from '@material-ui/core';
+import { Paper, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 import { Alert } from '@mui/material';
 import SwipeableViews from 'react-swipeable-views';
+import { Table } from 'react-bootstrap';
 
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -16,7 +19,7 @@ import AccountProfile from '../../../components/hospital/dashboard/Profile';
 
 import store from '../../../store'
 import * as routes from '../../../shared/BackendRoutes'
-import { postRequest, getRequest } from '../../../api/utils';
+import { postRequest, getRequest, deleteRequest } from '../../../api/utils';
 import { useAuth } from "../../../components/AuthConext"
 
 function TabPanel1(props) {
@@ -257,6 +260,58 @@ function TabPanel1(props) {
 
 function TabPanel2(props) {
     const { children, value, index, ...other } = props;
+    const JWTtoken = localStorage.getItem('CPT-jwt-token');
+    const headers = { headers: { "Authorization": `${JWTtoken}` } }
+    const auth = useAuth();
+    const [hospitalID, setHospitalID] = useState('');
+    const [role, setRole] = useState("HOSPITAL_ADMIN");
+    const [reqSuccess, setReqSuccess] = useState(false);
+    const [errors, setErrors] = useState(''); // errors in inputs
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        const user_id = {
+            "id": auth.currentUser.id,
+        }
+        getRequest(routes.GETHOSPITALUSERDETAILS + user_id.id, headers)
+            .then((response) => {
+                console.log(response);
+                if (response.data) {
+                    setHospitalID(response.data.Info.hospital[0].hospital_id);
+                }
+                else if (response.error) {
+                    alert("Hospital data unavailable. Try Again Later..");
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }, []);
+
+    const handleGetAllUsers = (e) => {
+        e.preventDefault();
+        const get_url = `${routes.GET_ALL_HOSPITAL_USERS_BY_ROLE}/${hospitalID}/role/${role}/all`
+        getRequest(get_url, headers)
+            .then((response) => {
+                if (response.data) {
+                    const { data } = response
+                    setUsers(data.UserData)
+                    console.log(data.UserData)
+                    setErrors({});
+                    setReqSuccess(true)
+                }
+                else if (response.error) {
+                    const { error } = response
+                    setErrors({ ...error.response.data }) // set errors of inputs and show
+                    setReqSuccess(false)
+                }
+            })
+            .catch((e) => {
+                setReqSuccess(false)
+            });
+    };
+
+
 
     return (
         <div
@@ -269,25 +324,71 @@ function TabPanel2(props) {
             {value === index && (
                 <Box p={3} bgcolor="#fff">
                     <form autoComplete="off">
-                        <TextField
-                            id="email"
-                            label="Email"
-                            variant="outlined"
-                            fullWidth
-                            required
-                            margin="normal"
-                            helperText="*Enter user Email here"
-                            type="email"
-                            autoFocus
-                        />
+                        <FormControl variant="outlined" fullWidth required>
+                            <InputLabel
+                            >
+                                User Type
+                            </InputLabel>
+                            <Select autoFocus
+                                native
+                                label="User Type"
+                                name="role"
+                                onChange={(event) => { setRole(event.target.value) }}
+                            >
+                                <option selected value="HOSPITAL_ADMIN">HOSPITAL ADMIN</option>
+                                <option value="HOSPITAL_USER">HOSPITAL USER</option>
+                            </Select>
+                        </FormControl>
                         <Button
                             variant="contained"
+                            startIcon={<SearchIcon />}
                             color="primary"
-                            startIcon={<DeleteIcon />}
+                            onClick={handleGetAllUsers}
+                            style={{
+                                borderRadius: "50px",
+                                margin: "10px",
+                                fontSize: "15px",
+                                color: "rgb(255, 255, 255)",
+                            }}
                         >
-                            REMOVE USER
+                            GET ALL USERS
                         </Button>
+                        <br></br>
+                        <TableContainer component={Paper} style={{ textAlign: '-webkit-center' }}>
+                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>USER ID</TableCell>
+                                        <TableCell align="right">EMAIL</TableCell>
+                                        <TableCell align="right">FIRST NAME</TableCell>
+                                        <TableCell align="right">LAST NAME</TableCell>
+                                        <TableCell align="right">NIC</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {users && users.map((row) => (
+                                        <TableRow
+                                            key={row.name}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        >
+                                            <TableCell component="th" scope="row">
+                                                {row.user_id}
+                                            </TableCell>
+                                            <TableCell align="right">{row.email}</TableCell>
+                                            <TableCell align="right">{row.first_name}</TableCell>
+                                            <TableCell align="right">{row.last_name}</TableCell>
+                                            <TableCell align="right">{row.nic}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </form>
+                    {
+                        errors.exception && reqSuccess === false
+                            ? <Alert onClose={setErrors({})} severity="error">Error Occured. Try Again Later</Alert>
+                            : null
+                    }
                 </Box>
             )}
         </div>
@@ -296,16 +397,22 @@ function TabPanel2(props) {
 
 function TabPanel3(props) {
     const { children, value, index, ...other } = props;
-    const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
-    const headers = { headers: { "Authorization": `${JWTtoken}` } } // headers
+    const JWTtoken = localStorage.getItem('CPT-jwt-token');
+    const headers = { headers: { "Authorization": `${JWTtoken}` } }
     const auth = useAuth();
     const [hospitalID, setHospitalID] = useState('');
     const [nic, setNic] = useState("");
+    const [userID, setUserID] = useState('');
     const [userInfo, setUserInfo] = useState(null);
     const [isCompleted, setIsCompleted] = useState(false);
     const [isValid, setisValid] = useState(true);
     const [isError, setIsError] = useState(false);
     const [message, setMessage] = useState('');
+    const [isOnline, setIsOnline] = useState(true);
+    const [reqSuccess, setReqSuccess] = useState(false);
+    const [errors, setErrors] = useState(''); // errors in inputs
+    const [open, setOpen] = React.useState(false);
+    const [syncMessage, setSynceMessage] = React.useState(null);
 
     useEffect(() => {
         const user_id = {
@@ -336,7 +443,6 @@ function TabPanel3(props) {
                 if (response.error) {
                     setIsError(true);
                     const err_code = response.error.response.data.status;
-                    console.log(err_code);
                     if (err_code === 404) {
                         setMessage("User Not Found");
                     } else if (err_code === 401) {
@@ -346,8 +452,8 @@ function TabPanel3(props) {
                     }
                 };
                 if (response.data.status === 200) {
-                    console.log(response.data.userInfo)
                     setUserInfo(response.data.userInfo);
+                    setUserID(response.data.userInfo.user_id);
                     setIsError(false);
                     setIsCompleted(true);
                 }
@@ -357,10 +463,50 @@ function TabPanel3(props) {
             });
     };
 
-    const handleClose = () => {
+    const handleCloseView = () => {
         setIsCompleted(false);
-    }
+        console.log(errors);
+    };
 
+    const deleteUserById = () => {
+
+        if (isOnline) {
+            // made request to the backend
+            deleteRequest(routes.DELETE_USERS_BY_ID + userID, headers)
+                .then((response) => {
+                    if (response.data) {
+                        setErrors('');
+                        setReqSuccess(true);
+                        setIsCompleted(false);
+                    }
+                    else if (response.error) {
+                        console.log(response.error.response)
+                        const { error } = response
+                        setErrors(error.response.data.status) // set errors of inputs and show
+                        setReqSuccess(false)
+                    }
+                })
+                .catch((e) => {
+                    setReqSuccess(false)
+                });
+
+        } else {
+            // TODO : show warning method that it will synced with backend when online
+            setSynceMessage("you're offline now. changes you make will automatically sync with database");
+            setOpen(true)
+        }
+    };
+
+    // for snack bar
+    const handleClose = (event, reason) => {
+        // when click away set exception  to null
+        setIsOnline(true)
+        if (reason === 'clickaway') {
+            return;
+        }
+        setReqSuccess(reqSuccess)
+        setOpen(false);
+    };
 
     return (
         <div
@@ -370,6 +516,12 @@ function TabPanel3(props) {
             aria-labelledby={`full-width-tab-${index}`}
             {...other}
         >
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    {syncMessage}
+                </Alert>
+            </Snackbar>
+
             {value === index && (
                 <Box p={3} bgcolor="#fff">
                     <form autoComplete="off">
@@ -405,11 +557,17 @@ function TabPanel3(props) {
                             }}
                             onClick={searchByNic}
                         >
-                            SEARCH
+                            REMOVE USER
                         </Button>
                     </form>
                     {isError && <Alert onClose={() => { setIsError(false); }} severity="error">{message}</Alert>}
-                    {isCompleted && <AccountProfile userData = {userInfo} closeFunction ={handleClose} /> }
+                    {isCompleted && <AccountProfile userData={userInfo} closeFunction={handleCloseView} deleteFunction={deleteUserById} />}
+                    {reqSuccess && <Alert onClose={() => { setReqSuccess(false); setIsCompleted(false); }} severity="info">Deleted Successfully.</Alert>}
+                    {
+                        errors.status && reqSuccess === false
+                            ? <Alert onClose={setErrors({})} severity="error">Error Occured. Try Again Later</Alert>
+                            : null
+                    }
                 </Box>
             )}
         </div>
@@ -452,15 +610,11 @@ export default function UserManagement() {
 
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
-    const [showUser, setShowUser] = useState(false);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
-    const handleShowUser = () => {
-        setShowUser(true);
-    }
     const handleChangeIndex = (index) => {
         setValue(index);
     };
@@ -489,8 +643,8 @@ export default function UserManagement() {
                     backgroundColor="#1299bc"
                 >
                     <Tab label="Add" icon={<PersonAddIcon />} {...a11yProps(0)} />
-                    <Tab label="Remove" icon={<PersonAddDisabledIcon />} {...a11yProps(1)} />
-                    <Tab label="Search" icon={<SearchIcon />} {...a11yProps(2)} />
+                    <Tab label="Search" icon={<SearchIcon />} {...a11yProps(1)} />
+                    <Tab label="Remove" icon={<PersonAddDisabledIcon />} {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
             <SwipeableViews

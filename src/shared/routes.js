@@ -45,7 +45,7 @@ export const REPOTEST = "/hospital/user/checkResult"
 export const COMPLETEREPORT = "/hospital/user/completeReport/:id"
 export const SEARCHPATIENT = "/hospital/user/searchpatient"
 export const ADDPATEINT = "/hospital/user/addPatient"
-
+export const UPDATEANTIGEN = "/hospital/user/testResult/updateAntigen/:id"
 
 export const PROTECTED = "/protected" // for testing
 //define the route url here and use it. Easy to change later

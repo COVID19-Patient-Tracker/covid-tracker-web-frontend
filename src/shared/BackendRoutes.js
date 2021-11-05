@@ -26,7 +26,11 @@ export const GET_WARDS_BY_HOSPITAL_ID = BASE_URL + "/management/api/V1/hospital/
 export const ADD_WARD_TRANSFER = BASE_URL + "/management/api/V1/hospital/user/hospital/updateHistoryRecord/data" 
 export const GET_HOSPITAL_INFO_BY_HOSPITAL_ID = BASE_URL + "/management/api/V1/hospital/admin/getHospitalDetails/" // should add id of the user
 export const UPDATE_HOSPITAL_INFO = BASE_URL + "/management/api/V1/hospital/admin/hospital/updateDetials" 
-
+export const ADD_PCR_TEST = BASE_URL + "/management/api/V1/hospital/user/pcr/add" 
+export const ADD_ANTIGEN_TEST = BASE_URL + "/management/api/V1/hospital/user/antigen/add" 
+export const GET_ANTIGEN_TEST = BASE_URL + "/management/api/V1/visitor/antigen/" // should add id of the user
+export const UPDATE_ANTIGEN_TEST = BASE_URL + "/management/api/V1/hospital/user/antigen/edit/" // should add id of the user
+export const UPDATE_PATIENT_DETAILS = BASE_URL + "/management/api/V1/hospital/user/hospital/updatePatientDetails" // should add id of the user
 
 export const ADD_HOSPITAL_USERS = BASE_URL + "/management/api/V1/hospital/admin/user/add"
 export const GET_USER_BY_NIC = BASE_URL + "/management/api/V1/hospital/admin/user"

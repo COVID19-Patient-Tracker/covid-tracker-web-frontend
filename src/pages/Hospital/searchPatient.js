@@ -32,12 +32,15 @@ const PatientSearch = () => {
     // made request to the backend
     getRequest(routes.GETHOSPITALUSERDETAILS + user_id.id,headers)
       .then((response) => {
-        console.log(response)
+        
         if(response.data){
           sethospitalInfo(response.data.Info.hospital[0]);
+          console.log(response.data.Info.hospital[0].hospital_id)
           getRequest(routes.GET_PATIENT_BY_HOSPITAL_ID + response.data.Info.hospital[0].hospital_id,headers)
             .then((response) => {
+              
               if(response.data){
+                
                 setPatients(response.data.patient);
                 setErrors({});
                 setReqSuccess(true)
@@ -65,6 +68,7 @@ const PatientSearch = () => {
   const filterID = patients.filter(id => {
     return id.nic.toLowerCase().includes( search.toLowerCase())
   });
+  console.log(filterID)
   
   return (
     <div className="create" style={{ margin:"150px auto"}}>

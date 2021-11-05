@@ -9,7 +9,6 @@ import store from "../../../../store";
 import {Snackbar,TextField } from '@material-ui/core';
 import { Alert } from '@mui/material';
 import moment from 'moment';
-import { useHistory } from 'react-router-dom';
 
 const TestResult = () => {
   const {id} = useParams()
@@ -27,8 +26,6 @@ const TestResult = () => {
   const [syncMessage, setSynceMessage] = React.useState(null);
   const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
   const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
-  const history = useHistory();
-  const handleClick = (id) => history.push(`/hospital/user/testResult/updateAntigen/${id}`);
 
   // handling inputs
   const handleChange = (e) => {
@@ -78,10 +75,6 @@ const TestResult = () => {
       setReqSuccess(false);
       setErrors({});
   };
-
-  const refreshPage =() => {
-    window.location.reload(false);
-  }
       
   useEffect(() => {
     const user_id = {
@@ -89,22 +82,22 @@ const TestResult = () => {
     }
    
     // made request to the backend to get hospital details
-    getRequest(routes.GETHOSPITALUSERDETAILS +user_id.id , headers)
-      .then((response) => {
-        if(response.data){
-          sethospitalInfo(response.data.Info.hospital[0])
-          setErrors({});
-          setReqSuccessGet(true)
-        }
-        else if(response.error){
-          const {error,headers} = response
-          setErrors({...error.response.data}) // set errors of inputs and show
-          setReqSuccessGet(false)
-        }
-      })
-      .catch((e) => {
-          setReqSuccessGet(false)
-      });
+    // getRequest(routes.GETHOSPITALUSERDETAILS +user_id.id , headers)
+    //   .then((response) => {
+    //     if(response.data){
+    //       sethospitalInfo(response.data.Info.hospital[0])
+    //       setErrors({});
+    //       setReqSuccessGet(true)
+    //     }
+    //     else if(response.error){
+    //       const {error,headers} = response
+    //       setErrors({...error.response.data}) // set errors of inputs and show
+    //       setReqSuccessGet(false)
+    //     }
+    //   })
+    //   .catch((e) => {
+    //       setReqSuccessGet(false)
+    //   });
 
     // made request to the backend to get antigen test results
     getRequest(routes.GET_ANTIGEN_TEST +id , headers)
@@ -124,109 +117,111 @@ const TestResult = () => {
           setReqSuccessGet(false)
       });
     },[]);
-  function formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
 
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
+    //change date format
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
 
-    return [year, month, day].join('-');
-}
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
 
-  //add antigen test result
-  const submitAntigen = (e) => {
-        
-    e.preventDefault();
-
-    if(isOnline){
-
-      var putData = inputs; // submit data
-
-      // made request to the backend
-      postRequest(routes.ADD_ANTIGEN_TEST, putData, headers)
-        .then((response) => {
-          if(response.data){
-            console.log(response.data)
-            setErrors({});
-            setReqSuccess(true)
-          }
-          else if(response.error){
-            const {error,headers} = response
-            setErrors({...error.response.data}) // set errors of inputs and show
-            setReqSuccess(false)
-          }
-        })
-        .catch((e) => {
-            setReqSuccess(false)
-        });
-
-    }else{
-      // TODO : show warning method that it will synced with backend when online
-      setSynceMessage("you're offline now. changes you make will automatically sync with database");
-      setOpen(true)
-      // push to store
-      store.dispatch({
-        type:"todos/todoAdded",
-        payload:{
-            inputs:inputs,
-            url:routes.ADD_PCR_TEST,
-            method:"POST",
-            headers:headers
-          }
-        }
-      )
+        return [year, month, day].join('-');
     }
-  }
+
+//   //add antigen test result
+//   const submitAntigen = (e) => {
+        
+//     e.preventDefault();
+
+//     if(isOnline){
+
+//       var putData = inputs; // submit data
+
+//       // made request to the backend
+//       postRequest(routes.ADD_ANTIGEN_TEST, putData, headers)
+//         .then((response) => {
+//           if(response.data){
+//             console.log(response.data)
+//             setErrors({});
+//             setReqSuccess(true)
+//           }
+//           else if(response.error){
+//             const {error,headers} = response
+//             setErrors({...error.response.data}) // set errors of inputs and show
+//             setReqSuccess(false)
+//           }
+//         })
+//         .catch((e) => {
+//             setReqSuccess(false)
+//         });
+
+//     }else{
+//       // TODO : show warning method that it will synced with backend when online
+//       setSynceMessage("you're offline now. changes you make will automatically sync with database");
+//       setOpen(true)
+//       // push to store
+//       store.dispatch({
+//         type:"todos/todoAdded",
+//         payload:{
+//             inputs:inputs,
+//             url:routes.ADD_PCR_TEST,
+//             method:"POST",
+//             headers:headers
+//           }
+//         }
+//       )
+//     }
+//   }
     
-  //add pcr test result
-  const submitPCR = (e) => {
+//   //add pcr test result
+//   const submitPCR = (e) => {
         
-    e.preventDefault();
+//     e.preventDefault();
 
-    if(isOnline){
+//     if(isOnline){
 
-      var putData = inputs; // submit data
+//       var putData = inputs; // submit data
 
-      // made request to the backend
-      postRequest(routes.ADD_PCR_TEST, putData, headers)
-        .then((response) => {
-          if(response.data){
-            const {data,headers} = response
-            setErrors({});
-            setReqSuccess(true)
-          }
-          else if(response.error){
-            const {error,headers} = response
-            setErrors({...error.response.data}) // set errors of inputs and show
-            setReqSuccess(false)
-          }
-        })
-        .catch((e) => {
-            setReqSuccess(false)
-        });
+//       // made request to the backend
+//       postRequest(routes.ADD_PCR_TEST, putData, headers)
+//         .then((response) => {
+//           if(response.data){
+//             const {data,headers} = response
+//             setErrors({});
+//             setReqSuccess(true)
+//           }
+//           else if(response.error){
+//             const {error,headers} = response
+//             setErrors({...error.response.data}) // set errors of inputs and show
+//             setReqSuccess(false)
+//           }
+//         })
+//         .catch((e) => {
+//             setReqSuccess(false)
+//         });
 
-    }else{
-      // TODO : show warning method that it will synced with backend when online
-      setSynceMessage("you're offline now. changes you make will automatically sync with database");
-      setOpen(true)
-      // push to store
-      store.dispatch({
-        type:"todos/todoAdded",
-        payload:{
-            inputs:inputs,
-            url:routes.ADD_PCR_TEST,
-            method:"POST",
-            headers:headers
-          }
-        }
-      )
-    }
-  } 
+//     }else{
+//       // TODO : show warning method that it will synced with backend when online
+//       setSynceMessage("you're offline now. changes you make will automatically sync with database");
+//       setOpen(true)
+//       // push to store
+//       store.dispatch({
+//         type:"todos/todoAdded",
+//         payload:{
+//             inputs:inputs,
+//             url:routes.ADD_PCR_TEST,
+//             method:"POST",
+//             headers:headers
+//           }
+//         }
+//       )
+//     }
+//   } 
 
   //update antigen report
     const update = (e) => {
@@ -276,7 +271,67 @@ const TestResult = () => {
   return (
     <div className="app-container">
       <h2>Record PCR & antigen test results</h2>
-      <h3>Add a test record</h3>
+      <h3>Antigen test results</h3>
+      <form onClick={update}>
+        {/* <input
+          error={errors.patientId ? true:false}
+          id="patient-id"
+          label="Patient ID"   
+          name="patientId"                        
+          fullWidth
+          value={id}
+          variant="outlined"
+          placeholder="Patient ID"
+          onChange={handleUpadte}
+          margin="normal"
+          helperText={errors.patientId ? errors.patientId : null}
+        /> */}
+        {/* <input
+          error={errors.hospital_id ? true:false}
+          id="hospital-id"
+          label="Hospital ID"   
+          name="hospital_id"                        
+          fullWidth
+          value={antigenInfo.hospital_id}
+          placeholder="Hospital ID"
+          variant="outlined"
+          margin="normal"
+          onChange={handleUpadte}
+          helperText={errors.hospital_id ? errors.hospital_id : null}
+        /> */}
+        <input
+          error={errors.test_data ? true:false}
+          id="test-data"
+          label="Test date"   
+          name="test_data"                        
+          fullWidth
+          type="date"
+          variant="outlined"
+          value={formatDate(antigenInfo.test_data)}
+          format="MM/dd/yyyy"
+          margin="normal"
+          
+          helperText={errors.test_data ? errors.test_data : null}
+        />
+        <select
+          onChange={handleUpadte}
+          label="Test result"
+          value={antigenInfo.test_result}
+          name="test_result">
+          <option value="select">--Enter result--</option>
+          <option value="Pending">Pending</option>
+          <option value="Positive">Positive</option> 
+          <option value="Negative">Negative</option>
+        </select>
+        <button 
+          style={{width:"200px",height:"35px", marginTop:"10px", alignSelf:"center", justifyContent:"center", marginLeft:"20px"}}
+          onClick={update}
+        >
+          Update antigen test record
+        </button>
+      </form>
+
+      {/* <h3>Add a test record</h3>
       <p>Patient ID:{id} , Hospital ID:{hospitalInfo.hospital_id}</p>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
@@ -346,18 +401,11 @@ const TestResult = () => {
         >
           Add antigen test record
         </button>
-        <button 
-          style={{width:"200px",height:"35px", marginTop:"10px", alignSelf:"center", justifyContent:"center", marginLeft:"20px"}}
-          onClick={()=>handleClick(id)}
-        >
-          Update antigen test record
-        </button>
 
         {reqSuccess && <Alert onClose={handleAlertClose} severity="success">Hospital Details upadated</Alert>}
 
         <hr className="hr" />
-         {/* <button style={{width:"200px",height:"35px", marginTop:"10px"}}>Update</button> */}
-      </form>
+      </form> */}
     </div>
   );
 };

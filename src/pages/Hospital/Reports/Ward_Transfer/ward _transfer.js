@@ -210,7 +210,7 @@ const handleEditFormSubmit = (event) => {
   return (
     <div className="app-container">
       <h2>Update patient ward transfer</h2>
-      <h3>Transfer history</h3>
+      <h3>Ward history</h3>
       <form onSubmit={handleEditFormSubmit}>
         <table>
           <thead>

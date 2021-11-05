@@ -8,7 +8,7 @@ import * as routes from '../../shared/BackendRoutes'
 import { postRequest, getRequest } from '../../api/utils';
 import { Alert } from '@mui/material';
 import store from '../../store'
-
+import { useAuth } from '../../components/AuthConext';
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(3),
@@ -35,16 +35,23 @@ export default function UserManagement() {
         nic:"",
         //dob:"",
         age:"",
-        contact_no:""
+        contact_no:"",
+        visit_status:'',
+        data:""
     }); 
     const [reqSuccess,setReqSuccess] = useState(false);
+    const [reqAddSuccess,setReqAddSuccess] = useState(false);
     const [errors,setErrors] = useState({}); // errors in inputs
     const [open, setOpen] = React.useState(false);
     const [syncMessage, setSynceMessage] = React.useState(null);
     const [Hospitals,setHospitals] = useState([]);
     const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
     const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
-
+    const auth = useAuth();
+    const [wards, setWards] = useState([]);
+    const [hospitalInfo,sethospitalInfo] = useState([]) // includes all hosital details
+  
+  
     // for snack bar
     const handleClose = (event, reason) => {
         // when click away set exception  to null
@@ -52,6 +59,11 @@ export default function UserManagement() {
         return;
       }
       setOpen(false);
+    };
+    //close alert
+    const handleAlertClose = () => {
+      setReqAddSuccess(false);
+      setErrors({});
     };
 
     // get all hospitals
@@ -92,6 +104,44 @@ export default function UserManagement() {
             })
     }
 
+    //Get wards in hospital using the hospital id
+  useEffect(() => {
+    const user_id = {
+        "id":auth.currentUser.id,
+    }
+
+    // made request to the backend
+    getRequest(routes.GETHOSPITALUSERDETAILS + user_id.id,headers)
+      .then((response) => {
+        if(response.data){
+          sethospitalInfo(response.data.Info.hospital[0]);
+          getRequest(routes.GET_WARDS_BY_HOSPITAL_ID + response.data.Info.hospital[0].hospital_id,headers)
+            .then((response) => {
+              if(response.data){
+                setWards(response.data.wards);
+                setErrors({});
+                setReqSuccess(true)
+              }
+              else if(response.error){
+                const {error,headers} = response
+                setErrors({...error.response.data}) // set errors of inputs and show
+                setReqSuccess(false)
+              }
+            })
+            .catch((e) => {});
+            }
+            else if(response.error){
+              const {error,headers} = response
+              setErrors({...error.response.data}) // set errors of inputs and show
+              setReqSuccess(false)
+            }
+          })
+          .catch((e) => {
+        });
+      return () => {
+    }
+  }, [])
+
     const submit = (e) => {
         
         e.preventDefault();
@@ -106,16 +156,16 @@ export default function UserManagement() {
                     if(response.data){
                         const {data,headers} = response
                         setErrors({});
-                        setReqSuccess(true)
+                        setReqAddSuccess(true)
                     }
                     else if(response.error){
                         const {error,headers} = response
                         setErrors({...error.response.data}) // set errors of inputs and show
-                        setReqSuccess(false)
+                        setReqAddSuccess(false)
                     }
                 })
                 .catch((e) => {
-                    setReqSuccess(false)
+                    setReqAddSuccess(false)
                 });
 
         }else{
@@ -291,6 +341,26 @@ export default function UserManagement() {
                             </Select>
                         </FormControl>
                         <br/><br/>
+
+                        <FormControl variant="outlined" fullWidth required>
+                            <InputLabel 
+                                error={errors.ward_id ? true:false} 
+                                htmlFor="outlined-type"
+                                helperText={errors.ward_id ? errors.ward_id : null}
+                            >
+                                    Ward
+                            </InputLabel>
+                            <Select autoFocus
+                                native
+                                label="User Type"
+                                onChange={handleChange}
+                                name="ward_id"
+                            >
+                                <option aria-label="None" value="" />
+                                {wards.map((ward) => <option value={ward.ward_id}>{ward.ward_name}</option>)}
+                            </Select>
+                        </FormControl>
+                        <br/><br/>
                         <FormControl fullWidth required variant="outlined" className={classes.textAlign}>
                             <InputLabel 
                                 error={errors.gender ? true:false} 
@@ -331,7 +401,58 @@ export default function UserManagement() {
                                 <MenuItem value="child">Child</MenuItem>
                             </Select>
                         </FormControl>
+                        <br/><br/>
+                        <FormControl fullWidth required variant="outlined" className={classes.textAlign}>
+                            <InputLabel 
+                                error={errors.visit_status ? true:false} 
+                                helperText={errors.visit_status ? errors.visit_status : null}
+                            >
+                                Visit status
+                            </InputLabel>
+                            <Select
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined"
+                                onChange={handleChange}
+                                label="usertype"
+                                name="visit_status"                           
+                            >
+                                <MenuItem value="PENDING">Pending</MenuItem>
+                                <MenuItem value="ADMITTED">Admitted</MenuItem>
+                                <MenuItem value="QUARANTINED">Quarantined</MenuItem>
+                                <MenuItem value="DISCHARGED">Dischared</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <br/><br/>
+                        <TextField
                         
+                            id="visit_date"
+                            label="Visit date"
+                            type="date"
+                            name="visit_date"
+                            format="MM/dd/yyyy"
+                            error={errors.visit_date ? true:false}
+                            helperText={errors.visit_date ? errors.visit_date : null}
+                            fullWidth
+                            //inputProps={{max:new Date()}}
+                            variant="outlined"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            onChange={handleChange}
+                        />
+
+                        <TextField
+                            error={errors.data ? true:false}
+                            helperText={errors.data ? errors.data : null}
+                            id="last-name"
+                            label="Other details"
+                            name="data"
+                            fullWidth
+                            required
+                            variant="outlined"
+                            margin="normal"
+                            onChange={handleChange}
+                        />
                         <br/><br/>
                         <Button
                             style={{
@@ -348,14 +469,15 @@ export default function UserManagement() {
                             startIcon={<SaveIcon />}
                         >SAVE USER
                         </Button>
+                        
                         {
-                            reqSuccess == true
-                                ? <Alert severity="success">user added</Alert> 
+                            reqAddSuccess == true
+                                ? <Alert severity="success" onClose={handleAlertClose}>Patient added</Alert> 
                                 : null
                         }
                         {
-                            (errors.exception && errors.exception == "user already exists in db") && reqSuccess == false
-                                ? <Alert severity="error">user already exists</Alert> 
+                            (errors.exception && errors.exception == "user already exists in db") && reqAddSuccess == false
+                                ? <Alert severity="error" onClose={handleAlertClose}>Patient already exists</Alert> 
                                 : null
                         }
                     </form>

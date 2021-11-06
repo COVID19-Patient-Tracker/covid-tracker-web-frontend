@@ -57,6 +57,7 @@ const CompleteReport = lazy(() => import("../pages/Hospital/update_patient_detal
 const AddPatient = lazy(() => import("../pages/Hospital/addPatient"));
 const SearchPatient = lazy(() => import("../pages/Hospital/searchPatient"));
 const UpdateAntigen = lazy(() => import("../pages/Hospital/Reports/PCR_Antigen_Results/antigen_update"));
+const UpdatePCR = lazy(() => import("../pages/Hospital/Reports/PCR_Antigen_Results/pcr_update"));
 
 function PlaceholderForProtectedRoute() {
     return (
@@ -147,6 +148,7 @@ const Router = () => {
                     <PrivateRoute exact path={routes.SEARCHPATIENT} component={SearchPatient} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
                     <PrivateRoute exact path={routes.ADDPATEINT} component={AddPatient} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
                     <PrivateRoute exact path={routes.UPDATEANTIGEN} component={UpdateAntigen} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
+                    <PrivateRoute exact path={routes.UPDATEPCR} component={UpdatePCR} AuthorizedUserRoles={[roles.HOSPITAL_USER]} />
 
                     {/* landing */}
                     <Route exact path={routes.LANDING} component={HomePage} />

@@ -472,7 +472,7 @@ function TabPanel3(props) {
 
         if (isOnline) {
             // made request to the backend
-            deleteRequest(routes.DELETE_USERS_BY_ID + userID, headers)
+            deleteRequest(routes.DELETE_HOSPITAL_USERS_BY_ID + userID, headers)
                 .then((response) => {
                     if (response.data) {
                         setErrors('');

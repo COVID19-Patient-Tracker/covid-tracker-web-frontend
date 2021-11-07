@@ -5,7 +5,6 @@ const ReadOnlyRow = ({ newresult}) => {
     <tr>
       <td>{newresult.NIC}</td>
       <td>{newresult.ward}</td>
-      <td>{newresult.reason}</td>
     </tr>
   );
 };

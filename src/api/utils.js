@@ -94,4 +94,4 @@ export const SendSpecifiedRequest = async (uri, data, headers, method) => {
 		default:
 			break;
 	}
-};
+}; 

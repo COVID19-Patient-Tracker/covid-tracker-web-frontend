@@ -29,16 +29,6 @@ const EditableRow = ({
           <option value="4">4</option>
         </select>
       </td>
-      <td>
-        <input 
-          type="text"
-          required="required"
-          placeholder="Enter reason for transfer"
-          name="reason"
-          value={editFormData.reason}
-          onChange={handleEditFormChange}
-        ></input>
-      </td>
     </tr>
   );
 };

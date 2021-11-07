@@ -47,4 +47,3 @@ class UserManagement extends React.Component {
 }
 
 export default UserManagement;
-

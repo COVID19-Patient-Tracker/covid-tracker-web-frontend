@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { makeStyles, Typography, Accordion, AccordionSummary, AccordionDetails, Box, Grid } from "@material-ui/core";
+import { makeStyles, Typography, Accordion, AccordionSummary, AccordionDetails, Box} from "@material-ui/core";
 import { List, ListItem, Divider, ListItemText, ListItemAvatar, Avatar } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 

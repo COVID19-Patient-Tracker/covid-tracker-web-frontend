@@ -54,10 +54,10 @@ export default function UserManagement() {
                 const pneumoniaAcc = parseFloat(result.data.pneumonia)
                 if(normalAcc < pneumoniaAcc){
                     setState("PNEUMONIA");
-                    setAcc(pneumoniaAcc * 100)
+                    setAcc(pneumoniaAcc.toFixed(5) * 100 + "%")
                 }else{
                     setState("NORMAL")
-                    setAcc(normalAcc * 100)
+                    setAcc(normalAcc.toFixed(5) * 100 + "%")
                 }
                 setProgrssBar(false)
                 setViewResult(true);

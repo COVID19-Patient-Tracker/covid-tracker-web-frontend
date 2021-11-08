@@ -16,7 +16,7 @@ const Info = () => {
         <Grid container spacing={4} justify="center">
         <CardComponent 
           cardTitle="Total Patients"
-          value="1102"          
+          value="102"          
           cardSubtitle="Total COVID-19 infected patients in the hospital"/>
         <CardComponent
           cardTitle="Admitted"

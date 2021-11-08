@@ -13,7 +13,7 @@ const Chart = () => {
             {
               label: 'People',
               backgroundColor: ['#72d1e9', '#7af9f9','#7ae6f9'],
-              data: [1102, 21, 15],
+              data: [102, 21, 15],
             },
           ],
         }}

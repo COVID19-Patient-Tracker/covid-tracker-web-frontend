@@ -211,7 +211,7 @@ export default function UserManagement() {
                             <TextField
                                 id="site-host"
                                 label="Accuracy"
-                                value={Number((acc).toFixed(2))}
+                                value={acc}
                                 fullWidth
                                 InputProps={{
                                     readOnly: true,

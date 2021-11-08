@@ -337,7 +337,7 @@ export default function UserManagement() {
                                 name="hospital_id"
                             >
                                 <option aria-label="None" value="" />
-                                {Hospitals.map((hospital) => <option value={hospital.hospital_id}>{hospital.name}</option>)}
+                                <option value={hospitalInfo.hospital_id}>{hospitalInfo.name}</option>
                             </Select>
                         </FormControl>
                         <br/><br/>

@@ -14,7 +14,7 @@ const TestResult = () => {
   const [isOnline,setIsOnline] = useState(true);
   const [reqSuccessGet,setReqSuccessGet] = useState(false);
   const [reqSuccessUpdate,setReqSuccessUpdate] = useState(false);
-  const [antigenInfo,setantigenInfo] = useState([])
+  const [pcrInfo,setpcrInfo] = useState([])
   const [errors,setErrors] = useState({}); // errors in inputs
   const [open, setOpen] = React.useState(false);
   const [syncMessage, setSynceMessage] = React.useState(null);
@@ -40,9 +40,9 @@ const TestResult = () => {
   // handling updates
   const handleUpadte= (e) => {
       e.preventDefault();
-      setantigenInfo(
+      setpcrInfo(
           {
-              ...antigenInfo, 
+              ...pcrInfo, 
               [e.target.name]:e.target.value
           })
   }
@@ -62,10 +62,10 @@ const TestResult = () => {
       
   useEffect(() => {
 
-    getRequest(routes.GET_ANTIGEN_TEST +id , headers)
+    getRequest(routes.GET_PCR_TEST +id , headers)
       .then((response) => {
         if(response.data){
-          setantigenInfo(response.data.TestData[(response.data.TestData).length-1])
+          setpcrInfo(response.data.TestData[(response.data.TestData).length-1])
           setErrors({});
           setReqSuccessGet(true)
         }
@@ -102,17 +102,17 @@ const TestResult = () => {
 
         if(isOnline){
 
-            var putData = antigenInfo; 
+            var putData = pcrInfo; 
 
             // made request to the backend
-            putRequest(routes.UPDATE_ANTIGEN_TEST + antigenInfo.id, putData, headers)
+            putRequest(routes.UPDATE_PCR_TEST + pcrInfo.id, putData, headers)
                 .then((response) => {
                     if(response.data){
                         console.log(response)
                         setErrors({});
                         setReqSuccessUpdate(true)
                     }
-                    else if(response.error){
+                    else if(response.error){ 
                         const {error,headers} = response
                         setErrors({...error.response.data}) // set errors of inputs and show
                         setReqSuccessUpdate(false)
@@ -130,8 +130,8 @@ const TestResult = () => {
             store.dispatch({
                 type:"todos/todoAdded",
                 payload:{
-                        inputs:antigenInfo,
-                        url:routes.UPDATE_ANTIGEN_TEST +antigenInfo.patientId,
+                        inputs:pcrInfo,
+                        url:routes.UPDATE_PCR_TEST +pcrInfo.patientId,
                         method:"PUT",
                         headers:headers
                     }
@@ -143,7 +143,7 @@ const TestResult = () => {
     return (
         <div className="create" style={{ margin:"150px auto"}} >
             <Card variant="outlined" >
-               <h2>Update antigen test results</h2>
+               <h2>Update PCR test results</h2>
                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                         {syncMessage}
@@ -159,7 +159,7 @@ const TestResult = () => {
                     fullWidth
                     type="date"
                     variant="outlined"
-                    value={formatDate(antigenInfo.test_data)}
+                    value={formatDate(pcrInfo.test_data)}
                     format="MM/dd/yyyy"
                     margin="normal"
                     helperText={errors.test_data ? errors.test_data : null}
@@ -168,7 +168,7 @@ const TestResult = () => {
                     <select
                     onChange={handleUpadte}
                     label="Test result"
-                    value={antigenInfo.test_result}
+                    value={pcrInfo.test_result}
                     name="test_result">
                         <option value="select">--Enter result--</option>
                         <option value="Pending">Pending</option>
@@ -181,7 +181,7 @@ const TestResult = () => {
                     >
                     Update antigen test record
                     </button>
-                    {reqSuccessUpdate && <Alert onClose={handleAlertClose} severity="success">Antigen test results updated</Alert>}
+                    {reqSuccessUpdate && <Alert onClose={handleAlertClose} severity="success">PCR test results updated</Alert>}
 
                     <br/><br/>
                 </form>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./../../components/css/table.css"
 import "./../../components/css/forms.css"
-import data from "./mock-data -id.json";
 import './history';
 import {Card } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';

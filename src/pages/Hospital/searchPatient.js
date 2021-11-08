@@ -40,7 +40,7 @@ const PatientSearch = () => {
             .then((response) => {
               
               if(response.data){
-                
+                console.log(response.data)
                 setPatients(response.data.patient);
                 setErrors({});
                 setReqSuccess(true)

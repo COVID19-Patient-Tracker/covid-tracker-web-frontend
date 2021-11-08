@@ -22,13 +22,18 @@ export const GET_ALL_PATIENTS_URL = BASE_URL + "/management/api/V1/hospital/user
 export const GET_PATIENT_BY_ID = BASE_URL + "/management/api/V1/hospital/user/getPatientDetails/" // should add id of the user
 export const GET_PATIENT_BY_HOSPITAL_ID = BASE_URL + "/management/api/V1/hospital/user/getPatientByhosID/" // should add hospital id of the user
 export const GET_WARDS_BY_HOSPITAL_ID = BASE_URL + "/management/api/V1/hospital/user/hospital/wards/" // should add hospital id of the user
-export const ADD_WARD_TRANSFER = BASE_URL + "/management/api/V1/hospital/user/hospital/updateHistoryRecord/data" 
+export const UPDATE_WARD_TRANSFER = BASE_URL + "/management/api/V1/hospital/user/hospital/transferWard" 
 export const GET_HOSPITAL_INFO_BY_HOSPITAL_ID = BASE_URL + "/management/api/V1/hospital/admin/getHospitalDetails/" // should add id of the user
 export const ADD_PCR_TEST = BASE_URL + "/management/api/V1/hospital/user/pcr/add" 
 export const ADD_ANTIGEN_TEST = BASE_URL + "/management/api/V1/hospital/user/antigen/add" 
 export const GET_ANTIGEN_TEST = BASE_URL + "/management/api/V1/visitor/antigen/" // should add id of the user
 export const UPDATE_ANTIGEN_TEST = BASE_URL + "/management/api/V1/hospital/user/antigen/edit/" // should add id of the user
-export const UPDATE_PATIENT_DETAILS = BASE_URL + "/management/api/V1/hospital/user/hospital/updatePatientDetails" // should add id of the user
+export const GET_PCR_TEST = BASE_URL + "/management/api/V1/visitor/pcr/" // should add id of the user
+export const UPDATE_PCR_TEST = BASE_URL + "/management/api/V1/hospital/user/pcr/edit/" // should add id of the user
+export const UPDATE_PATIENT_DETAILS = BASE_URL + "/management/api/V1/hospital/user/hospital/updatePatientDetails" 
+export const GET_CURRENT_STATUS = BASE_URL + "/management/api/V1/hospital/user/hospital/getNewestHospitalVisitRecord/" // should add id of the user
+export const UPDATE_CURRENT_STATUS = BASE_URL + "/management/api/V1/hospital/user/hospital/updateHistoryRecord/visitStatus" 
+export const UPDATE_HOSPITAL_TRANSFER = BASE_URL + "/management/api/V1/hospital/user/hospital/transfer" 
 
 //hospital Admin
 export const UPDATE_HOSPITAL_INFO = BASE_URL + "/management/api/V1/hospital/admin/hospital/updateDetials" 

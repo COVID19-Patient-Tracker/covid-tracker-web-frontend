@@ -1,34 +1,30 @@
 import React, { useState, useEffect } from "react";
 import '../../../../components/css/table.css';
-import data from "./mock-data.json";
 import { useAuth } from "../../../../components/AuthConext";
-import { getRequest, postRequest, putRequest } from "../../../../api/utils";
+import { getRequest, postRequest} from "../../../../api/utils";
 import * as routes from '../../../../shared/BackendRoutes'
 import {useParams} from 'react-router-dom'
 import store from "../../../../store";
-import {Snackbar,TextField } from '@material-ui/core';
+import {Snackbar } from '@material-ui/core';
 import { Alert } from '@mui/material';
-import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
 const TestResult = () => {
   const {id} = useParams()
   const auth = useAuth();
-  const [results, setresults] = useState(data);
   const [isOnline,setIsOnline] = useState(true);
   const [inputs,setInputs] = useState({});
   const [reqSuccessGet,setReqSuccessGet] = useState(false);
-  const [reqSuccessUpdate,setReqSuccessUpdate] = useState(false);
   const [reqSuccess,setReqSuccess] = useState(false);
   const [hospitalInfo,sethospitalInfo] = useState([]) // includes all hosital details
-  const [antigenInfo,setantigenInfo] = useState([])
   const [errors,setErrors] = useState({}); // errors in inputs
   const [open, setOpen] = React.useState(false);
   const [syncMessage, setSynceMessage] = React.useState(null);
   const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
   const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
   const history = useHistory();
-  const handleClick = (id) => history.push(`/hospital/user/testResult/updateAntigen/${id}`);
+  const handleClickAntigen = (id) => history.push(`/hospital/user/testResult/updateAntigen/${id}`);
+  const handleClickPCR = (id) => history.push(`/hospital/user/testResult/updatePCR/${id}`);
 
   // handling inputs
   const handleChange = (e) => {
@@ -56,15 +52,6 @@ const TestResult = () => {
         }
     }, [])
 
-  // handling updates
-  const handleUpadte= (e) => {
-      e.preventDefault();
-      setantigenInfo(
-          {
-              ...antigenInfo, 
-              [e.target.name]:e.target.value
-          })
-  }
   // for snack bar
   const handleClose = (event, reason) => {
       // when click away set exception  to null
@@ -78,10 +65,6 @@ const TestResult = () => {
       setReqSuccess(false);
       setErrors({});
   };
-
-  const refreshPage =() => {
-    window.location.reload(false);
-  }
       
   useEffect(() => {
     const user_id = {
@@ -106,37 +89,7 @@ const TestResult = () => {
           setReqSuccessGet(false)
       });
 
-    // made request to the backend to get antigen test results
-    getRequest(routes.GET_ANTIGEN_TEST +id , headers)
-      .then((response) => {
-        if(response.data){
-          setantigenInfo(response.data.TestData[(response.data.TestData).length-1])
-          setErrors({});
-          setReqSuccessGet(true)
-        }
-        else if(response.error){
-          const {error,headers} = response
-          setErrors({...error.response.data}) // set errors of inputs and show
-          setReqSuccessGet(false)
-        }
-      })
-      .catch((e) => {
-          setReqSuccessGet(false)
-      });
     },[]);
-  function formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
-
-    return [year, month, day].join('-');
-}
 
   //add antigen test result
   const submitAntigen = (e) => {
@@ -227,51 +180,6 @@ const TestResult = () => {
       )
     }
   } 
-
-  //update antigen report
-    const update = (e) => {
-        
-        e.preventDefault();
-
-        if(isOnline){
-
-            var putData = antigenInfo; 
-
-            // made request to the backend
-            putRequest(routes.UPDATE_ANTIGEN_TEST + antigenInfo.patientId, putData, headers)
-                .then((response) => {
-                    if(response.data){
-                        console.log(response)
-                        setErrors({});
-                        setReqSuccessUpdate(true)
-                    }
-                    else if(response.error){
-                        const {error,headers} = response
-                        setErrors({...error.response.data}) // set errors of inputs and show
-                        setReqSuccessUpdate(false)
-                    }
-                })
-                .catch((e) => {
-                    setReqSuccessUpdate(false)
-                });
-
-        }else{
-            // TODO : show warning method that it will synced with backend when online
-            setSynceMessage("you're offline now. changes you make will automatically sync with database");
-            setOpen(true)
-            // push to store
-            store.dispatch({
-                type:"todos/todoAdded",
-                payload:{
-                        inputs:antigenInfo,
-                        url:routes.UPDATE_ANTIGEN_TEST +antigenInfo.patientId,
-                        method:"PUT",
-                        headers:headers
-                    }
-                }
-            )
-        }
-    }
   
   return (
     <div className="app-container">
@@ -284,6 +192,7 @@ const TestResult = () => {
           </Alert>
       </Snackbar>
       <form >
+        <label>Patient ID</label>
         <input
           error={errors.patientId ? true:false}
           id="patient-id"
@@ -297,6 +206,7 @@ const TestResult = () => {
           margin="normal"
           helperText={errors.patientId ? errors.patientId : null}
         />
+        <label>Hospital ID</label>
         <input
           error={errors.hospital_id ? true:false}
           id="hospital-id"
@@ -310,6 +220,7 @@ const TestResult = () => {
           onChange={handleChange}
           helperText={errors.hospital_id ? errors.hospital_id : null}
         />
+        <label>Testing date</label>
         <input
           error={errors.test_data ? true:false}
           id="test-data"
@@ -324,6 +235,7 @@ const TestResult = () => {
           onChange={handleChange}
           helperText={errors.test_data ? errors.test_data : null}
         />
+        <label>Tested result</label>
         <select
           required="required"
           onChange={handleChange}
@@ -346,14 +258,22 @@ const TestResult = () => {
         >
           Add antigen test record
         </button>
+        <br/><br/>
         <button 
-          style={{width:"200px",height:"35px", marginTop:"10px", alignSelf:"center", justifyContent:"center", marginLeft:"20px"}}
-          onClick={()=>handleClick(id)}
+          style={{width:"200px",height:"35px", marginTop:"10px", alignSelf:"center", justifyContent:"center",  backgroundColor:"#05afa7"}}
+          onClick={()=>handleClickPCR(id)}
+        >
+          Update PCR test record
+        </button>
+        <button 
+          style={{width:"200px",height:"35px", marginTop:"10px", alignSelf:"center", justifyContent:"center", marginLeft:"20px",backgroundColor:"#05afa7"}}
+          onClick={()=>handleClickAntigen(id)}
         >
           Update antigen test record
         </button>
+        
 
-        {reqSuccess && <Alert onClose={handleAlertClose} severity="success">Hospital Details upadated</Alert>}
+        {reqSuccess && <Alert onClose={handleAlertClose} severity="success">Test record created</Alert>}
 
         <hr className="hr" />
          {/* <button style={{width:"200px",height:"35px", marginTop:"10px"}}>Update</button> */}

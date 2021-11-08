@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import '../../../../components/css/table.css';
 import { useAuth } from "../../../../components/AuthConext";
 import { getRequest, postRequest } from "../../../../api/utils";
@@ -22,6 +22,13 @@ const WardTransfer = () => {
   const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
   const [syncMessage, setSynceMessage] = useState(null);
   const [open, setOpen] = useState(false);
+  const prevDetailsRef = useRef();
+
+  //check whether details are changed or not
+  useEffect(() => {
+      prevDetailsRef.current = currentWard;
+  });
+  const prevDetails = prevDetailsRef.current;
 
   // for snack bar
     const handleClose = (event, reason) => {
@@ -114,25 +121,29 @@ const WardTransfer = () => {
         e.preventDefault();
 
         if(isOnline){
+          if(currentWard != prevDetails){
 
             var putData = currentWard; // submit data
 
             // made request to the backend
             postRequest(routes.UPDATE_WARD_TRANSFER, putData, headers)
-                .then((response) => {
-                    if(response.data){
-                        setErrors({});
-                        setReqSuccessUpdate(true)
-                    }
-                    else if(response.error){
-                        const {error,headers} = response
-                        setErrors({...error.response.data}) // set errors of inputs and show
-                        setReqSuccessUpdate(false)
-                    }
+              .then((response) => {
+                  if(response.data){
+                      setErrors({});
+                      setReqSuccessUpdate(true)
+                  }
+                  else if(response.error){
+                      const {error,headers} = response
+                      setErrors({...error.response.data}) // set errors of inputs and show
+                      setReqSuccessUpdate(false)
+                  }
                 })
                 .catch((e) => {
                     setReqSuccessUpdate(false)
                 });
+           }else{
+                alert("You have not made any change")
+            }
 
         }else{
             // TODO : show warning method that it will synced with backend when online

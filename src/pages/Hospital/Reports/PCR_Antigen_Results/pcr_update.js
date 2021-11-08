@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import '../../../../components/css/table.css';
 import '../../../../components/css/forms.css';
 import { getRequest, putRequest } from "../../../../api/utils";
@@ -20,6 +20,14 @@ const TestResult = () => {
   const [syncMessage, setSynceMessage] = React.useState(null);
   const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
   const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
+  const prevDetailsRef = useRef();
+
+    //check whether details are changed or not
+    useEffect(() => {
+        prevDetailsRef.current = pcrInfo;
+    });
+    const prevDetails = prevDetailsRef.current;
+
 
   // after press submit if user not online push them into todo in store
     useEffect(() => {
@@ -101,26 +109,30 @@ const TestResult = () => {
         e.preventDefault();
 
         if(isOnline){
+            if(pcrInfo != prevDetails){
 
-            var putData = pcrInfo; 
+                var putData = pcrInfo; 
 
-            // made request to the backend
-            putRequest(routes.UPDATE_PCR_TEST + pcrInfo.id, putData, headers)
-                .then((response) => {
-                    if(response.data){
-                        console.log(response)
-                        setErrors({});
-                        setReqSuccessUpdate(true)
-                    }
-                    else if(response.error){ 
-                        const {error,headers} = response
-                        setErrors({...error.response.data}) // set errors of inputs and show
+                // made request to the backend
+                putRequest(routes.UPDATE_PCR_TEST + pcrInfo.id, putData, headers)
+                    .then((response) => {
+                        if(response.data){
+                            console.log(response)
+                            setErrors({});
+                            setReqSuccessUpdate(true)
+                        }
+                        else if(response.error){ 
+                            const {error,headers} = response
+                            setErrors({...error.response.data}) // set errors of inputs and show
+                            setReqSuccessUpdate(false)
+                        }
+                    })
+                    .catch((e) => {
                         setReqSuccessUpdate(false)
-                    }
-                })
-                .catch((e) => {
-                    setReqSuccessUpdate(false)
-                });
+                    });
+            }else{
+                alert("You have not made any change")
+            }
 
         }else{
             // TODO : show warning method that it will synced with backend when online
@@ -139,56 +151,70 @@ const TestResult = () => {
             )
         }
     }
-  
-    return (
-        <div className="create" style={{ margin:"150px auto"}} >
-            <Card variant="outlined" >
-               <h2>Update PCR test results</h2>
-               <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                        {syncMessage}
-                    </Alert>
-                </Snackbar>
-                <form style={{marginLeft:"20px",marginRight:"20px"}}>
-                    <label>Tested date</label>
-                    <input
-                    error={errors.test_data ? true:false}
-                    id="test-data"
-                    label="Test date"   
-                    name="test_data"                        
-                    fullWidth
-                    type="date"
-                    variant="outlined"
-                    value={formatDate(pcrInfo.test_data)}
-                    format="MM/dd/yyyy"
-                    margin="normal"
-                    helperText={errors.test_data ? errors.test_data : null}
-                    />
-                    <label>Test result</label>
-                    <select
-                    onChange={handleUpadte}
-                    label="Test result"
-                    value={pcrInfo.test_result}
-                    name="test_result">
-                        <option value="select">--Enter result--</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Positive">Positive</option> 
-                        <option value="Negative">Negative</option>
-                    </select>
-                    <button 
-                    style={{width:"200px",height:"35px", marginTop:"10px", alignSelf:"center", justifyContent:"center", marginLeft:"20px"}}
-                    onClick={update}
-                    >
-                    Update antigen test record
-                    </button>
-                    {reqSuccessUpdate && <Alert onClose={handleAlertClose} severity="success">PCR test results updated</Alert>}
+    if(pcrInfo!=undefined){
+        return (
+            <div className="create" style={{ margin:"150px auto"}} >
+                <Card variant="outlined" >
+                <h2>Update PCR test results</h2>
+                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                            {syncMessage}
+                        </Alert>
+                    </Snackbar>
+                    <form style={{marginLeft:"20px",marginRight:"20px"}}>
+                        <label>Tested date</label>
+                        <input
+                        error={errors.test_data ? true:false}
+                        id="test-data"
+                        label="Test date"   
+                        name="test_data"                        
+                        fullWidth
+                        type="date"
+                        variant="outlined"
+                        value={formatDate(pcrInfo.test_data)}
+                        format="MM/dd/yyyy"
+                        margin="normal"
+                        helperText={errors.test_data ? errors.test_data : null}
+                        />
+                        <label>Test result</label>
+                        <select
+                        onChange={handleUpadte}
+                        label="Test result"
+                        value={pcrInfo.test_result}
+                        name="test_result">
+                            <option value="select">--Enter result--</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Positive">Positive</option> 
+                            <option value="Negative">Negative</option>
+                        </select>
+                        <button 
+                        style={{width:"200px",height:"35px", marginTop:"10px", alignSelf:"center", justifyContent:"center", marginLeft:"20px"}}
+                        onClick={update}
+                        >
+                        Update antigen test record
+                        </button>
+                        {reqSuccessUpdate && <Alert onClose={handleAlertClose} severity="success">PCR test results updated</Alert>}
 
-                    <br/><br/>
-                </form>
-                
-            </Card>
-        </div>
-    );
+                        <br/><br/>
+                    </form>
+                    
+                </Card>
+            </div>
+        );
+    }else{
+        return (
+            <div className="create" style={{ margin:"150px auto"}} >
+                <Card variant="outlined" >
+                <h2>Update PCR test results</h2>
+                <h3>There are no previous PCR test records</h3>
+                    
+                </Card>
+            </div>
+        );
+        
+    }
+  
+    
 };
 
 export default TestResult;

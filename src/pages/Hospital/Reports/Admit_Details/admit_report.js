@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import "../../../../components/css/forms.css"
@@ -21,7 +21,7 @@ const AdmitRepo =() =>{
     const [reqSuccessUpdate,setReqSuccessUpdate] = useState(false);
     const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
     const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
-
+    const prevDetailsRef = useRef();
     // for snack bar
     const handleClose = (event, reason) => {
         // when click away set exception  to null
@@ -34,8 +34,14 @@ const AdmitRepo =() =>{
     const handleAlertClose = () => {
         setReqSuccessUpdate(false);
         setErrors({});
-        //setInputs({first_name: "", last_name: "", nic: "", email: "",});
     };
+
+    //check whether details are changed or not
+    useEffect(() => {
+        prevDetailsRef.current = patients;
+    });
+    const prevDetails = prevDetailsRef.current;
+    
     
 // get patient by id
   useEffect(() => {
@@ -101,27 +107,31 @@ const AdmitRepo =() =>{
         e.preventDefault();
 
         if(isOnline){
+            if(patients != prevDetails){
+                var putData = patients; 
 
-            var putData = patients; 
-
-            // made request to the backend
-            postRequest(routes.UPDATE_PATIENT_DETAILS, putData, headers)
-                .then((response) => {
-                    if(response.data){
-                        console.log(response)
-                        setErrors({});
-                        setReqSuccessUpdate(true)
-                    }
-                    else if(response.error){
-                        const {error,headers} = response
-                        setErrors({...error.response.data}) // set errors of inputs and show
+                // made request to the backend
+                postRequest(routes.UPDATE_PATIENT_DETAILS, putData, headers)
+                    .then((response) => {
+                        if(response.data){
+                            console.log(response)
+                            setErrors({});
+                            setReqSuccessUpdate(true)
+                        }
+                        else if(response.error){
+                            const {error,headers} = response
+                            setErrors({...error.response.data}) // set errors of inputs and show
+                            setReqSuccessUpdate(false)
+                            alert("Please enter details correctly")
+                        }
+                    })
+                    .catch((e) => {
                         setReqSuccessUpdate(false)
-                    }
-                })
-                .catch((e) => {
-                    setReqSuccessUpdate(false)
-                });
-
+                    });
+                }
+            else{
+                alert("You have not made any change")
+            }
         }else{
             // TODO : show warning method that it will synced with backend when online
             setSynceMessage("you're offline now. changes you make will automatically sync with database");

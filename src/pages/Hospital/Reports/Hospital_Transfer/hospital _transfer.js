@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../../../../components/css/table.css"
 import { getRequest, postRequest } from "../../../../api/utils";
 import * as routes from "../../../../shared/BackendRoutes"
@@ -22,6 +22,13 @@ const HospitalTransfer = () => {
   const [syncMessage, setSynceMessage] = useState(null);
   const [open, setOpen] = useState(false);
   const [op,setop] = useState([]);
+  const prevDetailsRef = useRef();
+
+  //check whether details are changed or not
+  useEffect(() => {
+      prevDetailsRef.current = results;
+  });
+  const prevDetails = prevDetailsRef.current;
 
   // for snack bar
   const handleClose = (event, reason) => {
@@ -75,7 +82,7 @@ const HospitalTransfer = () => {
           setErrors({});
           setReqSuccess(true)
         }
-        else if (response.error) {
+        else if (response.error) { 
           const { error, headers } = response
           setErrors({ ...error.response.data }) // set errors of inputs and show
           setReqSuccess(false)
@@ -115,26 +122,30 @@ const HospitalTransfer = () => {
 
     e.preventDefault();
     if (isOnline) {
+      if(results != prevDetails){
 
-      var putData = results;
-      putData.hospital = { "hospital_id": putData.hospital_id }
-      
-      // made request to the backend
-      postRequest(routes.UPDATE_HOSPITAL_TRANSFER, putData, headers)
-        .then((response) => {
-          if (response.data) {
-            setErrors({});
-            setReqSuccessUpdate(true)
-          }
-          else if (response.error) {
-            const { error, headers } = response
-            setErrors({ ...error.response.data }) // set errors of inputs and show
+        var putData = results;
+        putData.hospital = { "hospital_id": putData.hospital_id }
+        
+        // made request to the backend
+        postRequest(routes.UPDATE_HOSPITAL_TRANSFER, putData, headers)
+          .then((response) => {
+            if (response.data) {
+              setErrors({});
+              setReqSuccessUpdate(true)
+            }
+            else if (response.error) {
+              const { error, headers } = response
+              setErrors({ ...error.response.data }) // set errors of inputs and show
+              setReqSuccessUpdate(false)
+            }
+          })
+          .catch((e) => {
             setReqSuccessUpdate(false)
-          }
-        })
-        .catch((e) => {
-          setReqSuccessUpdate(false)
-        });
+          });
+      }else{
+          alert("You have not changed the details")
+      }
 
     } else {
       // TODO : show warning method that it will synced with backend when online
@@ -211,8 +222,7 @@ const HospitalTransfer = () => {
           name="patient_id"
           value={results.patient_id}
           required="required"
-          placeholder="Enter NIC"
-          onChange={handleUpadte}
+          placeholder="Enter Patient ID"
         />
         <label>Hospital</label>
         <select

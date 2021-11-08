@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../../../../components/css/forms.css';
 import {useParams} from 'react-router-dom'
 import { getRequest, postRequest } from '../../../../api/utils';
@@ -18,6 +18,13 @@ const CurrentStatus =() =>{
     const [syncMessage, setSynceMessage] = useState(null);
     const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
     const headers = {headers:{"Authorization": `${JWTtoken}`}} // headers
+    const prevDetailsRef = useRef();
+
+    //check whether details are changed or not
+    useEffect(() => {
+        prevDetailsRef.current = currentStatus;
+    });
+    const prevDetails = prevDetailsRef.current;
 
     //get visit histories
     useEffect(() => {
@@ -69,26 +76,30 @@ const CurrentStatus =() =>{
         e.preventDefault();
 
         if(isOnline){
+            if(currentStatus != prevDetails){
 
-            var putData = currentStatus; 
+                var putData = currentStatus; 
 
-            // made request to the backend
-            postRequest(routes.UPDATE_CURRENT_STATUS, putData, headers)
-                .then((response) => {
-                    if(response.data){
-                        console.log(response)
-                        setErrors({});
-                        setReqSuccessUpdate(true)
-                    }
-                    else if(response.error){ 
-                        const {error,headers} = response
-                        setErrors({...error.response.data}) // set errors of inputs and show
+                // made request to the backend
+                postRequest(routes.UPDATE_CURRENT_STATUS, putData, headers)
+                    .then((response) => {
+                        if(response.data){
+                            console.log(response)
+                            setErrors({});
+                            setReqSuccessUpdate(true)
+                        }
+                        else if(response.error){ 
+                            const {error,headers} = response
+                            setErrors({...error.response.data}) // set errors of inputs and show
+                            setReqSuccessUpdate(false)
+                        }
+                    })
+                    .catch((e) => {
                         setReqSuccessUpdate(false)
-                    }
-                })
-                .catch((e) => {
-                    setReqSuccessUpdate(false)
-                });
+                    });
+                }else{
+                alert("You have not made any change")
+                }
 
         }else{
             // TODO : show warning method that it will synced with backend when online

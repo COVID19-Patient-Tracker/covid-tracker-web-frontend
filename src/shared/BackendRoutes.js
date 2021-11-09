@@ -33,7 +33,8 @@ export const UPDATE_PCR_TEST = BASE_URL + "/management/api/V1/hospital/user/pcr/
 export const UPDATE_PATIENT_DETAILS = BASE_URL + "/management/api/V1/hospital/user/hospital/updatePatientDetails" 
 export const GET_CURRENT_STATUS = BASE_URL + "/management/api/V1/hospital/user/hospital/getNewestHospitalVisitRecord/" // should add id of the user
 export const UPDATE_CURRENT_STATUS = BASE_URL + "/management/api/V1/hospital/user/hospital/updateHistoryRecord/visitStatus" 
-export const UPDATE_HOSPITAL_TRANSFER = BASE_URL + "/management/api/V1/hospital/user/hospital/transfer" 
+export const UPDATE_HOSPITAL_TRANSFER = BASE_URL + "/management/api/V1/hospital/user/hospital/transfer"
+export const GET_COVID_PATIENTS = BASE_URL + "/management/api/V1/hospital/user/hospital/covidPatients/" // should add hospital id
 
 //hospital Admin
 export const UPDATE_HOSPITAL_INFO = BASE_URL + "/management/api/V1/hospital/admin/hospital/updateDetials" 

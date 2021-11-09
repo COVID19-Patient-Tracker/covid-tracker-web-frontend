@@ -6,16 +6,20 @@ import { useParams } from 'react-router-dom'
 import store from "../../../../store";
 import { Alert } from '@mui/material';
 import {Snackbar } from '@material-ui/core';
+import { useAuth } from "../../../../components/AuthConext";
 
 const HospitalTransfer = () => { 
   const [results, setresults] = useState([]);
   const { id } = useParams()
+  const auth = useAuth();
   const [isOnline, setIsOnline] = useState(true);
   const [reqSuccess, setReqSuccess] = useState(false);
   const [currentHospital, setcurrentHospital] = useState([])
   const [errors, setErrors] = useState({}); // errors in inputs
   const [reqSuccessUpdate, setReqSuccessUpdate] = useState(false);
   const [currentWard, setcurrentWard] = useState([])
+  const [covidPatient, setcovidPatient] = useState([])
+  const [hospitalInfo,sethospitalInfo] = useState([]) // includes all hosital details
   const [Hospitals, setHospitals] = useState([]);
   const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
   const headers = { headers: { "Authorization": `${JWTtoken}` } } // headers
@@ -117,6 +121,48 @@ const HospitalTransfer = () => {
       });
   }, []);
 
+  // get covid patients
+  //Get wards in hospital using the hospital id
+  useEffect(() => {
+    const user_id = {
+        "id":auth.currentUser.id,
+    }
+
+    // made request to the backend
+    getRequest(routes.GETHOSPITALUSERDETAILS + user_id.id,headers)
+      .then((response) => {
+        console.log(response)
+        if(response.data){
+          sethospitalInfo(response.data.Info.hospital[0]);
+          getRequest(routes.GET_COVID_PATIENTS + response.data.Info.hospital[0].hospital_id,headers)
+            .then((response) => {
+              
+              if(response.data){
+                setcovidPatient(response.data.CovidPatients);
+                setErrors({});
+                setReqSuccess(true)
+              }
+              else if(response.error){
+                const {error,headers} = response
+                setErrors({...error.response.data}) // set errors of inputs and show
+                setReqSuccess(false)
+              }
+            })
+            .catch((e) => {});
+            }
+            else if(response.error){
+              const {error,headers} = response
+              setErrors({...error.response.data}) // set errors of inputs and show
+              setReqSuccess(false)
+            }
+          })
+          .catch((e) => {
+        });
+      return () => {
+    }
+  }, [])
+  
+
   //to transfer to another ward
   const submit = (e) => {
 
@@ -203,10 +249,14 @@ const HospitalTransfer = () => {
 
     return [year, month, day].join('-');
   }
+  const [newA,setnew]=useState([])
 
+  if(covidPatient.length>0){
+    {covidPatient.map((offers)=> {
+    console.log(covidPatient)
 
-  if(results.patient_id==id){
-    return (
+        if(offers.patient_id==id){
+          return (
     <div className="app-container">
       <h2>Covid patient hospital transfer</h2>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
@@ -270,10 +320,8 @@ const HospitalTransfer = () => {
       </form>
     </div>
   );
-  }
-
-  else{
-    return(
+        }else{
+            return(
       <div className="app-container">
       <h2>Covid patient hospital transfer</h2>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
@@ -288,6 +336,94 @@ const HospitalTransfer = () => {
     </div>
     );
   }
+        
+        
+    })}
+  }
+  
+  // if(covidPatient.includes(id)){
+  //   return (
+  //   <div className="app-container">
+  //     <h2>Covid patient hospital transfer</h2>
+  //       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+  //           <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+  //               {syncMessage}
+  //           </Alert>
+  //       </Snackbar>
+  //     <form>
+  //       <label>Patient ID</label>
+        
+  //       <input
+  //         type="text"
+  //         name="patient_id"
+  //         value={results.patient_id}
+  //         required="required"
+  //         placeholder="Enter Patient ID"
+  //       />
+  //       <label>Hospital</label>
+  //       <select
+  //         required="required"
+  //         name="hospital_id"
+  //         value={currentHospital.hospital_id}
+  //         onChange ={handleUpadte}
+  //       >
+  //         <option aria-label="None" value="" />
+  //         {Hospitals.map((hospital) => <option value={hospital.hospital_id}>{hospital.name}</option>)}
+  //       </select>
+  //       <label>Ward</label>
+  //       <input 
+  //         type="button" 
+  //         onClick={wardsselect} 
+  //         value="Select the ward"
+  //         style={{ width: "200px", height: "35px", marginTop: "10px", alignSelf: "center", justifyContent: "center",backgroundColor:"#70d4fc" }}/>
+  //       <select
+  //         required="required"
+  //         name="ward_id"
+  //         value={results.ward_id}
+  //         onChange ={handleUpadte}
+  //       >
+  //         <option aria-label="None" value="" />
+  //         {op.map((ward) => <option value={ward.ward_id}>{ward.ward_name}</option>)}
+  //       </select>
+  //       <label>Visit date</label>
+  //       <input
+  //         type="date"
+  //         name="visit_date"
+  //         value={formatDate(results.visit_date)}
+  //         required="required"
+  //         placeholder="Enter NIC"
+  //         onChange={handleUpadte}
+  //       />      
+  //       <button
+  //         style={{ width: "200px", height: "35px", marginTop: "10px", alignSelf: "center", justifyContent: "center" }}
+  //         onClick={submit}
+  //       >
+  //         Transfer
+  //       </button>
+  //       {reqSuccessUpdate && <Alert onClose={handleAlertClose} severity="success">Transfered the patient </Alert>}
+        
+  //       <hr className="hr" />
+  //     </form>
+  //   </div>
+  // );
+  // }
+
+  // else{
+  //   return(
+  //     <div className="app-container">
+  //     <h2>Covid patient hospital transfer</h2>
+  //       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+  //           <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+  //               {syncMessage}
+  //           </Alert>
+  //       </Snackbar>
+  //     <form>
+  //       <h3>This patient is not a covid patient</h3>
+  //       <hr className="hr" />
+  //     </form>
+  //   </div>
+  //   );
+  // }
 };
 
 export default HospitalTransfer;

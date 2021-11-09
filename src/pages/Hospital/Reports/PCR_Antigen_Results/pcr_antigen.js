@@ -112,6 +112,7 @@ const TestResult = () => {
             const {error,headers} = response
             setErrors({...error.response.data}) // set errors of inputs and show
             setReqSuccess(false)
+            alert("Pleae enter details correctly")
           }
         })
         .catch((e) => {
@@ -157,6 +158,7 @@ const TestResult = () => {
             const {error,headers} = response
             setErrors({...error.response.data}) // set errors of inputs and show
             setReqSuccess(false)
+            alert("Pleae enter details correctly")
           }
         })
         .catch((e) => {

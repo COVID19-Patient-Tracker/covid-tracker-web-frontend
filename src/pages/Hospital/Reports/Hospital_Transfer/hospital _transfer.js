@@ -27,7 +27,8 @@ const HospitalTransfer = () => {
   const [open, setOpen] = useState(false);
   const [op,setop] = useState([]);
   const prevDetailsRef = useRef();
-
+  var covidId=[];
+  var integer = parseInt(id);
   //check whether details are changed or not
   useEffect(() => {
       prevDetailsRef.current = results;
@@ -248,15 +249,16 @@ const HospitalTransfer = () => {
       day = '0' + day;
 
     return [year, month, day].join('-');
+  }  
+  
+  //add covid patient IDs into an array
+  for (var i=0;i<covidPatient.length;i++){   
+    // push the component to elements!
+    covidId.push(covidPatient[i].patient_id);  
   }
-  const [newA,setnew]=useState([])
 
-  if(covidPatient.length>0){
-    {covidPatient.map((offers)=> {
-    console.log(covidPatient)
-
-        if(offers.patient_id==id){
-          return (
+  if(covidId.includes(integer)){
+    return (
     <div className="app-container">
       <h2>Covid patient hospital transfer</h2>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
@@ -320,8 +322,10 @@ const HospitalTransfer = () => {
       </form>
     </div>
   );
-        }else{
-            return(
+  }
+
+  else{
+    return(
       <div className="app-container">
       <h2>Covid patient hospital transfer</h2>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
@@ -336,94 +340,6 @@ const HospitalTransfer = () => {
     </div>
     );
   }
-        
-        
-    })}
-  }
-  
-  // if(covidPatient.includes(id)){
-  //   return (
-  //   <div className="app-container">
-  //     <h2>Covid patient hospital transfer</h2>
-  //       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-  //           <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-  //               {syncMessage}
-  //           </Alert>
-  //       </Snackbar>
-  //     <form>
-  //       <label>Patient ID</label>
-        
-  //       <input
-  //         type="text"
-  //         name="patient_id"
-  //         value={results.patient_id}
-  //         required="required"
-  //         placeholder="Enter Patient ID"
-  //       />
-  //       <label>Hospital</label>
-  //       <select
-  //         required="required"
-  //         name="hospital_id"
-  //         value={currentHospital.hospital_id}
-  //         onChange ={handleUpadte}
-  //       >
-  //         <option aria-label="None" value="" />
-  //         {Hospitals.map((hospital) => <option value={hospital.hospital_id}>{hospital.name}</option>)}
-  //       </select>
-  //       <label>Ward</label>
-  //       <input 
-  //         type="button" 
-  //         onClick={wardsselect} 
-  //         value="Select the ward"
-  //         style={{ width: "200px", height: "35px", marginTop: "10px", alignSelf: "center", justifyContent: "center",backgroundColor:"#70d4fc" }}/>
-  //       <select
-  //         required="required"
-  //         name="ward_id"
-  //         value={results.ward_id}
-  //         onChange ={handleUpadte}
-  //       >
-  //         <option aria-label="None" value="" />
-  //         {op.map((ward) => <option value={ward.ward_id}>{ward.ward_name}</option>)}
-  //       </select>
-  //       <label>Visit date</label>
-  //       <input
-  //         type="date"
-  //         name="visit_date"
-  //         value={formatDate(results.visit_date)}
-  //         required="required"
-  //         placeholder="Enter NIC"
-  //         onChange={handleUpadte}
-  //       />      
-  //       <button
-  //         style={{ width: "200px", height: "35px", marginTop: "10px", alignSelf: "center", justifyContent: "center" }}
-  //         onClick={submit}
-  //       >
-  //         Transfer
-  //       </button>
-  //       {reqSuccessUpdate && <Alert onClose={handleAlertClose} severity="success">Transfered the patient </Alert>}
-        
-  //       <hr className="hr" />
-  //     </form>
-  //   </div>
-  // );
-  // }
-
-  // else{
-  //   return(
-  //     <div className="app-container">
-  //     <h2>Covid patient hospital transfer</h2>
-  //       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-  //           <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-  //               {syncMessage}
-  //           </Alert>
-  //       </Snackbar>
-  //     <form>
-  //       <h3>This patient is not a covid patient</h3>
-  //       <hr className="hr" />
-  //     </form>
-  //   </div>
-  //   );
-  // }
 };
 
 export default HospitalTransfer;

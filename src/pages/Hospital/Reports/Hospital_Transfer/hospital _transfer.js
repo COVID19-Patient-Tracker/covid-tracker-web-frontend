@@ -6,16 +6,20 @@ import { useParams } from 'react-router-dom'
 import store from "../../../../store";
 import { Alert } from '@mui/material';
 import {Snackbar } from '@material-ui/core';
+import { useAuth } from "../../../../components/AuthConext";
 
 const HospitalTransfer = () => { 
   const [results, setresults] = useState([]);
   const { id } = useParams()
+  const auth = useAuth();
   const [isOnline, setIsOnline] = useState(true);
   const [reqSuccess, setReqSuccess] = useState(false);
   const [currentHospital, setcurrentHospital] = useState([])
   const [errors, setErrors] = useState({}); // errors in inputs
   const [reqSuccessUpdate, setReqSuccessUpdate] = useState(false);
   const [currentWard, setcurrentWard] = useState([])
+  const [covidPatient, setcovidPatient] = useState([])
+  const [hospitalInfo,sethospitalInfo] = useState([]) // includes all hosital details
   const [Hospitals, setHospitals] = useState([]);
   const JWTtoken = localStorage.getItem('CPT-jwt-token') // get stored jwt token stored when previous login
   const headers = { headers: { "Authorization": `${JWTtoken}` } } // headers
@@ -23,7 +27,8 @@ const HospitalTransfer = () => {
   const [open, setOpen] = useState(false);
   const [op,setop] = useState([]);
   const prevDetailsRef = useRef();
-
+  var covidId=[];
+  var integer = parseInt(id);
   //check whether details are changed or not
   useEffect(() => {
       prevDetailsRef.current = results;
@@ -117,6 +122,48 @@ const HospitalTransfer = () => {
       });
   }, []);
 
+  // get covid patients
+  //Get wards in hospital using the hospital id
+  useEffect(() => {
+    const user_id = {
+        "id":auth.currentUser.id,
+    }
+
+    // made request to the backend
+    getRequest(routes.GETHOSPITALUSERDETAILS + user_id.id,headers)
+      .then((response) => {
+        console.log(response)
+        if(response.data){
+          sethospitalInfo(response.data.Info.hospital[0]);
+          getRequest(routes.GET_COVID_PATIENTS + response.data.Info.hospital[0].hospital_id,headers)
+            .then((response) => {
+              
+              if(response.data){
+                setcovidPatient(response.data.CovidPatients);
+                setErrors({});
+                setReqSuccess(true)
+              }
+              else if(response.error){
+                const {error,headers} = response
+                setErrors({...error.response.data}) // set errors of inputs and show
+                setReqSuccess(false)
+              }
+            })
+            .catch((e) => {});
+            }
+            else if(response.error){
+              const {error,headers} = response
+              setErrors({...error.response.data}) // set errors of inputs and show
+              setReqSuccess(false)
+            }
+          })
+          .catch((e) => {
+        });
+      return () => {
+    }
+  }, [])
+  
+
   //to transfer to another ward
   const submit = (e) => {
 
@@ -202,10 +249,15 @@ const HospitalTransfer = () => {
       day = '0' + day;
 
     return [year, month, day].join('-');
+  }  
+  
+  //add covid patient IDs into an array
+  for (var i=0;i<covidPatient.length;i++){   
+    // push the component to elements!
+    covidId.push(covidPatient[i].patient_id);  
   }
 
-
-  if(results.patient_id==id){
+  if(covidId.includes(integer)){
     return (
     <div className="app-container">
       <h2>Covid patient hospital transfer</h2>

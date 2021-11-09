@@ -146,7 +146,7 @@ const CurrentStatus =() =>{
                 >
                     Save
                 </button>
-                {reqSuccessUpdate && <Alert onClose={handleAlertClose} severity="success">Visit status updated updated</Alert>}
+                {reqSuccessUpdate && <Alert onClose={handleAlertClose} severity="success">Visit status updated</Alert>}
 
                 <hr className="hr" />
             </form>
